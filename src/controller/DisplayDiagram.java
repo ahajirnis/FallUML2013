@@ -6,6 +6,7 @@ package controller;
 
 import domain.Diagram;
 import domain.Comment;
+
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,6 +17,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -249,7 +251,15 @@ public class DisplayDiagram extends HttpServlet {
 	    
 	    String outputFile = splitPath[2] + ".zip";
 	    String downloadPath = dirObj.getDownloadPath();
-	    String output = downloadPath + "\\" + outputFile;
+	    String output = "";
+	    if(OperatingSystem.getClientOS().equals("windows"))
+	    {
+	    	output = downloadPath + "\\" + outputFile;
+	    } else if(OperatingSystem.getClientOS().equals("mac") || 
+    			OperatingSystem.getClientOS().equals("unix"))
+	    {
+	    	output = downloadPath + "\\" + outputFile;
+	    }
 		try {
 		    zipObj.downloadZipfileProcessor(targetRealPath, output);
 		    OutputStream ops = response.getOutputStream();
@@ -299,7 +309,15 @@ public class DisplayDiagram extends HttpServlet {
 	    
 	    String outputFile = "download.zip";
 	    String downloadPath = dirObj.getDownloadPath();
-	    String output = downloadPath + "\\" + outputFile;
+	    String output = "";
+	    if(OperatingSystem.getClientOS().equals("windows"))
+	    {	    
+	    	output = downloadPath + "\\" + outputFile;	    
+	    } else if(OperatingSystem.getClientOS().equals("mac") || 
+    			OperatingSystem.getClientOS().equals("unix"))
+	    {
+	    	output = downloadPath + "/" + outputFile;
+	    }
     	    	
     	try {
     		zipObj.downloadZipfileProcessor(targetPath, output);

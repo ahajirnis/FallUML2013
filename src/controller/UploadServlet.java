@@ -113,10 +113,29 @@ public class UploadServlet extends HttpServlet {
 					//String newName = renameFile(id, item.getName());// rename
 					File file = new File(destinationDir, filename);		
 					item.write(file);
-					String absolutePath = destinationDir + "\\";
-					String relativePath = context.getContextPath()
+					
+					String absolutePath = "";
+					String relativePath = "";
+					String libPath = "";
+					
+					if (OperatingSystem.getServerOS().equals("windows"))
+					{
+						absolutePath = destinationDir + "\\";
+						System.out.println("absolutePath: " + absolutePath);
+						relativePath = context.getContextPath()
 							+ newFolder;
-					String libPath = libDir + "\\";
+						libPath = libDir + "\\";
+						System.out.println("libPath: " + libPath);
+					} 
+					else if (OperatingSystem.getServerOS().equals("mac") || 
+							OperatingSystem.getServerOS().equals("unix"))
+					{
+						absolutePath = destinationDir + "/";
+						relativePath = context.getContextPath()
+							+ newFolder;
+						libPath = libDir + "/";
+					}
+					
 					logging.Log.LogCreate().Info("absolutePath " + absolutePath);		
 					request.setAttribute("originalFileName", filename);
 					request.setAttribute("newFileName", filename);

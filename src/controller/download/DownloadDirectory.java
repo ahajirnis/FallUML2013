@@ -3,6 +3,8 @@ package controller.download;
 import java.io.File;
 import java.io.IOException;
 
+import controller.OperatingSystem;
+
 public class DownloadDirectory {
 	private String downloadPath;
     
@@ -16,7 +18,17 @@ public class DownloadDirectory {
     
     static String uniqueDirectory(String filePath) {
     	String uniqueDirectory =  Long.toString(System.nanoTime());
-	    String dirPath = filePath + "\\" + uniqueDirectory;
+    	String dirPath = "";
+    	if(OperatingSystem.getClientOS().equals("windows"))
+    	{
+    		dirPath = filePath + "\\" + uniqueDirectory;
+    		System.out.println("dirPath: " + dirPath);
+    	}
+    	else if(OperatingSystem.getClientOS().equals("mac") || 
+    			OperatingSystem.getClientOS().equals("unix"))
+    	{
+    		dirPath = filePath + "/" + uniqueDirectory;
+    	}
 	    return dirPath;
     }
     
