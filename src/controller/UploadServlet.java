@@ -118,17 +118,15 @@ public class UploadServlet extends HttpServlet {
 					String relativePath = "";
 					String libPath = "";
 					
-					if (OperatingSystem.getServerOS().equals("windows"))
+					if (OSDetails.getServerOS().equals("windows"))
 					{
 						absolutePath = destinationDir + "\\";
-						System.out.println("absolutePath: " + absolutePath);
 						relativePath = context.getContextPath()
 							+ newFolder;
 						libPath = libDir + "\\";
-						System.out.println("libPath: " + libPath);
 					} 
-					else if (OperatingSystem.getServerOS().equals("mac") || 
-							OperatingSystem.getServerOS().equals("unix"))
+					else if (OSDetails.getServerOS().equals("mac") || 
+							OSDetails.getServerOS().equals("unix"))
 					{
 						absolutePath = destinationDir + "/";
 						relativePath = context.getContextPath()

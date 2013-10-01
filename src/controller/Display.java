@@ -103,7 +103,7 @@ public class Display extends HttpServlet {
     	}
     	
     	String userAgent = request.getHeader("User-Agent").toLowerCase();
-    	OperatingSystem.setClientOS(userAgent);
+    	OSDetails.setClientOS(userAgent);
     	
     	RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/JSP/display.jsp");
     	dispatcher.forward(request, response);
@@ -148,16 +148,9 @@ public class Display extends HttpServlet {
 	processRequest(request, response);
     }
     
-    public void init() throws ServletException {
+    public void init() throws ServletException {    	
     	
-    	
-    	String serverOS = System.getProperty("os.name").toLowerCase();    	
-    	System.out.println("Server OS: " + serverOS);
-    	if(serverOS.indexOf("win") >= 0)
-    	{
-    		System.out.println("windows");
-    	}
-    	
-    	OperatingSystem os = new OperatingSystem(serverOS);
+    	String serverOS = System.getProperty("os.name").toLowerCase();       	
+    	OSDetails os = new OSDetails(serverOS);
     }
 }
