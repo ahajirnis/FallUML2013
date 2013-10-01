@@ -80,7 +80,7 @@ public class UploadServlet extends HttpServlet {
 
 		context = getServletContext();
 		
-		tmpDir = new File("C:\temp");
+		tmpDir = new File(context.getRealPath(TMP_DIR_PATH)); 
 
 		//destinationDir = new File(context.getRealPath(DESTINATION_DIR_PATH));
 
