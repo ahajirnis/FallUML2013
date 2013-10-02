@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
@@ -105,12 +106,17 @@ public class UploadServlet extends HttpServlet {
 			while (itr.hasNext()) {
 				FileItem item = (FileItem) itr.next();
 				
+				
 				if (item.getName().isEmpty()) {
 					// Skip if there is no name for the file
 					continue;
 				}
 				
 				filename = item.getName();
+				if (filename != null) {
+			        filename = FilenameUtils.getName(filename);
+			    }
+				
 
 				if ((!item.isFormField()) && (!item.getName().equals(""))
 						&& (!id.equals(""))) {// check if item is a file
