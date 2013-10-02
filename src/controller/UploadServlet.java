@@ -18,9 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.tomcat.util.http.fileupload.FileItem;
-import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.FilenameUtils;
 
 import repository.DiagramDAO;
 import controller.upload.UploadProcessor;
@@ -79,7 +80,7 @@ public class UploadServlet extends HttpServlet {
 
 		context = getServletContext();
 		
-		tmpDir = new File(context.getRealPath(TMP_DIR_PATH));
+		tmpDir = new File(context.getRealPath(TMP_DIR_PATH)); 
 
 		//destinationDir = new File(context.getRealPath(DESTINATION_DIR_PATH));
 
@@ -92,7 +93,7 @@ public class UploadServlet extends HttpServlet {
 		dfif.setRepository(tmpDir);
 		String filename = "";
 		
-		ServletFileUpload uploadHandler = new ServletFileUpload(dfif);
+		ServletFileUpload uploadHandler = new ServletFileUpload( (dfif));
 		try {
 			List<?> items = uploadHandler.parseRequest(request);
 			destinationDir = createDir(id)	;											// file
@@ -107,6 +108,9 @@ public class UploadServlet extends HttpServlet {
 				}
 				
 				filename = item.getName();
+				if (filename != null) {
+			        filename = FilenameUtils.getName(filename);
+			    }
 
 				if ((!item.isFormField()) && (!item.getName().equals(""))
 						&& (!id.equals(""))) {// check if item is a file
@@ -115,7 +119,7 @@ public class UploadServlet extends HttpServlet {
 					item.write(file);
 					String absolutePath = destinationDir + "\\";
 					String relativePath = context.getContextPath()
-							+ newFolder;
+							;
 					String libPath = libDir + "\\";
 					logging.Log.LogCreate().Info("absolutePath " + absolutePath);		
 					request.setAttribute("originalFileName", filename);
