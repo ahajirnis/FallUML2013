@@ -21,14 +21,17 @@ import javax.servlet.http.HttpSession;
 import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
 
 import repository.DiagramDAO;
 import controller.upload.UploadProcessor;
 import controller.upload.UploadProcessorFactory;
 import domain.Diagram;
 import logging.Log;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import controller.upload.FileInfo;
 /**
  * 
@@ -94,7 +97,8 @@ public class UploadServlet extends HttpServlet {
 		
 		ServletFileUpload uploadHandler = new ServletFileUpload(dfif);
 		try {
-			List<?> items = uploadHandler.parseRequest(request);
+			ServletRequestContext src = new ServletRequestContext(request);
+			List<?> items = uploadHandler.parseRequest(src);
 			destinationDir = createDir(id)	;											// file
 			
 			Iterator<?> itr = items.iterator();
