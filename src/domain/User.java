@@ -3,6 +3,7 @@ package domain;
 /**
  * Information class that contains all the features of one user
  * @ doc author	Dong Guo
+ * @author Ying Gan
  */
 
 public class User {
@@ -13,7 +14,9 @@ public class User {
 	private String email;
 	private String securityQuestion;
 	private String securityAnswer;
+	private String userType;
 	//private int projectId;
+
 
 	/**
 	 * Constructor to initialize necessary class members
@@ -196,6 +199,26 @@ public class User {
 	public void setSecurityAnswer(String securityAnswer) {
 		this.securityAnswer = securityAnswer;
 	}
+	
+	/**
+	 * Get the userType
+	 * 
+	 * @return userType String
+	 */
+	public String getUserType() {
+		return userType;
+	}
+
+	/**
+	 * Set the userType
+	 * @param userType 
+	 * 			Type of the user. Now support "U"- user and "P"- policy manager.
+	 * 
+	 */
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+
 
 	/**
 	 * Gete the projectId
