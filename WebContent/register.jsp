@@ -69,6 +69,15 @@
 							<td><span id="email"></span></td>
 						</tr>
 						<tr>
+							<td><font color="#61210B">Role:</font></td>
+							<td><select name="userType">
+									<option value="U">Developer</option>
+									<option value="P">Policy manager</option>
+									
+							</select></td>
+							
+						</tr>
+						<tr>
 							<td><font color="#61210B">Security Question:</font></td>
 							<td><select name="securityQuestion">
 									<option value="nickname">What is your nick name?</option>
