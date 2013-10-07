@@ -3,6 +3,12 @@ package controller;
 import java.io.IOException;
 import java.util.Properties;
 
+/**
+ * Information class that stores the OS type of the Client and Server
+ * and sets the path for Graphviz accordingly
+ * @ doc author	Shrestha Prasanna
+ */
+
 public class OSDetails {
 	
 	static String clientOS;
@@ -39,19 +45,19 @@ public class OSDetails {
 		return serverOS;
 	}
 	
-	public void setServerOS(String serverOS) {
+	public static void setServerOS(String serverOSName) {
 		
-		if(serverOS.indexOf("win") >= 0)
+		if(serverOSName.indexOf("win") >= 0)
 		{
-			this.serverOS = "windows";
+			serverOS = "windows";
 		}
-		else if (serverOS.indexOf("mac") >= 0)
+		else if (serverOSName.indexOf("mac") >= 0)
 		{
-			this.serverOS = "mac";
+			serverOS = "mac";
 		}
-		else if (serverOS.indexOf("nix") >= 0 || serverOS.indexOf("nux") >= 0)
+		else if (serverOSName.indexOf("nix") >= 0 || serverOSName.indexOf("nux") >= 0)
 		{
-			this.serverOS = "unix";
+			serverOS = "unix";
 		}
 	}
 	
@@ -59,12 +65,12 @@ public class OSDetails {
 		return graphvizPath;
 	}
 
-	public void setGraphvizPath() {
+	public static void setGraphvizPath() {
 		
 		Properties prop = new Properties();		
 		
 		try {					
-     	    prop.load(this.getClass().getClassLoader().getResourceAsStream("GraphVizPath.properties"));	 
+     	    prop.load(OSDetails.class.getClassLoader().getResourceAsStream("GraphVizPath.properties"));	 
      	    
 		} catch (IOException e) {
 			e.printStackTrace();

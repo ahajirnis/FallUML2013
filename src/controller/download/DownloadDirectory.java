@@ -19,12 +19,12 @@ public class DownloadDirectory {
     static String uniqueDirectory(String filePath) {
     	String uniqueDirectory =  Long.toString(System.nanoTime());
     	String dirPath = "";
-    	if(OSDetails.getClientOS().equals("windows"))
+    	if(OSDetails.getServerOS().equals("windows"))
     	{
     		dirPath = filePath + "\\" + uniqueDirectory;
     	}
-    	else if(OSDetails.getClientOS().equals("mac") || 
-    			OSDetails.getClientOS().equals("unix"))
+    	else if(OSDetails.getServerOS().equals("mac") || 
+    			OSDetails.getServerOS().equals("unix"))
     	{
     		dirPath = filePath + "/" + uniqueDirectory;
     	}
@@ -32,9 +32,17 @@ public class DownloadDirectory {
     }
     
     public File createDirectory(String filePath) {
+    	    
+    	// Check if report directory exists or not
+    	File reportPath = new File(filePath);
+    	if(!reportPath.exists())
+    	{
+    		reportPath.mkdir();
+    	}
+    	
     	setDownloadPath(filePath);
     	String dirPath = getDownloadPath();
-	    
+    	
     	File tmpdir = new File(dirPath);	
 	    if (!tmpdir.exists()) {
 			if (tmpdir.mkdir()) {
