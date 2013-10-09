@@ -58,8 +58,7 @@ public class RegisterServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String question = request.getParameter("securityQuestion");
 		String answer = request.getParameter("securityAnswer");
-		String serType = request.getParameter("userType");
-		
+		String userType = request.getParameter("userType");	
 
 		
 		//check the existence of user's registration
