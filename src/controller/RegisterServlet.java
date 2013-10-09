@@ -58,6 +58,8 @@ public class RegisterServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String question = request.getParameter("securityQuestion");
 		String answer = request.getParameter("securityAnswer");
+		String serType = request.getParameter("userType");
+		
 
 		
 		//check the existence of user's registration
@@ -66,7 +68,7 @@ public class RegisterServlet extends HttpServlet {
 		if (checkUserExist != null) {
 			Failed(request, response, dispatcher);		//user already existed, registration failed
 		} else {
-			User userObj = new User(username, password, email, question, answer);
+			User userObj = new User(username, password, email, question, answer, userType);
 			Success(request, response, dispatcher, userObj);	//registration succeeded
 		}
 	}
