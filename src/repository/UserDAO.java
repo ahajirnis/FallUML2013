@@ -34,7 +34,7 @@ public class UserDAO {
 			// Modified by Xuesong Meng
 			PreparedStatement pstmt = conn
 					.prepareStatement(
-							"INSERT into user(userName,email,password, securityQ, securityA) VALUES(?,?,?,?,?);",
+							"INSERT into user(userName,email,password, securityQ, securityA, userType) VALUES(?,?,?,?,?);",
 							Statement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, user.getUserName());			
 			pstmt.setString(2, user.getEmail());
@@ -43,7 +43,7 @@ public class UserDAO {
 			//pstmt.setInt(4, user.getProjectId());
 			pstmt.setString(4, user.getSecurityQuestion());
 			pstmt.setString(5, user.getSecurityAnswer());
-
+			pstmt.setString(6, user.getUserType());
 			// Execute the SQL statement and update database accordingly.
 			pstmt.executeUpdate();
 
@@ -211,13 +211,14 @@ public class UserDAO {
 			//PreparedStatement pstmt = conn
 			//		.prepareStatement("UPDATE user SET userName=? , password=?, email=?, securityQuestion =?, securityAnswer=? where user_Id = ?;");
 			PreparedStatement pstmt = conn
-					.prepareStatement("UPDATE user SET userName=? , password=?, email=?, securityQ =?, securityA=? where userId = ?;");
+					.prepareStatement("UPDATE user SET userName=? , password=?, email=?, securityQ =?, securityA=?, userType=? where userId = ?;");
 			pstmt.setString(1, user.getUserName());
 			pstmt.setString(2, user.getPassword());
 			pstmt.setString(3, user.getEmail());
 			pstmt.setString(4, user.getSecurityQuestion());
 			pstmt.setString(5, user.getSecurityAnswer());
-			pstmt.setInt(6, user.getUserId());
+			pstmt.setString(6, user.getUserType());
+			pstmt.setInt(7, user.getUserId());
 			// Execute the SQL statement and update database accordingly.
 			pstmt.executeUpdate();
 
