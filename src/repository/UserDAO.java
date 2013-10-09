@@ -34,7 +34,7 @@ public class UserDAO {
 			// Modified by Xuesong Meng
 			PreparedStatement pstmt = conn
 					.prepareStatement(
-							"INSERT into user(userName,email,password, securityQ, securityA, userType) VALUES(?,?,?,?,?);",
+							"INSERT into user(userName,email,password, securityQ, securityA, userType) VALUES(?,?,?,?,?,?);",
 							Statement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, user.getUserName());			
 			pstmt.setString(2, user.getEmail());
@@ -84,7 +84,7 @@ public class UserDAO {
 			User user;
 			user = new User(rs.getInt("userId"), username, password,
 					rs.getString("email"), rs.getString("securityQ"),
-					rs.getString("securityA"));
+					rs.getString("securityA"), rs.getString("userType"));
 			rs.close();
 			pstmt.close();
 			conn.close();
