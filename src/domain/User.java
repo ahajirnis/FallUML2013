@@ -48,12 +48,13 @@ public class User {
 	 * 			The ID of the project
 	 */
 	public User( String userName, String password, String email,
-			String securityQuestion, String securityAnswer) { 
+			String securityQuestion, String securityAnswer, String userType) { 
 		this.userName = userName;
 		this.password = password;
 		this.email = email;
 		this.securityQuestion = securityQuestion;
 		this.securityAnswer = securityAnswer;
+		this.userType = userType;
 		//this.projectId = projectId;
 	}
 	
@@ -76,13 +77,14 @@ public class User {
 	 * 			The ID of the project
 	 */
 	public User(int userId, String userName, String password, String email,
-			String securityQuestion, String securityAnswer) {
+			String securityQuestion, String securityAnswer, String userType) {
 		this.userId = userId;
 		this.userName = userName;
 		this.password = password;
 		this.email = email;
 		this.securityQuestion = securityQuestion;
 		this.securityAnswer = securityAnswer;
+		this.userType = userType;
 		//this.projectId = projectId;
 	}
 
