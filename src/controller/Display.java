@@ -101,8 +101,12 @@ public class Display extends HttpServlet {
     	} catch(Exception e){
     		System.out.println(e.getMessage());
     	}
-	RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/JSP/display.jsp");
-	dispatcher.forward(request, response);
+    	
+    	String userAgent = request.getHeader("User-Agent").toLowerCase();
+    	OSDetails.setClientOS(userAgent);
+    	
+    	RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/JSP/display.jsp");
+    	dispatcher.forward(request, response);
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
@@ -142,5 +146,11 @@ public class Display extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	processRequest(request, response);
+    }
+    
+    public void init() throws ServletException {    	
+    	
+    	String serverOS = System.getProperty("os.name").toLowerCase();       	
+    	OSDetails os = new OSDetails(serverOS);
     }
 }

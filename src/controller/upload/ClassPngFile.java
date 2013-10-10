@@ -1,6 +1,7 @@
 package controller.upload;
 
 
+import controller.OSDetails;
 import logging.Log;
 /**
  * Abstract class for Class diagram upload processors. Implements a
@@ -55,7 +56,7 @@ public abstract class ClassPngFile implements UploadProcessor {
 				}
 				
 				// Command to generate PNG file from dot file
-				String command2[] = { UploadProcessor.GRAPHICVIZ_PATH_WINDOWS,
+				String command2[] = { OSDetails.graphvizPath,
 						"-Tpng", "-o", pFileDir + pngFileName,
 						pFileDir + dotFileName };
 
