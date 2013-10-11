@@ -159,7 +159,7 @@ public class UserDAO {
 
 			User user;
 			user = new User(rs.getInt("userId"), rs.getString("userName"), "",
-					rs.getString("email"), "", "");
+					rs.getString("email"), "", "", rs.getString("userType"));
 			rs.close();
 			pstmt.close();
 			conn.close();
