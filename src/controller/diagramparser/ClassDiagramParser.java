@@ -8,7 +8,7 @@ import domain.CD_Class;
 import domain.CD_Relationship;
 import domain.Diagram;
 
-public class ClassDiagramParser extends DiagramParser{
+public abstract class ClassDiagramParser extends DiagramParser{
 
 	private final String ENCORE = "encore";
 	private final String XMI = "xmi";
@@ -17,28 +17,24 @@ public class ClassDiagramParser extends DiagramParser{
 		super(diagramObj);
 	}
 	
-	public List<CD_Attribute> getAtrributes(){
-		
-		switch ((super.getDiagram().getFileType()))
-		{
-			case ENCORE:
-				//code here
-				break;
-			case XMI:
-				//code here
-				break;
-		}
-		
-		return new ArrayList<CD_Attribute>();
-	}
+	public abstract List<CD_Attribute> getAtrributes();
+//	{
+//		
+//		switch ((super.getDiagram().getFileType()))
+//		{
+//			case ENCORE:
+//				//code here
+//				break;
+//			case XMI:
+//				//code here
+//				break;
+//		}
+//		
+//		return new ArrayList<CD_Attribute>();
+//	}
 	
-	public List<CD_Class> getClasses(){
-		
-		return new ArrayList<CD_Class>();
-	}
+	public abstract List<CD_Class> getClasses();
 	
-	public List<CD_Relationship> getRelationships(){
-		return new ArrayList<CD_Relationship>();
-	}
+	public abstract List<CD_Relationship> getRelationships();
 	
 }

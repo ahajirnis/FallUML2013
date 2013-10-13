@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EReference;
 
 import domain.Diagram;
+import domain.DiagramType;
 
 /**
  * 
@@ -112,24 +113,25 @@ public class UmlUploadProcessor implements UploadProcessor {
 			new Uml2ClassUploadProcessor().process();
 			String folder = diagramPath + "/";
 			String umlFileName = umlInfo.getFileName();
-			String diagramType = "class";
-			this.storeDatabase(folder, umlFileName, id, diagramType);
+			
+			//String diagramType = "class";//Removed with introduction of new DiagramType Enum
+			this.storeDatabase(folder, umlFileName, id, DiagramType.CLASS);
 		}
 		if (isSeqDiag) {
 			new Uml2SequenceDiagramUploadProcessor().process();
 			String folder = diagramPath + "/";
 			String umlFileName = umlInfo.getFileName();
-			String diagramType = "sequence";
+			//String diagramType = "sequence";  //Removed with introduction of new DiagramType Enum
 			logging.Log.LogCreate().Info("Image_File_Name:"+ umlFileName + ".png");
 			logging.Log.LogCreate().Info("Folder:"+ folder);
-			this.storeDatabase(folder, umlFileName, id, diagramType);
+			this.storeDatabase(folder, umlFileName, id, DiagramType.SEQUENCE);
 		}
 	}
 
 	/*
 	 * function to store upload diagram information into database.
 	 */
-	private void storeDatabase(String folder, String umlFileName, int userID, String diagramType) {
+	private void storeDatabase(String folder, String umlFileName, int userID, DiagramType diagramType) {
 		try {
 			logging.Log.LogCreate().Info(folder + " " + umlFileName);
 			String baseFileName = umlFileName.substring(0, umlFileName.length() - ".uml".length());
@@ -143,7 +145,9 @@ public class UmlUploadProcessor implements UploadProcessor {
 			diagramObj.setNotationFileName(baseFileName + ".notation");
 			diagramObj.setDiFilepath(folder);
 			diagramObj.setNotationFilePath(folder);
+			//support for enum type| we have to make sure, that the diagramType supplied here is in accordance to the Enum
 			diagramObj.setDiagramType(diagramType);
+			//diagramObj.setDiagramType(diagramType);
 			DiagramDAO.addDiagram(diagramObj);
 
 			/*
