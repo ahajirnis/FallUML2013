@@ -1,6 +1,6 @@
 /*
 Created: 2013/2/15
-Modified: 2013/3/24
+Modified: 2013/10/15
 Model: MySQL 5.0
 Database: MySQL 5.0
 */
@@ -13,8 +13,8 @@ CREATE TABLE project
 (
   projectId Int(11) NOT NULL AUTO_INCREMENT,
   projectName Varchar(45) NOT NULL,
-  starDate Varchar(45),
-  desceiption Varchar(255),
+  startDate Varchar(45),
+  description Varchar(255),
  PRIMARY KEY (projectId)
 )
 ;
@@ -31,6 +31,16 @@ CREATE TABLE user
   securityA Varchar(60),
  PRIMARY KEY (userId)
 )
+;
+
+-- Table userproject
+
+CREATE TABLE userproject (
+userId int(15) NOT NULL,
+projectId int(15) NOT NULL,
+PRIMARY KEY (userId, projectId),
+constraint foreign key (userId) references user (userId) on delete cascade on update cascade,
+constraint foreign key (projectId) references project (projectId) on delete cascade on update cascade)
 ;
 
 -- Table diagram
