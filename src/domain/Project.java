@@ -52,6 +52,25 @@ public class Project {
 	}
 	
 	/**
+	 * Constructor to initialize necessary class members
+	 *
+	 * @param projectId
+	 * 			The ID of the project
+	 * @param projectName
+	 * 			The name of the project 
+	 * @param description
+	 * 			The description of the project			
+	 * @param startDate
+	 * 			The startDate of this project
+	 */
+	public Project(int projectId, String projectName, String description, String startDate) {
+		this.projectId = projectId;
+		this.projectName = projectName;
+		this.description = description;
+		this.startDate = startDate;
+	}
+	
+	/**
 	 * Gete the projectId
 	 * 
 	 * @return projectId int

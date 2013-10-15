@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import repository.DbManager;
 import repository.UserDAO;
+import domain.Project;
 import domain.User;
 
 public class UserDAOTest {
@@ -65,6 +66,16 @@ public class UserDAOTest {
 		}
 		
 		assertArrayEquals(before.toArray(),after.toArray());
+	}
+	
+	@Test
+	public void testGetProjects() throws SQLException {
+		/*
+		 * For successfully running this test, make sure you have a user whose uerId=1 and this user has 2 projects
+		 */
+		ArrayList<Project> projects;
+		projects = UserDAO.getProjects(1);
+		assertTrue(projects.size() == 2);
 	}
 	
 /*
