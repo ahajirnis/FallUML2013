@@ -93,6 +93,33 @@ CREATE TABLE comment
 )
 ;
 
+-- Table DiagramContext
+
+CREAT TABLE DiagramContext(
+	description char(20),
+	diagramContextId int primary key not null,
+	name char(20),
+	policyId int,
+	projectId int,
+	foreign key(policyId) references Policy(PolicyId) on delete cascade on update cascade);
+
+-- Table Policy
+
+CREAT TABLE Policy(
+	policyDescription char(20),
+	policyId int primary key not null,
+	policyLevel int,
+	policyName char(20));
+
+-- Table DiagramPolicyScore
+
+CREAT TABLE DiagramPolicyScore(
+	diagramId int primary key not null,
+	justification char(20),
+	policyId int not null,
+	score int,
+	foreign key(policyId) references Policy(policyId) on delete cascade on update cascade);
+
 -- Create relationships section ------------------------------------------------- 
 
 ALTER TABLE diagram ADD CONSTRAINT diagramHaveOwnerId FOREIGN KEY (userId) REFERENCES user (userId) ON DELETE NO ACTION ON UPDATE NO ACTION
