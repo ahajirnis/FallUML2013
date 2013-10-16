@@ -7,6 +7,7 @@ package controller;
 import domain.Diagram;
 import domain.Report;
 import compareAlgorithm.CompareDiagrams;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -22,6 +24,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import repository.DiagramDAO;
 import repository.ReportDAO;
 
@@ -58,6 +62,7 @@ public class Compare extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		ServletContext context = this.getServletContext();
 
+		
 		this.diagramID1 = Integer.parseInt(request.getParameter("file1"));
 		this.diagramID2 = Integer.parseInt(request.getParameter("file2"));
 

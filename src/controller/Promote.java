@@ -60,6 +60,7 @@ public class Promote extends HttpServlet {
 	commentObj.setContent(comment);
 	CommentDAO.addComment(commentObj);
 
+	
 	/* removed by Xuesong Meng
 	EditingHistory editObj = new EditingHistory();
 	editObj.setDiagramId(imageId);
@@ -67,7 +68,8 @@ public class Promote extends HttpServlet {
 	//update edit history
 	EditingHistoryDAO.addHistory(editObj);
 	*/
-	request.setAttribute("comments", comment);
+	request.setAttribute("comments1", comment);
+
 	RequestDispatcher dispatcher = request.getRequestDispatcher("Display");
 	dispatcher.forward(request, response);
 

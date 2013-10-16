@@ -190,17 +190,17 @@
 		<c:if test="${requestScope.diagramId1 != null}">
 			<img src="${requestScope.firstPath}"/>
 		</c:if>
+		<% String comm = (String)request.getAttribute("comments1"); 
+
+		%>
 		<br><b>Comments : </b>
+		
+		<%
+		out.println(comm);
+		%>
 		<c:if test="${requestScope.comments != null}">
 			<div id="commentBox">
-				<table id="myTable">
-					<c:forEach items="${requestScope.comments}" var="comment">
-						<tr>
-							<td><b><c:out value="${comment.userName}"></c:out> </b></td>
-							<td><c:out value=" ${comment.content}"></c:out></td>
-						</tr>
-					</c:forEach>
-				</table>
+				
 			</div>
 		</c:if>
 	</div>
