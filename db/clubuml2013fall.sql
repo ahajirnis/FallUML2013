@@ -138,3 +138,9 @@ CREATE TABLE `user` (
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2013-10-09 14:51:57
+
+//Adding initializing data 
+insert into project value (1,'clubuml1',now(),'des1');
+
+insert into project value (2,'clubuml2',now(),'des2');
+
