@@ -40,9 +40,7 @@ public class ManageProject extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/JSP/manageProject.jsp");
-		//dispatcher.forward(request, response);
-		dispatcher.forward(request, response);
+	
 	}
 
 }
