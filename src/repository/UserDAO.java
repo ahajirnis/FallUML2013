@@ -171,6 +171,45 @@ public class UserDAO {
 	}
 	
 	/**
+	 * Get userType from DB
+	 * 
+     * @param username User Name
+     * @return userType Type of User. "U"- User, "P"- Policy Manager. 
+	 */
+	public static String getUserType(String username) throws SQLException {
+		String userType = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DbManager.getConnection();
+			pstmt = conn
+					.prepareStatement("SELECT userType FROM user where userName = ?;");
+			pstmt.setString(1, username);
+
+			// Execute the SQL statement and store result into the ResultSet
+			rs = pstmt.executeQuery();
+
+			if (!rs.next()) {
+				return null;
+			}
+
+			userType = rs.getString("userType");
+			rs.close();
+			pstmt.close();
+			conn.close();
+			return userType;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if( rs != null) {rs.close();}
+			if(pstmt != null) {pstmt.close();}
+			if(conn != null) {conn.close();}
+		}
+		return userType;
+	}
+	
+	/**
 	 * Remove a user from DB
 	 * 
      * @param User object
