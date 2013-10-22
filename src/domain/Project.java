@@ -12,6 +12,8 @@ public class Project {
 	private String description;
 	private byte achived = 0;// Default
 	private String startDate;
+	private String enabled;
+	private String disabledDate;
 
 	public String getStartDate() {
 		return startDate;
@@ -68,6 +70,16 @@ public class Project {
 		this.projectName = projectName;
 		this.description = description;
 		this.startDate = startDate;
+	}
+	
+	public Project(int projectId, String projectName, String description, String startDate,
+			String enabled, String disabledDate) {
+		this.projectId = projectId;
+		this.projectName = projectName;
+		this.description = description;
+		this.startDate = startDate;
+		this.enabled = enabled;
+		this.disabledDate = disabledDate;
 	}
 	
 	/**
