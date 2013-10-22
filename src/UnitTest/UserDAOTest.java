@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+import repository.DbManager;
 import repository.UserDAO;
 import domain.User;
 
