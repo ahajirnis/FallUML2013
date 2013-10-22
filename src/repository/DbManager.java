@@ -37,7 +37,7 @@ public class DbManager {
 	 * 
 	 * @return either an open connection or null
 	 */
-	static synchronized Connection getConnection() {
+	public static synchronized Connection getConnection() {
 		try {
 			if (con != null && con.isClosed()) {
 				con = null;
