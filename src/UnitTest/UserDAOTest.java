@@ -28,10 +28,11 @@ public class UserDAOTest {
 		before.add("newuser@email.com");
 		before.add("What's your pet's name");
 		before.add("mypetname");
+		before.add("U");
 		
 		
 		String username = "newtestuser";
-		User user = new User("newtestuser","1234","newuser@email.com","What's your pet's name","mypetname");
+		User user = new User("newtestuser","1234","newuser@email.com","What's your pet's name","mypetname","U");
 		UserDAO.addUser(user);
 		Connection conn = null;
 		ResultSet rs = null;
@@ -49,7 +50,8 @@ public class UserDAOTest {
 				after.add(rs.getString("password"));
 				after.add(rs.getString("email"));
 				after.add(rs.getString("securityQ"));
-				after.add(rs.getString("securityA"));				
+				after.add(rs.getString("securityA"));	
+				after.add(rs.getString("userType"));
 			}
 			pstmtDelete = conn.prepareStatement("DELETE FROM user where userId = ?;");
 			pstmtDelete.setString(1, rs.getString("userId"));

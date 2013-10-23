@@ -148,7 +148,7 @@ public class ProjectDAO {
 			
 			while(rs.next()){
 				User u = new User(rs.getInt("userId"),rs.getString("userName"),
-						"", rs.getString("securityQ"),rs.getString("securityA"), rs.getString("userType"));
+						"",rs.getString("email"), rs.getString("securityQ"),rs.getString("securityA"), rs.getString("userType"));
 				users.add(u);
 			}
 			rs.close();
