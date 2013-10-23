@@ -11,6 +11,7 @@
 <TR><TH>Date</TH><TH>Version</TH><TH>Description</TH><TH>Author</TH></TR>
 <TR><TD>Spring 2013</TD><TD>1.0</TD><TD>Initial draft</TD><TD>Spring 2013 Team</TD></TR>
 <TR><TD>10.14.2013</TD><TD>1.1</TD><TD>Updated for Context functionality.</TD><TD>Seth Lee</TD></TR>
+<TR><TD>10.23.2013</TD><TD>1.2</TD><TD>Updated for soft delete functionality.</TD><TD>Seth Lee</TD></TR>
 </TABLE>
 
 ##Brief Description##
@@ -28,6 +29,7 @@ model
 
 1. The user is logged in to ClubUML.
 2. The user has a UML diagram encoded in Ecore or Papyrus to upload.
+3. The user has selected a project from the welcome page that is enabled.
  
 ##The Basic Flow of Events##
 
@@ -66,6 +68,11 @@ If in step 3 of the basic flow the user does not have a UML file:
 
 ClubUML issues an error message indicating that the user must select a Context for the diagram
 prior to uploading it.
+
+### User selects a disabled project from the welcome page ###
+
+The user is presented with the list of diagrams that have been previously uploaded in 
+read-only mode.  The user is unable to upload diagrams, compare diagrams, etc.
 
 ###Wrong file extension###
 
