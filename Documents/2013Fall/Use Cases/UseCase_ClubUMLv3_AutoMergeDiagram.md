@@ -6,17 +6,23 @@
 <tr><th>Date</th><th>Version</th><th>Description</th><th>Author</th></tr>
 <tr><td>9.18.2013</td><td>3.0</td><td>Created by deriving it from the existing Use Case for MergeDiagram in Spring2013 version</td><td>Gautam Chongtham</td></tr>
 <tr><td>10.7.2013</td><td>3.1</td><td>Updated to include Context functionality</td><td>Seth Lee</td></tr>
+<tr><td>10.23.2013</td><td>3.2</td><td>Updated to include Project soft delete functionality</td><td>Seth Lee</td></tr>
 </table>
 
 ###Brief Description###
+
 This use case describes a manual merge functionality, in which the user selects which elements to keep from two related diagrams.
+
 ###Actors###
+
 User:  The user selects the diagrams to merge and makes decisions on merging.
+
 ###Preconditions###
 
 1.	The user follows Login use case flow to access ClubUML.
 2.	The user has already uploaded two valid diagrams of the same type (following UploadDiagram flow of events), as well as of the same Context.
 3.	The uploaded diagrams to be merged are from Papyrus (no Ecore merge support).
+4.  The user has selected a project from the welcome page that is enabled.
 
 ###Basic Flow of Events###
 
@@ -58,6 +64,12 @@ If user selects more or less than two diagrams, then:
 If user selects two diagrams that are exactly the same, then
 1.	A dialog will be prompted notifying user that the two diagrams are the same.  Neither selections of merging nor saving of the diagram is allowed.
 2.	The use case returns to basic flow step 1.
+
+###User selects project from the welcome page that is disabled###
+
+If the user selects a project from the welcome page that is currently disabled, then he or she will be presented
+with a list of diagrams that have been previously uploaded to the project in read-only mode.  The user will be unable 
+to merge diagrams, upload diagrams or compare diagrams.
 
 ###Subflows ###
 
