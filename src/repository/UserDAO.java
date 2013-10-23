@@ -9,7 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
+import domain.Project;
 import domain.User;
 
 public class UserDAO {
@@ -60,6 +62,45 @@ public class UserDAO {
 			throw new IllegalArgumentException(e.getMessage(), e);
 		}
 		return true;
+	}
+	
+	/**
+	 * Get the projects list for specific user
+	 * 
+     * @param userId
+     * @return ArrayList<Project>
+     */
+	public static ArrayList<Project> getProjects(int userId) throws SQLException {
+		ArrayList<Project> projects = new ArrayList<Project>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DbManager.getConnection();
+			pstmt = conn.prepareStatement("SELECT project.projectId, projectName, description, startDate "
+					+ "FROM userproject join project on userproject.projectId = project.projectId where userId = ?;");
+			pstmt.setInt(1, userId);
+			// Execute the SQL statement and store result into the ResultSet
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				Project p = new Project(rs.getInt("projectId"),rs.getString("projectName"),
+						rs.getString("description"),rs.getString("startDate"));
+				projects.add(p);
+			}
+			rs.close();
+			pstmt.close();
+			conn.close();
+			return projects;						
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			System.out.println("Using default model.");
+		} finally {
+			if(rs != null) {rs.close();}
+			if(pstmt != null) {pstmt.close();}
+			if(conn != null) {conn.close();}
+		}
+		return null;
 	}
 
 	/**
@@ -168,6 +209,45 @@ public class UserDAO {
 			System.out.println("Using default model.");
 		}
 		return null;
+	}
+	
+	/**
+	 * Get userType from DB
+	 * 
+     * @param username User Name
+     * @return userType Type of User. "U"- User, "P"- Policy Manager. 
+	 */
+	public static String getUserType(String username) throws SQLException {
+		String userType = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DbManager.getConnection();
+			pstmt = conn
+					.prepareStatement("SELECT userType FROM user where userName = ?;");
+			pstmt.setString(1, username);
+
+			// Execute the SQL statement and store result into the ResultSet
+			rs = pstmt.executeQuery();
+
+			if (!rs.next()) {
+				return null;
+			}
+
+			userType = rs.getString("userType");
+			rs.close();
+			pstmt.close();
+			conn.close();
+			return userType;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if( rs != null) {rs.close();}
+			if(pstmt != null) {pstmt.close();}
+			if(conn != null) {conn.close();}
+		}
+		return userType;
 	}
 	
 	/**
