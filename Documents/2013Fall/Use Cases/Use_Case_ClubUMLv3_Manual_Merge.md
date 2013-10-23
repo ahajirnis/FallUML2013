@@ -14,6 +14,7 @@
 <TR><TD>09.18.2013</TD><TD>3.1</TD><TD>Updated to fit into the new  auto ‘smart’ merge paradigm.</TD> 	
 <TD>Gautam Chongtham</TD></TR>
 <TR><TD>10.7.2013</TD><TD>3.2</TD><TD>Updated to include Context functionality.</TD><TD>Seth Lee</TD></TR>
+<TR><TD>10.23.2013</TD><TD>3.3</TD><TD>Updated to include Project soft delete functionality.</TD><TD>Seth Lee</TD></TR>
 </TABLE>
 
 ##Brief Description##
@@ -29,6 +30,7 @@ User:  The user selects the diagrams to merge and makes decisions on merging.
 1.	The user follows Login use case flow to access ClubUML.
 2.	The user has already uploaded two valid diagrams of the same type (following UploadDiagram flow of events) and Context.
 3.	The uploaded diagrams to be merged are from Papyrus (no Ecore merge support).
+4.  The user has selected a project from the welcome page that is currently enabled.
 
 ##Basic Flow of Events##
 
@@ -74,6 +76,13 @@ If user selects two diagrams that are exactly the same, then
 
 1.	A dialog will be prompted notifying user that the two diagrams are the same.  Neither selections of merging nor saving of the diagram is allowed.
 2.	The use case returns to basic flow step 1.
+
+###The user selects a project that is currently disabled from the welcome page ###
+
+If the user selects a project from the welcome page which is currently disabled, then he or she
+is presented with a list of diagrams in the project display page that have been previously been
+uploaded in read-only mode.  The user is unable to upload any additional diagrams, merge or compare diagrams, 
+etc.
 
 ##Subflows## 
 

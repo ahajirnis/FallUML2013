@@ -15,6 +15,7 @@ recommendation promotion or manual and accommodate only manual compare.</TD><TD>
 <TR><TD>09.24.2013</TD><TD>3.2</TD><TD>Updated to accommodate both manual and auto promotion
  in one Use Case</TD><TD>Gautam</TD></TR>
 <TR><TD>10.7.2013</TD><TD>3.3</TD><TD>Updated to include Context functionality</TD><TD>Seth</TD></TR>
+<TR><TD>10.23.2013</TD><TD>3.4</TD><TD>Updated to include Project soft delete functionality.</TD><TD>Seth</TD></TR>
 </TABLE>
 
 ##Brief Description##
@@ -29,6 +30,7 @@ User: The user is the actor who invokes the comparison and reviews the report.
 
 1.	The user follows Login use case flow to access ClubUML.
 2.	The user has already uploaded two valid diagrams of the same type (following UploadDiagram flow of events), and also of the same Context.
+3.  The user has selected a project from the welcome page that is enabled.
 
 ##Flow of events##
 
@@ -51,6 +53,12 @@ If the user selects less than two diagrams the system alerts with a pop-up sayin
 ###User selects more than two diagrams ###
 
 If the user selects more than two diagrams the system alerts with a pop-up saying, “Please select at most two diagrams”
+
+###User selects a project from the welcome page that is disabled###
+
+If the user selects a project from the welcome page that is disabled, then he or she will be presented with 
+a list of diagrams that have been previously uploaded to the project in read-only mode.  The user
+will be unable to compare any diagrams, merge diagrams, or upload any diagrams.
 
 ###No Response from Server###
 
