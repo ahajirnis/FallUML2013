@@ -196,8 +196,8 @@
 				<table id="myTable">
 					<c:forEach items="${requestScope.comments}" var="comment">
 						<tr>
-							<td><b>${comment.getUserName()}</b></td>
-							<td>${comment.getContent()}</td>
+							<td><b><c:out value="${comment.userName}"></c:out> </b></td>
+							<td><c:out value=" ${comment.content}"></c:out></td>
 						</tr>
 					</c:forEach>
 				</table>

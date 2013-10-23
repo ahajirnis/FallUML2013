@@ -48,7 +48,9 @@ body {
 	color: #000;
 	background-color: #fff;
 }
-
+#tabs{
+	width: 100%;
+}
 -->
 </style>
 <script>
@@ -70,13 +72,13 @@ body {
 <body>
 	<div class="main">
 		<div class="header">
-			<div class="header_resize" style="width:100%;">
+			<div class="header_resize">
 				<div class="logo"></div>
 				<h1 style="color: white">ClubUML</h1>
-				<div id="tabs" >
+				<div id="tabs">
 					<ul>
 						<li><a href="#tabs-1">Home</a></li>
-						<li><a href="ManageProject">Manage Project</a></li>
+						<li><a href="Display">Manage Project</a></li>
 						<li><a href="#tabs-3">Manage Context</a></li>
 						<li><a href="#tabs-4">Policy</a></li>
 					</ul>
