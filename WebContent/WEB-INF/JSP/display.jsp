@@ -3,14 +3,13 @@
     Created on : Oct 20, 2012, 2:25:33 PM
     Author     : pratham
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<script type="text/javascript" src="js/display.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript" src="js/display.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Project Diagrams</title>
 <link href="css/display.css" rel="stylesheet" type="text/css" />

@@ -42,6 +42,10 @@ import repository.ReportDAO;
 @WebServlet(name = "Compare", urlPatterns = { "/Compare" })
 public class Compare extends HttpServlet {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int diagramID1;
 	private int diagramID2;
 

@@ -68,6 +68,18 @@
 								onblur="checkEmail(this.value);"></td>
 							<td><span id="email"></span></td>
 						</tr>
+						
+						<tr>
+							<td><font color="#61210B">User Type:</font></td>
+							<td><input type="radio" name="userType" value="P" 
+							onselect="checkUserType(this.value);">
+							<font color ="#61210B">Policy Manager</font>
+							<input type="radio" name="userType" value="U"
+							onselect="checkUserType(this.value);">
+							<font color ="#61210B">General User</font></td>
+							<td><span id="usertype"></span></td>
+						</tr>
+
 						<tr>
 							<td><font color="#61210B">Security Question:</font></td>
 							<td><select name="securityQuestion">
