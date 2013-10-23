@@ -8,6 +8,22 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">\
+</script><link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css" />
+<script>
+$(document).ready(function(){
+	
+	$( "#dialog" ).hide();
+	
+  $("#btn1").click(function(){
+    $( "#dialog" ).dialog();
+  });
+  
+});
+</script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="style.css" rel="stylesheet" type="text/css" />
  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
@@ -88,6 +104,45 @@ body {
 								</p>
 								<a href="Display" style="text-decoration: none;"><button>Proceed
 										to Project</button></a>
+										<button id="btn1">UpdateProject</button><br>
+
+<div id="dialog" title="UpdateProject">
+  
+<form action="" method="post">
+	<input type="hidden" name="rowID" value="">
+<p>
+Product ID:<br />
+<input type="text" name="productid" size="8" maxlength="8"
+value="" />
+</p>
+<p>
+ProductName:<br />
+<input type="text" name="productname" size="25" maxlength="25"
+value="" />
+</p>
+<p>
+StartDate:<br />
+<input type="text" name="StartDate" size="6" maxlength="6"
+value="" />
+</p>
+<p>
+Description:<br />
+<textarea name="description" rows="5" cols="30">
+</textarea>
+</p>
+<p>
+<input type="submit" name="submit" value="Submit" />
+</p>
+</form>
+  
+  
+  
+  
+  
+  
+  
+</div>
+										
 								<h2>About ClubUML 2013</h2>
 								<div class="clr"></div>
 								<!--  <p><font color="black>"<span class="date">October 23, 2012</span> &nbsp;|&nbsp;</font></p> -->
@@ -129,5 +184,9 @@ body {
 			<div class="content_resize"></div>
 		</div>
 	</div>
+	
+	
+	
+	
 </body>
 </html>
