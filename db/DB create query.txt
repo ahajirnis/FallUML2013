@@ -12,9 +12,11 @@ Database: MySQL 5.0
 CREATE TABLE project
 (
   projectId Int(11) NOT NULL AUTO_INCREMENT,
-  projectName Varchar(45) NOT NULL,
+  projectName Varchar(45) NOT NULL UNIQUE,
   startDate Varchar(45),
   description Varchar(255),
+  enabled char(1) DEFAULT 'Y',
+  disabledDate VARCHAR(45),
  PRIMARY KEY (projectId)
 )
 ;
@@ -24,11 +26,12 @@ CREATE TABLE project
 CREATE TABLE user
 (
   userId Int(11) NOT NULL AUTO_INCREMENT,
-  userName Varchar(45) NOT NULL,
+  userName Varchar(45) NOT NULL UNIQUE,
   email Varchar(45) NOT NULL,
   password Varchar(45) NOT NULL,
   securityQ Varchar(60),
   securityA Varchar(60),
+  userType char(2) NOT NULL DEFAULT "U",
  PRIMARY KEY (userId)
 )
 ;
@@ -36,8 +39,8 @@ CREATE TABLE user
 -- Table userproject
 
 CREATE TABLE userproject (
-userId int(15) NOT NULL,
-projectId int(15) NOT NULL,
+userId int(11) NOT NULL,
+projectId int(11) NOT NULL,
 PRIMARY KEY (userId, projectId),
 constraint foreign key (userId) references user (userId) on delete cascade on update cascade,
 constraint foreign key (projectId) references project (projectId) on delete cascade on update cascade)
@@ -93,6 +96,41 @@ CREATE TABLE comment
 )
 ;
 
+-- 2013/10/22 Create Table Policy --
+CREATE TABLE policy
+(
+	policyId INT(11) PRIMARY KEY AUTO_INCREMENT,
+	policyName VARCHAR(45) NOT NULL UNIQUE,
+	policyDescription VARCHAR(255),	
+	policyLevel INT(11)	NOT NULL
+);
+
+
+-- 2013/10/22 Create Table DiagramContext --
+CREATE TABLE diagramContext
+(
+	diagramContextId Int(11) PRIMARY KEY AUTO_INCREMENT,
+	description VARCHAR(255),    
+    name VARCHAR(45) NOT NULL,
+    policyId INT(11) NOT NULL,
+    projectId INT(11) NOT NULL,
+    CONSTRAINT FOREIGN KEY (policyId) REFERENCES policy (policyId) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT FOREIGN KEY (projectId) REFERENCES project (projectId) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+	
+-- 2013/10/22 Create Table DiagramPolicyScore --
+CREATE TABLE DiagramPolicyScore
+(
+	diagramId INT(11) NOT NULL,
+	justification VARCHAR(100),
+	policyId INT(11) NOT NULL,
+	score INT(11) DEFAULT 0,
+	PRIMARY KEY (diagramId, policyId),
+	CONSTRAINT FOREIGN KEY (policyId) REFERENCES policy (policyId) on delete cascade on update cascade,
+	CONSTRAINT FOREIGN KEY (diagramId) REFERENCES diagram (diagramId) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 -- Create relationships section ------------------------------------------------- 
 
 ALTER TABLE diagram ADD CONSTRAINT diagramHaveOwnerId FOREIGN KEY (userId) REFERENCES user (userId) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -116,6 +154,6 @@ ALTER TABLE comment ADD CONSTRAINT Relationship7 FOREIGN KEY (userId) REFERENCES
 ALTER TABLE comment ADD CONSTRAINT Relationship8 FOREIGN KEY (reportId) REFERENCES report (reportId) ON DELETE NO ACTION ON UPDATE NO ACTION
 ;
 -- insert sample data--------------------------------------
-insert into project value (1,'clubuml1',now(),'des1');
+insert into project value (1,'clubuml1',now(),'des1','Y','');
 
-insert into project value (2,'clubuml2',now(),'des2')
+insert into project value (2,'clubuml2',now(),'des2','Y','')
