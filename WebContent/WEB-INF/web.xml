@@ -28,6 +28,10 @@
   	<servlet-name>ManageProject</servlet-name>
   	<servlet-class>controller.ManageProject</servlet-class>
   </servlet>
+  <servlet>
+   	<servlet-name>ManageContext</servlet-name>
+  	<servlet-class>controller.ManageContext</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>RegisterServlet</servlet-name>
     <url-pattern>/RegisterServlet</url-pattern>
@@ -66,5 +70,9 @@
    <servlet-mapping>
   	<servlet-name>ManageProject</servlet-name>
   	<url-pattern>/ManageProject</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+  	<servlet-name>ManageContext</servlet-name>
+  	<url-pattern>/ManageContext</url-pattern>
   </servlet-mapping>
 </web-app>

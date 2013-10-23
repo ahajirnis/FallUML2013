@@ -78,8 +78,8 @@ body {
 				<div id="tabs">
 					<ul>
 						<li><a href="#tabs-1">Home</a></li>
-						<li><a href="Display">Manage Project</a></li>
-						<li><a href="#tabs-3">Manage Context</a></li>
+						<li><a href="Display">Project</a></li>
+						<li><a href="#tabs-3">Context</a></li>
 						<li><a href="#tabs-4">Policy</a></li>
 					</ul>
 					<div id="tabs-1">
