@@ -78,6 +78,39 @@ public class ProjectDAO {
     	return false;
     }
     
+    public static boolean updateProject(Project project) throws SQLException {
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	try {
+    		conn = DbManager.getConnection();
+    		if (project.getEnabled() == "N") {
+    			pstmt = conn.prepareStatement(
+        	    		"UPDATE project SET projectName = ?, description = ?, enabled = ?, "
+        	    		+ "disabledDate = NOW() WHERE projectId = ?;");
+    		}
+    		else {
+    			pstmt = conn.prepareStatement(
+        	    		"UPDATE project SET projectName = ?, description = ?, enabled = ?, "
+        	    		+ "WHERE projectId = ?;");
+    		} 	    
+    	    pstmt.setString(1, project.getProjectName());
+    	    pstmt.setString(2, project.getDescription());
+    	    pstmt.setString(3, project.getEnabled());
+    	    pstmt.setInt(4, project.getProjectId());
+    	    if(pstmt.executeUpdate() != 0) {
+    	    	return true;
+    	    } else {
+    	    	return false;
+    	    }
+    	} catch (SQLException e) {
+    	    e.printStackTrace();
+    	} finally {
+    		if( pstmt != null) {pstmt.close();}
+    		if( conn != null) {conn.close();}
+    	}
+    	return false;
+    }
+    
     /**
      * Disable a project
      * @param projectName

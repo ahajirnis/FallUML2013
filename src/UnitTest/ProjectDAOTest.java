@@ -60,6 +60,7 @@ public class ProjectDAOTest {
     			p = new Project(rs.getInt("projectId"),rs.getString("projectName"),
     					rs.getString("description"), rs.getString("startDate"));
     		}
+    		
     	} catch (SQLException e) {
     		e.printStackTrace();
     	} finally {
@@ -67,7 +68,7 @@ public class ProjectDAOTest {
     		if(pstmt != null) {pstmt.close();}
     		if(conn != null) {conn.close();}
     	} 
-    	
+    	deleteProject("clubuml3");
     	Assert.assertEquals(true, result);
     	Assert.assertEquals(project.getProjectName(), p.getProjectName());
 		Assert.assertEquals(project.getDescription(), p.getDescription());
@@ -99,5 +100,35 @@ public class ProjectDAOTest {
 	public void testGetAllProjects() throws SQLException {
 		ArrayList<Project> projects = ProjectDAO.getAllProjects();
 		Assert.assertEquals(4, projects.size());
+	}
+	
+	@Test
+	public void testUpdateProject() throws SQLException {
+		Project project = new Project(21,"clubuml6-new","des6","","N","");
+		boolean result = ProjectDAO.updateProject(project);
+		Assert.assertEquals(true, result);
+	}
+	
+	private boolean deleteProject(String projectName) throws SQLException {
+		Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	try {
+    		conn = DbManager.getConnection();
+    		pstmt = conn.prepareStatement(
+        	    		"DELETE from project where projectName = ?");
+    		   	    
+    	    pstmt.setString(1, projectName);
+    	    if(pstmt.executeUpdate() != 0) {
+    	    	return true;
+    	    } else {
+    	    	return false;
+    	    }
+    	} catch (SQLException e) {
+    	    e.printStackTrace();
+    	} finally {
+    		if( pstmt != null) {pstmt.close();}
+    		if( conn != null) {conn.close();}
+    	}
+    	return false;
 	}
 }

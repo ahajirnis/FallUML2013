@@ -3,6 +3,7 @@ package domain;
 /**
  * Information class that contains all the features of one project
  * @ doc author	Dong Guo
+ * @author Ying Gan
  */
 
 public class Project {
@@ -78,8 +79,8 @@ public class Project {
 		this.projectName = projectName;
 		this.description = description;
 		this.startDate = startDate;
-		this.enabled = enabled;
-		this.disabledDate = disabledDate;
+		this.setEnabled(enabled);
+		this.setDisabledDate(disabledDate);
 	}
 	
 	/**
@@ -156,6 +157,34 @@ public class Project {
 	 */
 	public void setAchived(byte achived) {
 		this.achived = achived;
+	}
+
+	/**
+	 * @return the enabled
+	 */
+	public String getEnabled() {
+		return enabled;
+	}
+
+	/**
+	 * @param enabled the enabled to set
+	 */
+	public void setEnabled(String enabled) {
+		this.enabled = enabled;
+	}
+
+	/**
+	 * @return the disabledDate
+	 */
+	public String getDisabledDate() {
+		return disabledDate;
+	}
+
+	/**
+	 * @param disabledDate the disabledDate to set
+	 */
+	public void setDisabledDate(String disabledDate) {
+		this.disabledDate = disabledDate;
 	}
 
 }
