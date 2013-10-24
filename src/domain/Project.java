@@ -12,6 +12,8 @@ public class Project {
 	private String description;
 	private byte achived = 0;// Default
 	private String startDate;
+	private String enabled;
+	private String disabledDate;
 
 	public String getStartDate() {
 		return startDate;
@@ -68,6 +70,25 @@ public class Project {
 		this.projectName = projectName;
 		this.description = description;
 		this.startDate = startDate;
+	}
+	
+	/**
+	 * 
+	 * @param projectId
+	 * @param projectName
+	 * @param description
+	 * @param startDate
+	 * @param enabled
+	 * @param disabledDate
+	 */
+	public Project(int projectId, String projectName, String description, String startDate,
+			String enabled, String disabledDate) {
+		this.projectId = projectId;
+		this.projectName = projectName;
+		this.description = description;
+		this.startDate = startDate;
+		this.setEnabled(enabled);
+		this.setDisabledDate(disabledDate);
 	}
 	
 	/**
@@ -144,6 +165,22 @@ public class Project {
 	 */
 	public void setAchived(byte achived) {
 		this.achived = achived;
+	}
+
+	public String getDisabledDate() {
+		return disabledDate;
+	}
+
+	public void setDisabledDate(String disabledDate) {
+		this.disabledDate = disabledDate;
+	}
+
+	public String getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(String enabled) {
+		this.enabled = enabled;
 	}
 
 }
