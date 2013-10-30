@@ -39,9 +39,6 @@ public class UserDAO {
 			pstmt.setString(1, user.getUserName());			
 			pstmt.setString(2, user.getEmail());
 			pstmt.setString(3, user.getPassword());
-			
-			//No projectId in user table;
-			//pstmt.setInt(4, user.getProjectId());
 			pstmt.setString(4, user.getSecurityQuestion());
 			pstmt.setString(5, user.getSecurityAnswer());
 			pstmt.setString(6, user.getUserType());
