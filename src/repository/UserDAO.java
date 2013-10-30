@@ -15,10 +15,10 @@ import domain.User;
 public class UserDAO {
 
 	/**
-	 * Add an user into DB (user name, password, email, project Id, security question, security answer)
+	 * Add an user into DB (user name, password, email, project Id, security question, security answer, userType)
 	 * 
 	 * @param User object
-     * 			userName, password, email, sercurityQuestion, securityAnswer
+     * 			userName, password, email, sercurityQuestion, securityAnswer, userType
      * @return true if success; false if fail
 	 */
 	public static boolean addUser(User user) {
@@ -34,15 +34,17 @@ public class UserDAO {
 			// Modified by Xuesong Meng
 			PreparedStatement pstmt = conn
 					.prepareStatement(
-							"INSERT into user(userName,email,password, securityQ, securityA) VALUES(?,?,?,?,?);",
+							"INSERT into user(userName,email,password, securityQ, securityA, userType) VALUES(?,?,?,?,?,?);",
 							Statement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, user.getUserName());			
 			pstmt.setString(2, user.getEmail());
 			pstmt.setString(3, user.getPassword());
+			
 			//No projectId in user table;
 			//pstmt.setInt(4, user.getProjectId());
 			pstmt.setString(4, user.getSecurityQuestion());
 			pstmt.setString(5, user.getSecurityAnswer());
+			pstmt.setString(6, user.getUserType());
 
 			// Execute the SQL statement and update database accordingly.
 			pstmt.executeUpdate();
@@ -62,6 +64,39 @@ public class UserDAO {
 		return true;
 	}
 
+	public static String getUserType(String username) throws SQLException {
+		String userType = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DbManager.getConnection();
+			pstmt = conn
+					.prepareStatement("SELECT userType FROM user where userName = ?;");
+			pstmt.setString(1, username);
+
+			// Execute the SQL statement and store result into the ResultSet
+			rs = pstmt.executeQuery();
+
+			if (!rs.next()) {
+				return null;
+			}
+
+			userType = rs.getString("userType");
+			rs.close();
+			pstmt.close();
+			conn.close();
+			return userType;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if( rs != null) {rs.close();}
+			if(pstmt != null) {pstmt.close();}
+			if(conn != null) {conn.close();}
+		}
+		return userType;
+
+	}
 	/**
 	 * Get an user from DB by name and password
 	 * 
@@ -84,7 +119,8 @@ public class UserDAO {
 			User user;
 			user = new User(rs.getInt("userId"), username, password,
 					rs.getString("email"), rs.getString("securityQ"),
-					rs.getString("securityA"));
+					rs.getString("securityA"), rs.getString("userType"));
+
 			rs.close();
 			pstmt.close();
 			conn.close();
@@ -103,6 +139,8 @@ public class UserDAO {
 	 * Get an user from DB by name
 	 * 
      * @param username
+	 * @param usertype 
+	 * @param password 
      * @return User object
      */
 	public static User getUser(String username) {
@@ -119,12 +157,13 @@ public class UserDAO {
 			if (!rs.next()) {
 				return null;
 			}
-
+			
 			// Modified by Xuesong Meng
 			User user;
 			user = new User(rs.getInt("userId"), username, "",
 					rs.getString("email"), rs.getString("securityQ"),
-					rs.getString("securityA"));
+					rs.getString("securityA"),
+					rs.getString("userType"));
 
 			rs.close();
 			pstmt.close();
@@ -159,7 +198,7 @@ public class UserDAO {
 
 			User user;
 			user = new User(rs.getInt("userId"), rs.getString("userName"), "",
-					rs.getString("email"), "", "");
+					rs.getString("email"), "", "","");
 			rs.close();
 			pstmt.close();
 			conn.close();
@@ -217,7 +256,9 @@ public class UserDAO {
 			pstmt.setString(3, user.getEmail());
 			pstmt.setString(4, user.getSecurityQuestion());
 			pstmt.setString(5, user.getSecurityAnswer());
-			pstmt.setInt(6, user.getUserId());
+			
+			pstmt.setString(6, user.getUserType());
+			pstmt.setInt(7, user.getUserId());
 			// Execute the SQL statement and update database accordingly.
 			pstmt.executeUpdate();
 
