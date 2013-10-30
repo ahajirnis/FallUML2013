@@ -1,7 +1,7 @@
 <%--
     Document   : loginsuccess
     Created on : Oct 17, 2012, 8:56:42 AM
-    Author     : Zhang Junyu
+    Author     : Aishwarya Srinivasan
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
