@@ -41,10 +41,8 @@
 				<p>&nbsp;</p>
 			</div>
 			<div class="fbg_resize">
-				<table border="0" align="center" cellpadding="5" cellspacing="5">
+				<table align="center">
 
-
-					<table align="center">
 						<tr>
 							<td><font color="#61210B">Username:</font></td>
 							<td><input type="text" name="username"
@@ -68,6 +66,18 @@
 								onblur="checkEmail(this.value);"></td>
 							<td><span id="email"></span></td>
 						</tr>
+						
+						<tr>
+							<td><font color="#61210B">User Type:</font></td>
+							<td><input type="radio" name="userType" value="P" 
+							onselect="checkUserType(this.value);">
+							<font color ="#61210B">Policy Manager</font>
+							<input type="radio" name="userType" value="U"
+							onselect="checkUserType(this.value);">
+							<font color ="#61210B">General User</font></td>
+							<td><span id="usertype"></span></td>
+						</tr>
+
 						<tr>
 							<td><font color="#61210B">Security Question:</font></td>
 							<td><select name="securityQuestion">
@@ -75,10 +85,7 @@
 									<option value="firstschool">what is your first school?</option>
 									<option value="bestfriend">Name of your best friend ?</option>
 							</select></td>
-							<div align="center">
-
-								</select>
-							</div>
+				
 						</tr>
 						<tr>
 							<td><font color="#61210B">Security Answer:</font></td>

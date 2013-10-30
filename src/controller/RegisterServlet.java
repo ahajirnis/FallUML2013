@@ -58,6 +58,7 @@ public class RegisterServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String question = request.getParameter("securityQuestion");
 		String answer = request.getParameter("securityAnswer");
+		String usertype = request.getParameter("userType");
 
 		
 		//check the existence of user's registration
@@ -66,7 +67,7 @@ public class RegisterServlet extends HttpServlet {
 		if (checkUserExist != null) {
 			Failed(request, response, dispatcher);		//user already existed, registration failed
 		} else {
-			User userObj = new User(username, password, email, question, answer);
+			User userObj = new User(username, password, email, question, answer,usertype);
 			Success(request, response, dispatcher, userObj);	//registration succeeded
 		}
 	}
@@ -82,9 +83,19 @@ public class RegisterServlet extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		session.setAttribute("username", userObj.getUserName());
 		session.setAttribute("userId", userObj.getUserId());
+		
+		String usertype = request.getParameter("userType");
+		
+		
+		if(usertype.equals("P")){
 		dispatcher = request.getRequestDispatcher("WEB-INF/JSP/home.jsp");
+		dispatcher.forward(request, response);}
+		else{
+			dispatcher = request.getRequestDispatcher("WEB-INF/JSP/userHome.jsp");
 		dispatcher.forward(request, response);
+		}
 	}
+		
 
 	private void Failed(HttpServletRequest request,
 			HttpServletResponse response, RequestDispatcher dispatcher) throws ServletException, IOException {

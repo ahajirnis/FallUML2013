@@ -13,6 +13,7 @@ public class User {
 	private String email;
 	private String securityQuestion;
 	private String securityAnswer;
+	private String userType;
 	//private int projectId;
 
 	/**
@@ -45,12 +46,13 @@ public class User {
 	 * 			The ID of the project
 	 */
 	public User( String userName, String password, String email,
-			String securityQuestion, String securityAnswer) { 
+			String securityQuestion, String securityAnswer, String userType) { 
 		this.userName = userName;
 		this.password = password;
 		this.email = email;
 		this.securityQuestion = securityQuestion;
 		this.securityAnswer = securityAnswer;
+		this.userType = userType;
 		//this.projectId = projectId;
 	}
 	
@@ -73,13 +75,14 @@ public class User {
 	 * 			The ID of the project
 	 */
 	public User(int userId, String userName, String password, String email,
-			String securityQuestion, String securityAnswer) {
+			String securityQuestion, String securityAnswer, String userType) {
 		this.userId = userId;
 		this.userName = userName;
 		this.password = password;
 		this.email = email;
 		this.securityQuestion = securityQuestion;
 		this.securityAnswer = securityAnswer;
+		this.userType = userType;
 		//this.projectId = projectId;
 	}
 
@@ -197,6 +200,19 @@ public class User {
 		this.securityAnswer = securityAnswer;
 	}
 
+	
+	
+	//getUserRole adder by siddhesh
+	public String getUserType() {
+		return userType;
+		// TODO Auto-generated method stub
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+
+	
 	/**
 	 * Gete the projectId
 	 * 

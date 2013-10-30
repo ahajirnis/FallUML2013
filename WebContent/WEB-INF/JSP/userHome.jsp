@@ -74,7 +74,7 @@ body {
 		<div class="header">
 			<div class="header_resize">
 				<div class="logo"></div>
-				<h1 style="color: white">ClubUML</h1>
+				<h1 style="color: white">ClubUML General User</h1>
 				<div id="tabs">
 					<ul>
 						<li><a href="#tabs-1">Home</a></li>

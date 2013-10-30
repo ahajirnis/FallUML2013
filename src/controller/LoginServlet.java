@@ -5,13 +5,16 @@
 package controller;
 
 import domain.User;
+
 import java.io.IOException;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import repository.UserDAO;
 
 /**
@@ -46,15 +49,27 @@ public class LoginServlet extends HttpServlet {
 	String username = request.getParameter("username");
 	String password = request.getParameter("password");
 
+	
+
 	//authorize user from database, if exist, store it in session.
 	User userObj = UserDAO.getUser(username, password);
 	if (userObj != null) {
-		//policy manager
 	    HttpSession session = request.getSession(true);
 	    session.setAttribute("username", username);
 	    session.setAttribute("userId", userObj.getUserId());
+	    String usertype = userObj.getUserType();
+	    
+	    
+	    if(usertype != null){
+	    if(usertype.equals("P")){
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/JSP/home.jsp");
 	    dispatcher.forward(request, response);
+	    }else{
+	    	RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/JSP/userHome.jsp");
+		    dispatcher.forward(request, response);
+	   	    }
+	    }
+	    
 	} else {
 	    response.sendRedirect("invalid.jsp");	
 	    //redirect user to invalid.jsp page if the input does not match
