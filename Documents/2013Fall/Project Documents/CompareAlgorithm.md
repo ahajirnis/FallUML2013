@@ -8,8 +8,9 @@
 </TABLE>
 
 <TABLE>
-	<TR><TH>Version history</TH><TH>Date</TH><TH>Version</TH><TH>Description</TH><TH>Author</TH></TR>
-	<TR><TD>10.28.2013</TD><TD>1.0</TD><TD>Initial Draft</TD><TD>Seth Lee</TD></TR>
+	<TR><TH>Date</TH><TH>Version History</TH><TH>Version</TH><TH>Description</TH><TH>Author</TH></TR>
+	<TR><TD>10.28.2013</TD><TD>1.0</TD><TD>Initial Draft</TD><TD>Create draft of comparison
+	algorithm overview</TD<TD>Seth Lee</TD></TR>
 </TABLE>
 
 ##Brief Description##
@@ -46,12 +47,14 @@ to the needs of the client organization.
 1.1   For each diagram:
 
 1.1.1   Gather metrics 
+
 1.1.1.2	  Total number of attributes
 1.1.1.3	  Total number of Classes
 1.1.1.4	  Number of associations missing multiplicities
 1.1.1.5	  Number of classes without associations/relationships
 
 1.1.2   Calculate the average number of attributes per Class.  For each class:
+
 1.1.2.2		Calculate the total number of attributes
 1.1.2.3		Calculate the number of Classes
 1.1.2.4		Calculate the average number of attributes / Class
@@ -59,9 +62,11 @@ to the needs of the client organization.
 1.3	  Calculate smart policy score:
 
 1.3.1	Average number of attributes per Class 
+
 1.3.1.2	  For each diagram, compare the average number of attributes/Class (1.1.2.4) to
 	      the configuration value for the average attributes/Class rule for the ideal number of 
 	      attributes/Class and the maximum number of attributes/Class.  
+	      
 *			 If the average number of attributes/Class = the configuration value for the ideal
 		     number of attributes/Class, averageAttributesScore is 0.
 *			 If the average number of attributes/Class > the configuration value for the ideal
@@ -79,6 +84,7 @@ to the needs of the client organization.
 1.3.2.1	 For each diagram, compare the total number of Classes (1.1.1.3) to the configuration
 	     value for the total number of Classes rule for the ideal number of total Classes
 	     and the maximum number of total Classes.
+	     
 *		      If the total number of Classes = the configuration value for the ideal number
 		      of totalClasses, totalClassesScore is 0.
 *			  If the total number of Classes > the configuration value for the ideal total
@@ -93,6 +99,7 @@ to the needs of the client organization.
 1.3.3	Associations that are missing multiplicities
 
 1.3.3.1	 For each diagram, calculate the missing multiplicities (1.1.1.4) score
+
 *			  If there are no missing multiplicities, missingMultiplicitiesScore is 0.
 *			  If there are missing multiplicities, missingMultiplicitiesScore = 
 			  number of missing multiplicities * missingMultiplicitiesPoints
@@ -100,14 +107,16 @@ to the needs of the client organization.
 1.3.4	Classes that are missing associations
 
 1.3.4.1	  For each diagram, calculate the missing associations (1.1.1.5) score
+
 *		      If there are no missing associations, missingAssociationsScore is 0.
 *			  If there are missing associations, missingAssociationsScore = number of
 			  missing associations * missingAssociationsPoints
 			  
 1.3.5	Total smart policy score
 
-1.3.5.1	  For each diagram, 
-*			  smartPolicyScore = averageAttributesScore + totalClassesScore + 
+1.3.5.1	  For each diagram:
+
+			  smartPolicyScore = averageAttributesScore + totalClassesScore + 
 								 missingMultiplicitiesScore + missingAssociationsScore
 
 2.  Refactor each diagram to achieve an optimized model:
@@ -143,6 +152,7 @@ to the needs of the client organization.
 		rolled up to new superclass).
 2.4.4	A refactoring score is calculated for each diagram if it has passed syntactical 
 		validation.
+		
 2.4.4.1	Refactoring score (refactoringScore) = (2.4.1 * refactoringPointsForRule2.2.1) + 
 							(2.4.2 * refactoringPointsForRule2.2.2) + 
 							(2.4.3 * refactoringPointsForRule2.3)
@@ -160,9 +170,11 @@ The scoring of two compared diagrams is based on two principles:
 3.1.1	The diagram with the lower sum of smartPolicyScore + refactoringScore is promoted
 
 3.2	 Scenario 2 : Diagram A passes syntactical validation, Diagram B does not
+
 3.2.1	Diagram A is promoted
 
 3.3	 Scenario 3 : Neither diagram passes syntactical validation
+
 3.3.1	The diagram with the lower smartPolicyScore is promoted
 
 ##References##
