@@ -36,7 +36,7 @@ text-align:center;
     </div>
   </div>
   <div class="form-group">
-    <label class="col-lg-2 control-label">Policy ID</label>
+    <label class="col-lg-2 control-label">PolicyID</label>
     <div class="col-lg-10">
       <input type="text" class="form-control" id="PolicyID" placeholder="PolicyID">
     </div>
@@ -51,6 +51,21 @@ text-align:center;
 			<input class="btn btn-primary " type="submit" value="Add" />
 </div>
 </form>
+
+
+
+
+<table class="table table-hover">
+  <th><td> Policy Name   </td><td> Policy Level   </td><td> PolicyID   </td><td> policy Description </td>
+  
+  </th>
+  <tr><td> 1.</td><td> Policyx  </td><td> Policyx   </td><td> xxxxxx  </td><td> policyxxxxxxxxxxx </td>
+  
+  </tr>
+  <tr><td> 2.</td><td> Policyx  </td><td> Policyx   </td><td> xxxxxx  </td><td> policyxxxxxxxxxxx </td>
+  
+  </tr>
+</table>
 </div>
 </body>
 
