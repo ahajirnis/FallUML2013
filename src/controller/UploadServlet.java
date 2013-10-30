@@ -18,17 +18,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
 
 import repository.DiagramDAO;
 import controller.upload.UploadProcessor;
 import controller.upload.UploadProcessorFactory;
 import domain.Diagram;
 import logging.Log;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import controller.upload.FileInfo;
 /**
  * 
@@ -94,12 +98,14 @@ public class UploadServlet extends HttpServlet {
 		
 		ServletFileUpload uploadHandler = new ServletFileUpload(dfif);
 		try {
-			List<?> items = uploadHandler.parseRequest(request);
+			ServletRequestContext src = new ServletRequestContext(request);
+			List<?> items = uploadHandler.parseRequest(src);
 			destinationDir = createDir(id)	;											// file
 			
 			Iterator<?> itr = items.iterator();
 			while (itr.hasNext()) {
 				FileItem item = (FileItem) itr.next();
+				
 				
 				if (item.getName().isEmpty()) {
 					// Skip if there is no name for the file
@@ -107,6 +113,10 @@ public class UploadServlet extends HttpServlet {
 				}
 				
 				filename = item.getName();
+				if (filename != null) {
+			        filename = FilenameUtils.getName(filename);
+			    }
+				
 
 				if ((!item.isFormField()) && (!item.getName().equals(""))
 						&& (!id.equals(""))) {// check if item is a file
@@ -215,7 +225,10 @@ public class UploadServlet extends HttpServlet {
 			diagramObj.setMerged(0);
 			diagramObj.setUserId(userID);
 			diagramObj.setProjectId(2);
-			diagramObj.setDiagramType("Ecore");
+			//Use of ENCORE in diagramType is wrong, we should use .setFileType instead
+			//diagramObj.setDiagramType("Ecore");
+			diagramObj.setFileType("Ecore");
+			
 			//diagramObj.setDiFileName("baseFileName" + ".di");
 			//diagramObj.setNotationFileName("baseFileName" + ".notation");
 			//diagramObj.setDiFilepath("folder");

@@ -67,7 +67,7 @@ public class Promote extends HttpServlet {
 	//update edit history
 	EditingHistoryDAO.addHistory(editObj);
 	*/
-	
+	request.setAttribute("comments", comment);
 	RequestDispatcher dispatcher = request.getRequestDispatcher("Display");
 	dispatcher.forward(request, response);
 

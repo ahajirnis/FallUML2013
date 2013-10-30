@@ -19,7 +19,7 @@ public class DbManager {
 	private static final String SERVER = "localhost:3306";
 	private static final String USER = "root";
 	// Modified by Xuesong Meng, No password.
-	//private static final String PASSWORD = "1234";
+	//private static final String PASSWORD = "12345";
 	private static final String PASSWORD = "1234";
 	private static final String DATABASE = "clubuml";
 	// as long as you're using mysql, leave this alone.
@@ -37,7 +37,7 @@ public class DbManager {
 	 * 
 	 * @return either an open connection or null
 	 */
-	static synchronized Connection getConnection() {
+	public static synchronized Connection getConnection() {
 		try {
 			if (con != null && con.isClosed()) {
 				con = null;

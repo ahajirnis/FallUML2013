@@ -12,7 +12,7 @@ public class Diagram {
     private int userId;
     private int projectId = 2; // default;
     private String diagramName;
-    private String diagramType;
+    //private String diagramType;
     private String filePath;
     private String fileType;
     private String createdTime;    
@@ -20,14 +20,23 @@ public class Diagram {
     private String notationFileName;
     private String diFileName;
     private String diFilepath;
+    private DiagramType diagramType;
     
-	public String getDiagramType() {
+	public DiagramType getDiagramType() {
 		return diagramType;
 	}
 
-	public void setDiagramType(String diagramType) {
+	public void setDiagramType(DiagramType diagramType) {
 		this.diagramType = diagramType;
 	}
+
+//	public String getDiagramType() {
+//		return diagramType;
+//	}
+//
+//	public void setDiagramType(String diagramType) {
+//		this.diagramType = diagramType;
+//	}
 
 	public String getFilePath() {
 		return filePath;

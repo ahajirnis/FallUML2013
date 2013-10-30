@@ -3,6 +3,7 @@ package domain;
 /**
  * Information class that contains all the features of one user
  * @ doc author	Dong Guo
+ * @author Ying Gan
  */
 
 public class User {
@@ -13,7 +14,9 @@ public class User {
 	private String email;
 	private String securityQuestion;
 	private String securityAnswer;
+	private String userType;
 	//private int projectId;
+
 
 	/**
 	 * Constructor to initialize necessary class members
@@ -45,12 +48,13 @@ public class User {
 	 * 			The ID of the project
 	 */
 	public User( String userName, String password, String email,
-			String securityQuestion, String securityAnswer) { 
+			String securityQuestion, String securityAnswer, String userType) { 
 		this.userName = userName;
 		this.password = password;
 		this.email = email;
 		this.securityQuestion = securityQuestion;
 		this.securityAnswer = securityAnswer;
+		this.userType = userType;
 		//this.projectId = projectId;
 	}
 	
@@ -73,13 +77,14 @@ public class User {
 	 * 			The ID of the project
 	 */
 	public User(int userId, String userName, String password, String email,
-			String securityQuestion, String securityAnswer) {
+			String securityQuestion, String securityAnswer, String userType) {
 		this.userId = userId;
 		this.userName = userName;
 		this.password = password;
 		this.email = email;
 		this.securityQuestion = securityQuestion;
 		this.securityAnswer = securityAnswer;
+		this.userType = userType;
 		//this.projectId = projectId;
 	}
 
@@ -196,6 +201,26 @@ public class User {
 	public void setSecurityAnswer(String securityAnswer) {
 		this.securityAnswer = securityAnswer;
 	}
+	
+	/**
+	 * Get the userType
+	 * 
+	 * @return userType String
+	 */
+	public String getUserType() {
+		return userType;
+	}
+
+	/**
+	 * Set the userType
+	 * @param userType 
+	 * 			Type of the user. Now support "U"- user and "P"- policy manager.
+	 * 
+	 */
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+
 
 	/**
 	 * Gete the projectId
