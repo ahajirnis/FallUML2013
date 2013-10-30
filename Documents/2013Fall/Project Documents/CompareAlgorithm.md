@@ -10,7 +10,7 @@
 <TABLE>
 	<TR><TH>Date</TH><TH>Version History</TH><TH>Version</TH><TH>Description</TH><TH>Author</TH></TR>
 	<TR><TD>10.28.2013</TD><TD>1.0</TD><TD>Initial Draft</TD><TD>Create draft of comparison
-	algorithm overview</TD<TD>Seth Lee</TD></TR>
+	algorithm overview</TD><TD>Seth Lee</TD></TR>
 </TABLE>
 
 ##Brief Description##
