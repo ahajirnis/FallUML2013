@@ -179,6 +179,7 @@ width:100%;
 			</c:forEach> --%>
 		</table>
 		<input type="hidden" value="enable" name="statusChangeTo">
+	
 		</form>
 	</div>
 	
@@ -188,7 +189,5 @@ width:100%;
 			
 	
 	</div>
-</div>
-
 </body>
 </html>

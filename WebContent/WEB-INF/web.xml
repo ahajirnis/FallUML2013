@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
   <servlet>
     <servlet-name>RegisterServlet</servlet-name>
     <servlet-class>controller.RegisterServlet</servlet-class>
@@ -16,7 +16,7 @@
     <servlet-name>UploadServlet</servlet-name>
     <servlet-class>controller.UploadServlet</servlet-class>
   </servlet>
-    <servlet>
+  <servlet>
     <servlet-name>ValidateServlet</servlet-name>
     <servlet-class>controller.ValidateServlet</servlet-class>
   </servlet>
@@ -25,12 +25,12 @@
     <servlet-class>controller.DisplayDiagram</servlet-class>
   </servlet>
   <servlet>
-  	<servlet-name>ManageProject</servlet-name>
-  	<servlet-class>controller.ManageProject</servlet-class>
+    <servlet-name>ManageProject</servlet-name>
+    <servlet-class>controller.ManageProject</servlet-class>
   </servlet>
   <servlet>
-   	<servlet-name>ManageContext</servlet-name>
-  	<servlet-class>controller.ManageContext</servlet-class>
+    <servlet-name>ManageContext</servlet-name>
+    <servlet-class>controller.ManageContext</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>RegisterServlet</servlet-name>
@@ -52,7 +52,7 @@
     <servlet-name>DisplayDiagram</servlet-name>
     <url-pattern>/DisplayDiagram</url-pattern>
   </servlet-mapping>
-    <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>ValidateServlet</servlet-name>
     <url-pattern>/ValidateServlet</url-pattern>
   </servlet-mapping>
@@ -60,19 +60,19 @@
     <session-timeout>30</session-timeout>
   </session-config>
   <servlet>
-  	<servlet-name>ClassMergeComunicator</servlet-name>
-  	<servlet-class>controller.ClassMergeComunicator</servlet-class>
+    <servlet-name>ClassMergeComunicator</servlet-name>
+    <servlet-class>controller.ClassMergeComunicator</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>ClassMergeComunicator</servlet-name>
-  	<url-pattern>/ClassMergeComunicator</url-pattern>
+    <servlet-name>ClassMergeComunicator</servlet-name>
+    <url-pattern>/ClassMergeComunicator</url-pattern>
   </servlet-mapping>
-   <servlet-mapping>
-  	<servlet-name>ManageProject</servlet-name>
-  	<url-pattern>/ManageProject</url-pattern>
+  <servlet-mapping>
+    <servlet-name>ManageProject</servlet-name>
+    <url-pattern>/ManageProject</url-pattern>
   </servlet-mapping>
-    <servlet-mapping>
-  	<servlet-name>ManageContext</servlet-name>
-  	<url-pattern>/ManageContext</url-pattern>
+  <servlet-mapping>
+    <servlet-name>ManageContext</servlet-name>
+    <url-pattern>/ManageContext</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -12,6 +12,21 @@ public class Project {
 	private String description;
 	private byte achived = 0;// Default
 	private String startDate;
+	private String projectStatus;
+
+	
+	public String getProjectStatus() {
+		return projectStatus;
+	}
+
+	public void setProjectStatus(String projectStatus) {
+		this.projectStatus = projectStatus;
+	}
+
+	
+	public byte getAchived() {
+		return achived;
+	}
 
 	public String getStartDate() {
 		return startDate;
