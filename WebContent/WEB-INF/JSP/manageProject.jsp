@@ -109,7 +109,6 @@ width:100%;
 <div >
 			<input class="btn btn-primary"  type="submit" value="Add" />
 </div>
-</form>
 </div>
 
 <div class="outer">
