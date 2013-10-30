@@ -7,6 +7,7 @@ package domain;
  */
 
 public enum DiagramType {
+	NOTDEFINED (0),
 	CLASS (1),
 	SEQUENCE (2),
 	ACTIVITY(3),

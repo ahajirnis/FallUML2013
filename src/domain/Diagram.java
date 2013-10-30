@@ -23,7 +23,8 @@ public class Diagram {
     private DiagramType diagramType;
     
 	public DiagramType getDiagramType() {
-		return diagramType;
+		//TO DO if null make it return NOTDEFINED and still work!
+		return diagramType == null? DiagramType.CLASS: diagramType;
 	}
 
 	public void setDiagramType(DiagramType diagramType) {
