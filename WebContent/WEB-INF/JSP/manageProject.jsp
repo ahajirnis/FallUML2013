@@ -115,6 +115,7 @@ width:100%;
 <div class="outer">
 	<form action="ChangeProjectStatus" method="post">
 	<div class="projectTab">
+	<h2>Current Projects</h2>
 		<table class="table table-hover" id="enabledTab"> 
 			<tr>
 				<th>Select</th>
@@ -141,6 +142,7 @@ width:100%;
 		</form>
 		
 		<form action="ChangeProjectStatus" method="post">
+		<h2>Disabled Projects</h2>
 		<table class="table table-hover" id="disabledTab"> 
 		
 		
