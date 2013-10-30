@@ -66,7 +66,8 @@ public class ProjectDAO {
 	}
 	return projectId;
     }
-
+    
+ 
     /**
      * Add our default project into DB (project name, description, archived)
      * 			

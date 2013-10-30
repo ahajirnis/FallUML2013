@@ -26,8 +26,26 @@
   </servlet>
   <servlet>
     <servlet-name>ManageProject</servlet-name>
-    <servlet-class>controller.ManageProject</servlet-class>
+    <servlet-class>controller.project.ManageProject</servlet-class>
   </servlet>
+  
+  <servlet>
+    <servlet-name>ChangeProjectStatus</servlet-name>
+    <servlet-class>controller.project.ChangeProjectStatus</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>UpdateProject</servlet-name>
+    <servlet-class>controller.project.UpdateProject</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>CreateProject</servlet-name>
+    <servlet-class>controller.project.CreateProject</servlet-class>
+  </servlet>
+  
+  
+  
   <servlet>
     <servlet-name>ManageContext</servlet-name>
     <servlet-class>controller.ManageContext</servlet-class>
@@ -71,8 +89,26 @@
     <servlet-name>ManageProject</servlet-name>
     <url-pattern>/ManageProject</url-pattern>
   </servlet-mapping>
+  
+   <servlet-mapping>
+    <servlet-name>ChangeProjectStatus</servlet-name>
+    <url-pattern>/ChangeProjectStatus</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>UpdateProject</servlet-name>
+    <url-pattern>/UpdateProject</url-pattern>
+  </servlet-mapping>
+  
+   <servlet-mapping>
+    <servlet-name>CreateProject</servlet-name>
+    <url-pattern>/CreateProject</url-pattern>
+  </servlet-mapping>
+  
+  
   <servlet-mapping>
     <servlet-name>ManageContext</servlet-name>
     <url-pattern>/ManageContext</url-pattern>
   </servlet-mapping>
+  
 </web-app>
