@@ -72,7 +72,7 @@ body {
 		<div class="header">
 			<div class="header_resize" style="width:100%;">
 				<div class="logo"></div>
-				<h1 style="color: white">ClubUML</h1>
+				<h1 style="color: white">ClubUML Policy Manager</h1>
 				<div id="tabs" >
 					<ul>
 						<li><a href="#tabs-1">Home</a></li>
