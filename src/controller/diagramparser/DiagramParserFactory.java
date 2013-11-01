@@ -35,7 +35,7 @@ public class DiagramParserFactory {
 					
 					//ENCORE
 					default :
-						return new ENClassDiagramParser(diagram);
+						return new ENClassDiagramParser(diagram, diagram.getFilePath()); //Eliminate use of filepath
 				}
 			default:
 				return new DiagramParser(diagram){}; //Diagram Parser is an abstract class. So cannot directly instantiate it. 
