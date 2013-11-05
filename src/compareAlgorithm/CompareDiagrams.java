@@ -9,6 +9,8 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import controller.diagramparser.DiagramParserFactory;
+
 /**
  * CompareDiagrams class implements an application that simply compares 2 UML
  * diagrams It takes 2 String type parameters which are path of EcoreDiagram
@@ -67,6 +69,7 @@ public class CompareDiagrams {
 	 */
 	public String process() throws Exception {
 		try {
+			
 			// Set up the path and parse the file into ECore packages
 			MyParser parser = new MyParser(this.ecorePath1, this.ecorePath2);
 			parser.parseModels();

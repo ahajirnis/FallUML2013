@@ -26,11 +26,12 @@ public class ENClassDiagramParser extends ClassDiagramParser{
 	private EList<EObject> ecoreModel;
 	private String ecorePath;
 	
-	public ENClassDiagramParser (Diagram diagramObj, String ecorePath){
+	public ENClassDiagramParser (Diagram diagramObj, String ecorePath) throws IOException{
 		super(diagramObj);
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
 				"ecore", new EcoreResourceFactoryImpl());
 		this.ecorePath = ecorePath;
+		this.parseModels();
 	}
 	
 	/**
@@ -38,7 +39,7 @@ public class ENClassDiagramParser extends ClassDiagramParser{
 	 * 
 	 * @throws IOException
 	 */
-	public void parseModels() throws IOException {
+	private void parseModels() throws IOException {
 		this.setEcoreModel(this.loadModel(this.ecorePath));
 	}
 	
