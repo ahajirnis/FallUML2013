@@ -83,8 +83,10 @@ CREATE TABLE report
 )
 ;
 
--- Table comments --
+-- Drop previous table commnet --
+DROP TABLE comment;
 
+-- Table comments --
 CREATE TABLE comments
 (
   commentId Int(11) NOT NULL AUTO_INCREMENT,

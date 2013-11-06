@@ -75,8 +75,16 @@ CREATE TABLE Compare
 	CONSTRAINT FOREIGN KEY (diagramBId) REFERENCES diagram (diagramId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- 2013/11/06 Alter Table comments --
+-- 2013/11/06 DROP Table comment& CREATE table comments --
 
-	compareID int(11),
-  	promotedDiagramId int(11),
-  	PRIMARY KEY (commentId)
+	CREATE TABLE comments
+(
+  commentId Int(11) NOT NULL AUTO_INCREMENT,
+  userId Int(11),
+  commentText Varchar(255),
+  writenTime Timestamp NULL,
+  compareID int(11),
+  promotedDiagramId int(11),
+  PRIMARY KEY (commentId)
+)
+;
