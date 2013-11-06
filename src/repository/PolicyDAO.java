@@ -14,19 +14,14 @@ import domain.User;
 
 public class PolicyDAO {
 
-    public final static String Policy_NAME = "ClubUML";
-    public final static String Policy_Desc = "ClubUML First Policy";
-    public final static String Policy_Level = "1";
-
+   
     
   
 
     /**
-     * Add our default Policy into DB (policyName, policyDescription,policyLevel)
+     * Add our Policy into DB (policyName, policyDescription,policyLevel)
      * 			
-     * @param conn
-     * 			Established connection
-     * @return true if success; false if fail
+     * @param policy
      */
     public static boolean addPolicy(Policy policy) {
     	
@@ -54,11 +49,9 @@ public class PolicyDAO {
     
     
     /**
-     * Update our default Policy into DB (policyName, policyDescription,policyLevel)
+     * Update our Policy into DB (policyName, policyDescription,policyLevel)
      * 			
-     * @param conn
-     * 			Established connection
-     * @return true if success; false if fail
+     * @param policy
      */
     
     
@@ -90,7 +83,7 @@ public class PolicyDAO {
     /**
      * Remove a Policy from DB
      * 
-     * @return true if success; false if fail  
+     *   
      */
     public static boolean removePolicy(int policyID) {
 		
