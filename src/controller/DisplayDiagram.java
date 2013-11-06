@@ -6,6 +6,7 @@ package controller;
 
 import domain.Diagram;
 import domain.Comment;
+
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,6 +17,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -249,10 +251,20 @@ public class DisplayDiagram extends HttpServlet {
 	    
 	    String outputFile = splitPath[2] + ".zip";
 	    String downloadPath = dirObj.getDownloadPath();
-	    String output = downloadPath + "\\" + outputFile;
+	    String output = "";
+	    if(OSDetails.getServerOS().equals("windows"))
+	    {
+	    	output = downloadPath + "\\" + outputFile;
+	    } else if(OSDetails.getServerOS().equals("mac") || 
+	    		OSDetails.getServerOS().equals("unix"))
+	    {
+	    	output = downloadPath + "/" + outputFile;
+	    }
+	    OutputStream ops = null;
+	    DataInputStream in = null;
 		try {
 		    zipObj.downloadZipfileProcessor(targetRealPath, output);
-		    OutputStream ops = response.getOutputStream();
+		    ops = response.getOutputStream();
 		    byte bytes[] = new byte[1024];
 		    int length = 0;
 			
@@ -263,7 +275,7 @@ public class DisplayDiagram extends HttpServlet {
 		    response.setContentType((mimetype != null) ? mimetype : "application/octet-stream");
 		    response.setContentLength((int) fileLoad.length());
 	
-		    DataInputStream in = new DataInputStream(new FileInputStream(fileLoad));
+		    in = new DataInputStream(new FileInputStream(fileLoad));
 	
 		    while ((in != null) && ((length = in.read(bytes)) != -1)) {
 		    	ops.write(bytes, 0, length);
@@ -274,10 +286,16 @@ public class DisplayDiagram extends HttpServlet {
 		    dirObj.deleteDirectory(tmpdir);
 		    
 		} catch (IOException ex) {
+			if(!ops.equals(null))
+			{
+				ops.close();
+			}
+			if(!in.equals(null))
+			{
+				in.close();
+			}
 			dirObj.deleteDirectory(tmpdir);
 			System.out.println(ex);
-			RequestDispatcher rd = request.getRequestDispatcher("Display");
-			rd.forward(request, response);
 		}
     }
     
@@ -299,7 +317,15 @@ public class DisplayDiagram extends HttpServlet {
 	    
 	    String outputFile = "download.zip";
 	    String downloadPath = dirObj.getDownloadPath();
-	    String output = downloadPath + "\\" + outputFile;
+	    String output = "";
+	    if(OSDetails.getServerOS().equals("windows"))
+	    {	    
+	    	output = downloadPath + "\\" + outputFile;	    
+	    } else if(OSDetails.getServerOS().equals("mac") || 
+    			OSDetails.getServerOS().equals("unix"))
+	    {
+	    	output = downloadPath + "/" + outputFile;
+	    }
     	    	
     	try {
     		zipObj.downloadZipfileProcessor(targetPath, output);
