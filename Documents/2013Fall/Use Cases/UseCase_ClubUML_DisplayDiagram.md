@@ -11,6 +11,7 @@
 <TR><TH>Date</TH><TH>Version</TH><TH>Description</TH><TH>Author</TH></TR>
 <TR><TD>Spring 2013</TD><TD>1.0</TD><TD>Initial draft</TD><TD>Spring 2013 Team</TD></TR>
 <TR><TD>10.14.2013</TD><TD>1.1</TD><TD>Updated for Context functionality.</TD><TD>Seth Lee</TD></TR>
+<TR><TD>11.5.2013</TD><TD>1.2</TD><TD>Updated to include removed users functionality</TD><TD>Seth Lee</TD></TR>
 </TABLE>
 
 ##Brief Description##
@@ -25,7 +26,10 @@ This use case describes how the application display diagrams to the user.
 
 The user has successfully logged in to the application.
 
-The user is assigned to at least one project.
+The user is assigned to at least one project.  
+
+The user selects a project to which he or she is currently assigned, and may not 
+select a project from which he or she has been removed.
 
 The project must contain at least one diagram.
 
