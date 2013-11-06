@@ -87,8 +87,8 @@ public class Project {
 	 * @param startDate
 	 * 			The startDate of this project
 	 */
-	public Project(String projectid2, String projectname2, String description2,
-			String startdate2) {
+	public Project(String projectId, String projectName, String description,
+			String startDate) {
 		
 		this.projectId = projectId;
 		this.projectName = projectName;
