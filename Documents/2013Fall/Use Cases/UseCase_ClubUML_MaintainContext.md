@@ -10,6 +10,7 @@
 <TABLE>
 <TR><TH>Date</TH><TH>Version</TH><TH>Description</TH><TH>Author</TH></TR>
 <TR><TD>10.22.2013</TD><TD>1.0</TD><TD>Initial draft</TD><TD>Seth Lee</TD></TR>
+<TR><TD>11.6.2013</TD><TD>1.1</TD><TD>Updated for disabled context functionality.</TD><TD>Seth Lee</TD></TR>
 </TABLE>
 
 ##Brief Description##
@@ -33,13 +34,16 @@ The policy manager has successfully logged in to the application.
 
 The policy manager has the appropriate user role designation in the database.
 
+There is at least one enabled Context associated with a Project to be maintained.
+
 
 ##Basic Flow of Events##
 
 1. The policy manager is directed to the application welcome page, which displays a list of the 
-projects that have been defined in the application in the Project tab (default).  
+projects that have been defined in the application in the Project tab (default).  Contexts appear
+as either enabled or disabled.
 
-2.  The policy manager clicks the 'Context' tab to display a list of existing contexts.
+2.  The policy manager clicks the 'Context' tab to display a list of existing enabled contexts.
 
 3.  The policy manager highlights the Context he or she is maintaining and clicks the 'Maintain Context' 
 button to maintain an existing context.  
