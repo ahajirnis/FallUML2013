@@ -60,7 +60,7 @@ public class ProjectDAO {
     	try {
     		conn = DbManager.getConnection();
     	    pstmt = conn.prepareStatement(
-    	    		"INSERT into project(projectName, starDate ,desceiption) VALUES(?,NOW(),?);");
+    	    		"INSERT into project(projectName, startDate ,description) VALUES(?,NOW(),?);");
     	    pstmt.setString(1, project.getProjectName());
     	    pstmt.setString(2, project.getDescription());
     	    if(pstmt.executeUpdate() != 0) {
