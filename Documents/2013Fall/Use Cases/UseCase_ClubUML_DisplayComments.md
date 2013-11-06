@@ -11,6 +11,7 @@
 <TR><TH>Date</TH><TH>Version</TH><TH>Description</TH><TH>Author</TH></TR>
 <TR><TD>Spring 2013</TD><TD>1.0</TD><TD>Initial draft</TD><TD>Spring 2013 Team</TD></TR>
 <TR><TD>10.14.2013</TD><TD>1.1</TD><TD>Updated for user roles.</TD><TD>Seth Lee</TD></TR>
+<TR><TD>11.5.2013</TD><TD>1.2</TD><TD>Updated for user removal functionality.</TD><TD>Seth Lee</TD></TR>
 </TABLE>
 
 ##Brief Description##
@@ -28,6 +29,9 @@ who has chosen to display a previously commented diagram.
 In the project, there is at least one diagram and one comment to display.
 
 Users login in and has chosen the desired project.
+
+Users may not select a project to which they were previously assigned but have since
+been removed.
 
 Users choose a diagram and then the app display it.
 

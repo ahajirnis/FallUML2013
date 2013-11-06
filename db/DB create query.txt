@@ -156,4 +156,4 @@ ALTER TABLE comment ADD CONSTRAINT Relationship8 FOREIGN KEY (reportId) REFERENC
 -- insert sample data--------------------------------------
 insert into project value (1,'clubuml1',now(),'des1','Y','');
 
-insert into project value (2,'clubuml2',now(),'des2','Y','')
+insert into project value (2,'clubuml2',now(),'des2','Y','');
