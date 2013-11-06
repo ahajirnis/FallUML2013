@@ -87,7 +87,7 @@ CREATE TABLE report
 DROP TABLE comment;
 
 -- Table comments --
-CREATE TABLE comments
+CREATE TABLE comment
 (
   commentId Int(11) NOT NULL AUTO_INCREMENT,
   userId Int(11),

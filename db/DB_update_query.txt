@@ -55,11 +55,6 @@ ALTER TABLE user ADD UNIQUE (userName);
 
 
 
--- 2013/10/30 Alter table compare -- 
-
-CONSTRAINT FOREIGN KEY (diagramAId) REFERENCES diagram (diagramId) on delete cascade on update cascade,
-CONSTRAINT FOREIGN KEY (diagramBId) REFERENCES diagram (diagramId) ON DELETE CASCADE ON UPDATE CASCADE
-
 
 -- 2013/11/06 Creat Table Compare --
 CREATE TABLE Compare
@@ -75,9 +70,9 @@ CREATE TABLE Compare
 	CONSTRAINT FOREIGN KEY (diagramBId) REFERENCES diagram (diagramId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- 2013/11/06 DROP Table comment& CREATE table comments --
+-- 2013/11/06 DROP Table comment& CREATE table comment --
 
-	CREATE TABLE comments
+CREATE TABLE comment
 (
   commentId Int(11) NOT NULL AUTO_INCREMENT,
   userId Int(11),
