@@ -1,7 +1,7 @@
 <%--
     Document   : loginsuccess
     Created on : Oct 17, 2012, 8:56:42 AM
-    Author     : Zhang Junyu
+    Author     : Aishwarya Srinivasan
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -78,8 +78,8 @@ body {
 				<div id="tabs">
 					<ul>
 						<li><a href="#tabs-1">Home</a></li>
-						<li><a href="Display">Manage Project</a></li>
-						<li><a href="#tabs-3">Manage Context</a></li>
+						<li><a href="ManageProject">Project</a></li>
+						<li><a href="ManageContext">Context</a></li>
 						<li><a href="#tabs-4">Policy</a></li>
 					</ul>
 					<div id="tabs-1">
@@ -88,8 +88,8 @@ body {
 								<p style="margin-left: 45px">
 									<font color="black">Hello ${username}!</font>
 								</p>
-								<a href="Display" style="text-decoration: none;"><button>Proceed
-										to Project</button></a>
+								<!-- <a href="Display" style="text-decoration: none;"><button>Proceed
+										to Project</button></a> -->
 								<h2>About ClubUML 2013</h2>
 								<div class="clr"></div>
 								<!--  <p><font color="black>"<span class="date">October 23, 2012</span> &nbsp;|&nbsp;</font></p> -->

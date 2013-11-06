@@ -84,7 +84,7 @@ public class UserDAO {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()){
-				Project p = new Project(rs.getInt("projectId"),rs.getString("projectName"),
+				Project p = new Project(rs.getString("projectId"),rs.getString("projectName"),
 						rs.getString("description"),rs.getString("startDate"));
 				projects.add(p);
 			}

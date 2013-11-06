@@ -33,7 +33,7 @@ public class ProjectDAO {
     	    pstmt.setString(1, projectName);
     	    rs = pstmt.executeQuery();
     	    if (rs.next()) {
-    		project = new Project(rs.getInt("projectId"), rs.getString("projectName"),
+    		project = new Project(rs.getString("projectId"), rs.getString("projectName"),
     				rs.getString("description"), rs.getString("startDate"),
     				rs.getString("enabled"),rs.getString("disabledDate"));
     	    }
@@ -60,7 +60,7 @@ public class ProjectDAO {
     	try {
     		conn = DbManager.getConnection();
     	    pstmt = conn.prepareStatement(
-    	    		"INSERT into project(projectName, startDate ,description) VALUES(?,NOW(),?);");
+    	    		"INSERT into project(projectName, starDate ,desceiption) VALUES(?,NOW(),?);");
     	    pstmt.setString(1, project.getProjectName());
     	    pstmt.setString(2, project.getDescription());
     	    if(pstmt.executeUpdate() != 0) {
@@ -95,7 +95,7 @@ public class ProjectDAO {
     	    pstmt.setString(1, project.getProjectName());
     	    pstmt.setString(2, project.getDescription());
     	    pstmt.setString(3, project.getEnabled());
-    	    pstmt.setInt(4, project.getProjectId());
+    	    pstmt.setString(4, project.getProjectId());
     	    if(pstmt.executeUpdate() != 0) {
     	    	return true;
     	    } else {
@@ -197,7 +197,7 @@ public class ProjectDAO {
     		    "SELECT * FROM project;");
     	    rs = pstmt.executeQuery();
     	    while (rs.next()) {
-    		Project project = new Project(rs.getInt("projectId"), rs.getString("projectName"),
+    		Project project = new Project(rs.getString("projectId"), rs.getString("projectName"),
     				rs.getString("description"), rs.getString("startDate"),
     				rs.getString("enabled"),rs.getString("disabledDate"));
     		projects.add(project);
