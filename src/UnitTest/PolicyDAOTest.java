@@ -25,8 +25,8 @@ public class PolicyDAOTest {
 			
 			
 			Policy policy = new Policy();
-			policy.setPolicyDescription("NEWtest");
-			policy.setPolicyName("NEWtest");
+			policy.setPolicyDescription("NEWtest4");
+			policy.setPolicyName("policydaotest");
 			policy.setPolicyLevel(3);
 			//policy.setPolicyID(3); //when we test updatePolicy, we need to uncomment setPolicyID(3)
 		    //PolicyDAO.UpdatePolicy( policy );//uncomment for test update

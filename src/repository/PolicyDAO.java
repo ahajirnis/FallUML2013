@@ -14,51 +14,44 @@ import domain.User;
 
 public class PolicyDAO {
 
-   
-    
-  
-
     /**
-     * Add our Policy into DB (policyName, policyDescription,policyLevel)
+     * Add Policy into DB 
      * 			
      * @param policy
      */
-    public static boolean addPolicy(Policy policy) {
-    	
+    public static Policy addPolicy(Policy policy) {
+    	ResultSet rs;
 	try {
-		Connection conn = DbManager.getConnection();
-		
+		Connection conn = DbManager.getConnection();		
 	    PreparedStatement pstmt = conn.prepareStatement(
 		    "INSERT into policy(policyName, policyDescription,policyLevel) VALUES(?,?,?);");
 	    pstmt.setString(1, policy.getPolicyName());
 		pstmt.setString(2, policy.getPolicyDescription());
 		pstmt.setInt(3, policy.getPolicyLevel());
 		
-
 	    // Execute the SQL statement and update database accordingly.
 	    pstmt.executeUpdate();
+	    rs = pstmt.getGeneratedKeys();
+	    if (rs.next()) {
+		int newId = rs.getInt(1);
+		policy.setPolicyID(newId);
+	    }
 	    pstmt.close();
+	    rs.close();
+	    conn.close();
 	} catch (SQLException e) {
 	    e.printStackTrace();
-	    return false;
+	    return null;
 	}
-	return true;
+	return policy;
     }
-    
-    
-    
-    
+     
     /**
-     * Update our Policy into DB (policyName, policyDescription,policyLevel)
+     * Update  Policy into DB 
      * 			
      * @param policy
-     */
-    
-    
-    
-    
-    
-    public static boolean UpdatePolicy(Policy policy) {
+     */    
+    public static Policy UpdatePolicy(Policy policy) {
     	try {
     		
     		Connection conn = DbManager.getConnection();
@@ -68,24 +61,24 @@ public class PolicyDAO {
 			pstmt.setString(2, policy.getPolicyDescription());
 			pstmt.setInt(3, policy.getPolicyLevel());
 			pstmt.setInt(4, policy.getPolicyID());
+		    // Execute the SQL statement and update database accordingly.
+		    pstmt.executeUpdate();
 			
-
-    	    // Execute the SQL statement and update database accordingly.
-    	    pstmt.executeUpdate();
     	    pstmt.close();
+    	    conn.close();
     	} catch (SQLException e) {
     	    e.printStackTrace();
-    	    return false;
+    	    return policy;
     	}
-    	return true;
+    	return policy;
         }
 
     /**
      * Remove a Policy from DB
      * 
-     *   
+     * @param policyID  
      */
-    public static boolean removePolicy(int policyID) {
+    public static boolean deletePolicy(int policyID) {
 		
 		try {
 			Connection conn = DbManager.getConnection();
