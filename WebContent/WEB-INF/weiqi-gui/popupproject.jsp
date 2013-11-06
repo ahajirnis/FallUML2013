@@ -35,14 +35,10 @@ $(document).ready(function(){
   
 <form action="" method="post">
 	<input type="hidden" name="rowID" value="">
+
 <p>
-Product ID:<br />
-<input type="text" name="productid" size="8" maxlength="8"
-value="" />
-</p>
-<p>
-ProductName:<br />
-<input type="text" name="productname" size="25" maxlength="25"
+ProjectName:<br />
+<input type="text" name="ProjectName" size="25" maxlength="25"
 value="" />
 </p>
 <p>
@@ -54,6 +50,13 @@ value="" />
 Description:<br />
 <textarea name="description" rows="5" cols="25">
 </textarea>
+</p>
+<p>
+Enabled:<br />
+<form>
+<input type="radio" name="sex" value="Y">YES<br/>
+<input type="radio" name="sex" value="N">NO
+</form>
 </p>
 <p>
 <input type="submit" name="submit" value="Submit" />
@@ -70,14 +73,10 @@ Description:<br />
   
 <form action="" method="post">
 	<input type="hidden" name="rowID" value="">
+
 <p>
-Product ID:<br />
-<input type="text" name="productid" size="8" maxlength="8"
-value="" />
-</p>
-<p>
-ProductName:<br />
-<input type="text" name="productname" size="25" maxlength="25"
+ProjectName:<br />
+<input type="text" name="ProjectName" size="25" maxlength="25"
 value="" />
 </p>
 <p>
