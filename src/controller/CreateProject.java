@@ -66,8 +66,7 @@ private void Failed(HttpServletRequest request,
 				if (ProjectDAO.isExisted(projectname)) {
 					Failed(request, response, dispatcher);		//project already existed
 				} else {
-					
-					dispatcher = request.getRequestDispatcher("WEB-INF/JSP/manageProject.jsp");
+					dispatcher= request.getRequestDispatcher("WEB-INF/JSP/manageProject.jsp");
 					Project projectObj = new Project(projectid, projectname, description, startdate);
 					Success(request, response, dispatcher, projectObj);	//registration succeeded
 				}
