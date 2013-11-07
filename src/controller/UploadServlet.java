@@ -28,6 +28,7 @@ import repository.DiagramDAO;
 import controller.upload.UploadProcessor;
 import controller.upload.UploadProcessorFactory;
 import domain.Diagram;
+import domain.DiagramType;
 import logging.Log;
 
 import java.util.ArrayList;
@@ -226,7 +227,7 @@ public class UploadServlet extends HttpServlet {
 			diagramObj.setUserId(userID);
 			diagramObj.setProjectId(2);
 			//Use of ENCORE in diagramType is wrong, we should use .setFileType instead
-			//diagramObj.setDiagramType("Ecore");
+			diagramObj.setDiagramType(DiagramType.CLASS);
 			diagramObj.setFileType("Ecore");
 			
 			//diagramObj.setDiFileName("baseFileName" + ".di");
