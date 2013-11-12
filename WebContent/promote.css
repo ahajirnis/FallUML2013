@@ -35,6 +35,10 @@
 	text-shadow:1px 1px 0px #ffffff;
 	margin:10px 50px 0px 85px;
 }
+
+.file2 img {
+padding: 0px 85px;
+}
 .pbutton:hover {
 	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
 	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
@@ -50,15 +54,20 @@
 
 .center{ margin:0 100px;
 }
-
-.comment2{ margin: 20px auto auto -30px;}
-.comment1{ margin:20px auto auto -40px;}
+.img2pad{
+background-color:white;
+width:431px;
+height: 235px;
+margin: 25px;
+}
+.comment2{ margin: 30px auto auto -80px;}
+.comment1{ margin: 30px auto auto -80px;}
 
 .scroll{
 				background-color:white;
-				width:350px;
-				height:100px;
-				overflow-y:scroll;
+				width: 450px;
+				height:150px;
+				overflow-y: scroll;
 				margin:0px 10px auto auto ;
 				display:block;
 				padding:5px;
@@ -67,9 +76,9 @@
 			
 .scroll1{
 				background-color:white;
-				width:350px;
-				height:100px;
-				overflow-y:scroll;
+				width:450px;
+				height:150px;
+				overflow-y: scroll;
 				margin:0px 10px auto auto ;
 				display:block;
 				padding:5px;
@@ -91,10 +100,10 @@
 			
 .scrollreport{
 				background-color:white;
-				width:1000px;
+				width: 1150px;
 				height:250px;
-				overflow-y:scroll;
-				margin:50px 100px auto  ;
+				overflow-y: scroll;
+				margin: 50px 20px auto;
 				display:block;
 				padding:5px;
 				
@@ -102,7 +111,7 @@
 			
 .pdfbutton{
 
-margin: 10px auto auto 550px;
+margin: 5px 0px auto 480px;
 
 
 }
@@ -113,5 +122,8 @@ margin-left:0px   ;
 }
 #btn2{
 
-margin-top: 35px;
+margin-top: -25px;
+}
+#btn1 {
+margin-top: -30px;
 }

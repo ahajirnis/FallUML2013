@@ -126,8 +126,12 @@
 		</div>
 	 
 	    <div class="file2">
-		<div class="center">
+		<div class="img2pad">
+		
 		<img src="${requestScope.path2}" />
+		</div>
+		<div class="center">
+		
 		
 		   
 		    <input type="hidden" name="imageId" value="${requestScope.val2}"/>
@@ -156,6 +160,7 @@
 		<div class="pdfbutton">
 		<button  class="pbutton"  >Save PDF</button>
 		<button  class="pbutton">Suggestion</button>
+		<button  class="pbutton">Return</button>
 		</div>
 	</div></div>
 	  
