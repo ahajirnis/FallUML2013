@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xmi:id="_Lx5BkEUCEeOkZfi71xSWEA" name="model">
+  <packagedElement xmi:type="uml:StateMachine" xmi:id="_LyqdoEUCEeOkZfi71xSWEA" name="StateMachine0">
+    <region xmi:type="uml:Region" xmi:id="_LyxyYEUCEeOkZfi71xSWEA" name="Region0">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_mACl4EXFEeOPCKuOzf2Cgg">
+        <body>No changes here. &#xD;
+</body>
+      </ownedComment>
+      <transition xmi:type="uml:Transition" xmi:id="_mzLdoEUCEeOkZfi71xSWEA" name="Go to ClubUML" source="_aRs6EEUCEeOkZfi71xSWEA" target="_cU5g4EUCEeOkZfi71xSWEA"/>
+      <transition xmi:type="uml:Transition" xmi:id="_QP3MQEUDEeOPCKuOzf2Cgg" name="Go to Register" source="_cU5g4EUCEeOkZfi71xSWEA" target="_iqDsIEUCEeOkZfi71xSWEA"/>
+      <transition xmi:type="uml:Transition" xmi:id="_wYGUAEUDEeOPCKuOzf2Cgg" name="Register" source="_iqDsIEUCEeOkZfi71xSWEA" target="_spmpAEUDEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_w4LiQEUDEeOPCKuOzf2Cgg" name="LogIn" source="_cU5g4EUCEeOkZfi71xSWEA" target="_spmpAEUDEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_2oX_QEUDEeOPCKuOzf2Cgg" name="" source="_spmpAEUDEeOPCKuOzf2Cgg" target="_0QhXEEUDEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_EszjUEUEEeOPCKuOzf2Cgg" name="No" source="_0QhXEEUDEeOPCKuOzf2Cgg" target="_7sup8EUDEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_JfDxYEUEEeOPCKuOzf2Cgg" name="Yes" source="_0QhXEEUDEeOPCKuOzf2Cgg" target="__geBUEUDEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_UtpwwEUEEeOPCKuOzf2Cgg" name="Choose Enabled Project" source="_hbuwcEUFEeOPCKuOzf2Cgg" target="_Nl6SAEUEEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_ZNBfEEUEEeOPCKuOzf2Cgg" name="DisplayDiagram" source="_Nl6SAEUEEeOPCKuOzf2Cgg" target="_Nl6SAEUEEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_qWpScEUEEeOPCKuOzf2Cgg" name="UploadDiagram" source="_Nl6SAEUEEeOPCKuOzf2Cgg" target="_Nl6SAEUEEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_xPUacEUEEeOPCKuOzf2Cgg" name="DownloadProject" source="_Nl6SAEUEEeOPCKuOzf2Cgg" target="_Nl6SAEUEEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_9Q9AUEUEEeOPCKuOzf2Cgg" name="DownloadDiagram" source="_Nl6SAEUEEeOPCKuOzf2Cgg" target="_Nl6SAEUEEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_mBfaoEUFEeOPCKuOzf2Cgg" name="Click Project Tab" source="_7sup8EUDEeOPCKuOzf2Cgg" target="_hbuwcEUFEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_qQsmAEUFEeOPCKuOzf2Cgg" name="Default" source="_7sup8EUDEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_sPqNEEUFEeOPCKuOzf2Cgg" name="Default" source="__geBUEUDEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_zu93QEUFEeOPCKuOzf2Cgg" name="Click Manage Project Tab" source="__geBUEUDEeOPCKuOzf2Cgg" target="_RGbV8EUFEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_4gnoYEUFEeOPCKuOzf2Cgg" name="Click Enabled Project" source="_RGbV8EUFEeOPCKuOzf2Cgg" target="_Nl6SAEUEEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_MFyRIEUGEeOPCKuOzf2Cgg" name="Click Disabled Project" source="_RGbV8EUFEeOPCKuOzf2Cgg" target="_JXdCoEUGEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_O6IoEEUGEeOPCKuOzf2Cgg" name="DisplayDiagram" source="_JXdCoEUGEeOPCKuOzf2Cgg" target="_JXdCoEUGEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_5NqfIEUGEeOPCKuOzf2Cgg" name="Click Add Project" source="_RGbV8EUFEeOPCKuOzf2Cgg" target="_ygk8EEUGEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_-CLXAEUGEeOPCKuOzf2Cgg" name="Add or Close" source="_ygk8EEUGEeOPCKuOzf2Cgg" target="_RGbV8EUFEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_HfK14EUHEeOPCKuOzf2Cgg" name="DisableProject" source="_RGbV8EUFEeOPCKuOzf2Cgg" target="_RGbV8EUFEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_OnWZgEUHEeOPCKuOzf2Cgg" name="EnableProject" source="_RGbV8EUFEeOPCKuOzf2Cgg" target="_RGbV8EUFEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_gILzAEUHEeOPCKuOzf2Cgg" name="Click Update Project" source="_RGbV8EUFEeOPCKuOzf2Cgg" target="_TeOo4EUHEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_kLgegEUHEeOPCKuOzf2Cgg" name="Back" source="_Nl6SAEUEEeOPCKuOzf2Cgg" target="_hbuwcEUFEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_srrv0EUHEeOPCKuOzf2Cgg" name="Back" source="_Nl6SAEUEEeOPCKuOzf2Cgg" target="_RGbV8EUFEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_l6EnwEV4EeOPCKuOzf2Cgg" name="Back" source="_JXdCoEUGEeOPCKuOzf2Cgg" target="_RGbV8EUFEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_tGXPUEV4EeOPCKuOzf2Cgg" name="Update or Close" source="_TeOo4EUHEeOPCKuOzf2Cgg" target="_RGbV8EUFEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_6Tv2oEV4EeOPCKuOzf2Cgg" name="Input Project Info" source="_ygk8EEUGEeOPCKuOzf2Cgg" target="_ygk8EEUGEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_BBTTwEV5EeOPCKuOzf2Cgg" name="Change Project Info" source="_TeOo4EUHEeOPCKuOzf2Cgg" target="_TeOo4EUHEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_RsxLgEV5EeOPCKuOzf2Cgg" name="Click Home Tab" source="_hbuwcEUFEeOPCKuOzf2Cgg" target="_7sup8EUDEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_VliM0EV5EeOPCKuOzf2Cgg" name="Click Home Tab" source="_RGbV8EUFEeOPCKuOzf2Cgg" target="__geBUEUDEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_b1bdkEV5EeOPCKuOzf2Cgg" name="Choose 2 diagrams and click compare" source="_Nl6SAEUEEeOPCKuOzf2Cgg" target="_4Gm30EUDEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_-Kg3YEV5EeOPCKuOzf2Cgg" name="Click Manage Context Tab" source="__geBUEUDEeOPCKuOzf2Cgg" target="_Wx844EUGEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_BTKqYEV6EeOPCKuOzf2Cgg" name="Click Home Tab" source="_Wx844EUGEeOPCKuOzf2Cgg" target="__geBUEUDEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_CvwJ4EWKEeOPCKuOzf2Cgg" name="DeleteContext" source="_Wx844EUGEeOPCKuOzf2Cgg" target="_Wx844EUGEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_L1VOUEWKEeOPCKuOzf2Cgg" name="DisableContext" source="_Wx844EUGEeOPCKuOzf2Cgg" target="_Wx844EUGEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_QhW4kEWKEeOPCKuOzf2Cgg" name="EnableContext" source="_Wx844EUGEeOPCKuOzf2Cgg" target="_Wx844EUGEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_w7BHgEWKEeOPCKuOzf2Cgg" name="Click Add Context" source="_Wx844EUGEeOPCKuOzf2Cgg" target="_9Cj9kEWJEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_0Z-hsEWKEeOPCKuOzf2Cgg" name="Submit or Close" source="_9Cj9kEWJEeOPCKuOzf2Cgg" target="_Wx844EUGEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_9ExHkEWKEeOPCKuOzf2Cgg" name="Click Update Context" source="_Wx844EUGEeOPCKuOzf2Cgg" target="__Uye4EWJEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_AOJ6YEWLEeOPCKuOzf2Cgg" name="Submit or Close" source="__Uye4EWJEeOPCKuOzf2Cgg" target="_Wx844EUGEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_mI2I8EWLEeOPCKuOzf2Cgg" name="Transition0" source="__geBUEUDEeOPCKuOzf2Cgg" target="_jY8NIEWLEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_nHDdoEWLEeOPCKuOzf2Cgg" name="Click Home Tab" source="_jY8NIEWLEeOPCKuOzf2Cgg" target="__geBUEUDEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_cR_J0EWREeOPCKuOzf2Cgg" name="Click Add Policy" source="_jY8NIEWLEeOPCKuOzf2Cgg" target="_ZQGtMEWREeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_enx8gEWREeOPCKuOzf2Cgg" name="Submit or Close" source="_ZQGtMEWREeOPCKuOzf2Cgg" target="_jY8NIEWLEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_jLVnQEWREeOPCKuOzf2Cgg" name="Click Update Policy" source="_jY8NIEWLEeOPCKuOzf2Cgg" target="_gtivIEWREeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_mRSrkEWREeOPCKuOzf2Cgg" name="Submit or Close" source="_gtivIEWREeOPCKuOzf2Cgg" target="_jY8NIEWLEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_xIF5MEWVEeOPCKuOzf2Cgg" name="Click Add User" source="_RGbV8EUFEeOPCKuOzf2Cgg" target="_nzceAEWVEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_0v-l4EWVEeOPCKuOzf2Cgg" name="Apply or Cancel" source="_nzceAEWVEeOPCKuOzf2Cgg" target="_RGbV8EUFEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_lazWMEWWEeOPCKuOzf2Cgg" name="Choose 2 diagrams and click merge" source="_Nl6SAEUEEeOPCKuOzf2Cgg" target="_hkUTAEV5EeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_k00XcEWaEeOPCKuOzf2Cgg" name="Click Compare" source="_4Gm30EUDEeOPCKuOzf2Cgg" target="_iOToMEWaEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_tuAGMEW8EeOPCKuOzf2Cgg" name="Back" source="_iOToMEWaEeOPCKuOzf2Cgg" target="_4Gm30EUDEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_wTmPcEW8EeOPCKuOzf2Cgg" name="Back" source="_4Gm30EUDEeOPCKuOzf2Cgg" target="_Nl6SAEUEEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_-Z1xYEW8EeOPCKuOzf2Cgg" name="Save Report as PDF" source="_iOToMEWaEeOPCKuOzf2Cgg" target="_iOToMEWaEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_HE9HYEW9EeOPCKuOzf2Cgg" name="Promote" source="_iOToMEWaEeOPCKuOzf2Cgg" target="_iOToMEWaEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_SscH4EW9EeOPCKuOzf2Cgg" name="Click Suggested Promote" source="_iOToMEWaEeOPCKuOzf2Cgg" target="_OWWRYEW9EeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_VuC3sEW9EeOPCKuOzf2Cgg" name="Close" source="_OWWRYEW9EeOPCKuOzf2Cgg" target="_iOToMEWaEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_ZYTCQEXFEeOPCKuOzf2Cgg" name="do something" source="_hkUTAEV5EeOPCKuOzf2Cgg" target="_V7rxcEXFEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_qq_4oEcDEeOPCKuOzf2Cgg" name="Choose User" source="_nzceAEWVEeOPCKuOzf2Cgg" target="_nzceAEWVEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_8B-ykEcDEeOPCKuOzf2Cgg" name="Click Remove User" source="_RGbV8EUFEeOPCKuOzf2Cgg" target="_zjVyUEcDEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_-5ZEkEcDEeOPCKuOzf2Cgg" name="Apply or Cancel" source="_zjVyUEcDEeOPCKuOzf2Cgg" target="_RGbV8EUFEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_D-J-8EcEEeOPCKuOzf2Cgg" name="Choose User" source="_zjVyUEcDEeOPCKuOzf2Cgg" target="_zjVyUEcDEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_SnfcIEvAEeOPCKuOzf2Cgg" name="choose disabled project" source="_hbuwcEUFEeOPCKuOzf2Cgg" target="_JXdCoEUGEeOPCKuOzf2Cgg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_YUpMMEvAEeOPCKuOzf2Cgg" name="Back" source="_JXdCoEUGEeOPCKuOzf2Cgg" target="_hbuwcEUFEeOPCKuOzf2Cgg"/>
+      <subvertex xmi:type="uml:Pseudostate" xmi:id="_aRs6EEUCEeOkZfi71xSWEA" name=""/>
+      <subvertex xmi:type="uml:State" xmi:id="_cU5g4EUCEeOkZfi71xSWEA" name="IndexPage"/>
+      <subvertex xmi:type="uml:State" xmi:id="_iqDsIEUCEeOkZfi71xSWEA" name="RegisterPage"/>
+      <subvertex xmi:type="uml:State" xmi:id="_spmpAEUDEeOPCKuOzf2Cgg" name="Logged In"/>
+      <subvertex xmi:type="uml:Pseudostate" xmi:id="_0QhXEEUDEeOPCKuOzf2Cgg" name="Is Policy Manager?" kind="choice"/>
+      <subvertex xmi:type="uml:State" xmi:id="_4Gm30EUDEeOPCKuOzf2Cgg" name="ComparePage"/>
+      <subvertex xmi:type="uml:State" xmi:id="_7sup8EUDEeOPCKuOzf2Cgg" name="UserHomePage"/>
+      <subvertex xmi:type="uml:State" xmi:id="__geBUEUDEeOPCKuOzf2Cgg" name="PolicyManagerHomePage"/>
+      <subvertex xmi:type="uml:State" xmi:id="_Nl6SAEUEEeOPCKuOzf2Cgg" name="DisplayPage"/>
+      <subvertex xmi:type="uml:State" xmi:id="_RGbV8EUFEeOPCKuOzf2Cgg" name="ManageProjectPage"/>
+      <subvertex xmi:type="uml:State" xmi:id="_hbuwcEUFEeOPCKuOzf2Cgg" name="ProjectPage"/>
+      <subvertex xmi:type="uml:State" xmi:id="_JXdCoEUGEeOPCKuOzf2Cgg" name="DisplayPage(Disabled)"/>
+      <subvertex xmi:type="uml:State" xmi:id="_Wx844EUGEeOPCKuOzf2Cgg" name="ManageContextPage"/>
+      <subvertex xmi:type="uml:State" xmi:id="_ygk8EEUGEeOPCKuOzf2Cgg" name="AddProjectDialog"/>
+      <subvertex xmi:type="uml:State" xmi:id="_TeOo4EUHEeOPCKuOzf2Cgg" name="UpdateProjectDialog"/>
+      <subvertex xmi:type="uml:State" xmi:id="_hkUTAEV5EeOPCKuOzf2Cgg" name="MergePage"/>
+      <subvertex xmi:type="uml:State" xmi:id="_9Cj9kEWJEeOPCKuOzf2Cgg" name="AddContextDialog"/>
+      <subvertex xmi:type="uml:State" xmi:id="__Uye4EWJEeOPCKuOzf2Cgg" name="UpdateContextDialog"/>
+      <subvertex xmi:type="uml:State" xmi:id="_jY8NIEWLEeOPCKuOzf2Cgg" name="ManagePolicyPage"/>
+      <subvertex xmi:type="uml:State" xmi:id="_ZQGtMEWREeOPCKuOzf2Cgg" name="AddPolicyDialog"/>
+      <subvertex xmi:type="uml:State" xmi:id="_gtivIEWREeOPCKuOzf2Cgg" name="UpdatePolicyDialog"/>
+      <subvertex xmi:type="uml:State" xmi:id="_nzceAEWVEeOPCKuOzf2Cgg" name="AddUserDialog"/>
+      <subvertex xmi:type="uml:State" xmi:id="_iOToMEWaEeOPCKuOzf2Cgg" name="PromotePage"/>
+      <subvertex xmi:type="uml:State" xmi:id="_OWWRYEW9EeOPCKuOzf2Cgg" name="SuggestPromote"/>
+      <subvertex xmi:type="uml:State" xmi:id="_V7rxcEXFEeOPCKuOzf2Cgg" name="SomePagesForMerge"/>
+      <subvertex xmi:type="uml:State" xmi:id="_zjVyUEcDEeOPCKuOzf2Cgg" name="RemoveUserDialog"/>
+    </region>
+  </packagedElement>
+</uml:Model>
