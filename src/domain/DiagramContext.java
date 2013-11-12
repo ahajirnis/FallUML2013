@@ -7,6 +7,8 @@ public class DiagramContext {
 	private String diagramContextDescripttion;
 	private int policyID;
 	private int projectID;
+	private String enabled;
+	private String disabledDate;
 	
 	public int getDiagramContextID() {
 		return diagramContextID;
@@ -46,6 +48,34 @@ public class DiagramContext {
 	
 	public void setProjectID(int projectID) {
 		this.projectID = projectID;
+	}
+
+	/**
+	 * @return the enabled
+	 */
+	public String getEnabled() {
+		return enabled;
+	}
+
+	/**
+	 * @param enabled the enabled to set
+	 */
+	public void setEnabled(String enabled) {
+		this.enabled = enabled;
+	}
+
+	/**
+	 * @return the disabledDate
+	 */
+	public String getDisabledDate() {
+		return disabledDate;
+	}
+
+	/**
+	 * @param disabledDate the disabledDate to set
+	 */
+	public void setDisabledDate(String disabledDate) {
+		this.disabledDate = disabledDate;
 	}	
 
 }

@@ -5,6 +5,7 @@ import java.sql.Date;
 /**
  * Information class that contains all the features of one comment
  * @ doc author	Dong Guo
+ * @author Ying Gan
  */
 
 public class Comment {
@@ -15,6 +16,10 @@ public class Comment {
     private String commentTime;
     private int userId;
     private String userName;
+    
+    private int compareId;
+    private int promotedDiagramId;
+    private String commentText;
 
 	/**
 	 * Constructor to initialize necessary class members
@@ -164,6 +169,7 @@ public class Comment {
         this.commentTime = commentTime;
     }
 
+    
 	/**
 	 * Gete the diagramId
 	 * 
@@ -182,4 +188,46 @@ public class Comment {
     public void setReportId(int reportId) {
         this.reportId = reportId;
     }
+
+	/**
+	 * @return the compareId
+	 */
+	public int getCompareId() {
+		return compareId;
+	}
+
+	/**
+	 * @param compareId the compareId to set
+	 */
+	public void setCompareId(int compareId) {
+		this.compareId = compareId;
+	}
+
+	/**
+	 * @return the promotedDiagramId
+	 */
+	public int getPromotedDiagramId() {
+		return promotedDiagramId;
+	}
+
+	/**
+	 * @param promotedDiagramId the promotedDiagramId to set
+	 */
+	public void setPromotedDiagramId(int promotedDiagramId) {
+		this.promotedDiagramId = promotedDiagramId;
+	}
+
+	/**
+	 * @return the commentText
+	 */
+	public String getCommentText() {
+		return commentText;
+	}
+
+	/**
+	 * @param commentText the commentText to set
+	 */
+	public void setCommentText(String commentText) {
+		this.commentText = commentText;
+	}
 }
