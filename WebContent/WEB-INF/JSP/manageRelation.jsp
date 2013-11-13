@@ -10,6 +10,7 @@
 <link rel="stylesheet" type="text/css" href="merge.css">
 </head>
 <body>
+
 	<table>
 		<tr><th colspan=2>Diagram1 Relationships</th><th colspan=2>Diagram2 Relationships</th></tr>
 		<tr><td>Generalization</td><td>Association</td><td>Generalization</td><td>Association</td></tr>

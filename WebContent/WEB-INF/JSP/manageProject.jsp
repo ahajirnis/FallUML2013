@@ -31,16 +31,28 @@
  $(document).ready(function(){
 	
 
-	$("#pop-up").hide();
 	
-	$("#addProj").click(function(){
+	
+	$( "#dialogUpdate" ).hide();
+	
+	  $("#UpdateProj").click(function(){
+	    $( "#dialogUpdate" ).dialog();
+	  });
+	  
+	  	$( "#dialogAdd" ).hide();
 		
-		$("#pop-up").dialog();
-	});
+	  $("#addProj").click(function(){
+	    $( "#dialogAdd" ).dialog();
+	  });
 	
 }); 
 </script>
 <style type="text/css">
+#Description{
+height:150px;
+
+
+}
 
 .table-hover{
 
@@ -48,13 +60,14 @@ width:100%;
 	
 }
 .projectMenu{
-	margin-top:30pxpx;
-	font-weight: bold;
-	padding: 20px;
-	height: 100%
+	padding: 20px 350px;
 	
 }
+.btn-info {
 
+margin-left:40px;
+
+}
 
 #enabledTab{
 	padding: 30px;
@@ -62,37 +75,64 @@ width:100%;
 </style>
 </head>
 <body>
-<div id="pop-up">
-<form class="form-horizontal" action="CreateProject" method="post">
+<div id="dialogUpdate">
+<form class="form-horizontal" action="UpdateProject" method="post">
     
-     <h1><strong>Add Project</strong></h1>
+     <h3><strong>Update Project</strong></h3>
 	 <br/>
 
  <div class="form-group">
     <label class="col-lg-2 control-label">ProjectName</label>
     <div class="col-lg-10">
-      <input type="text" class="form-control" id="ProjectName" name ="ProjectName" placeholder="ProjectName">
+      <input type="text" class="form-control" id="ProjectName" name ="ProjectName" placeholder="ProjectName"/>
     </div>
   </div>
-  
+   <div class="form-group">
+    <label class="col-lg-2 control-label">Description</label>
+    <div class="col-lg-10">
+    
+      <input type="text" class="form-control" id="Description" name="Description" placeholder="Description"/>
+    </div>
+  </div>
+ 
   <div class="form-group">
-    <label class="col-lg-2 control-label">ProjectID</label>
+    <label class="col-lg-2 control-label">Status</label>
     <div class="col-lg-10">
-      <input type="text" class="form-control" id="ProjectID" name="ProjectID" placeholder="ProjectID">
+     <select>
+     	<option>Active Project</option>
+     	<option>Disabled Project</option>
+     </select>
     </div>
   </div>
   
+<div >
+			<input class="btn btn-primary"  type="submit" value="Update" />
+</div>
+</form>
+</div>
+
+
+<div id="dialogAdd">
+<form class="form-horizontal" action="CreateProject" method="post">
+    
+     <h3><strong>Add Project</strong></h3>
+	 <br/>
+
  <div class="form-group">
-    <label class="col-lg-2 control-label">StartDate</label>
+    <label class="col-lg-2 control-label">ProjectName</label>
     <div class="col-lg-10">
-      <input type="text" class="form-control" id="StartDate" name="StartDate" placeholder="StartDate">
+      <input type="text" class="form-control" id="ProjectName" name ="ProjectName" placeholder="ProjectName"/>
     </div>
   </div>
+  
+
+ 
   
    <div class="form-group">
     <label class="col-lg-2 control-label">Description</label>
     <div class="col-lg-10">
-      <input type="text" class="form-control" id="Description" name="Description" placeholder="Description">
+    
+      <input type="text" class="form-control" id="Description" name="Description" placeholder="Description"/>
     </div>
   </div>
   
@@ -108,6 +148,7 @@ width:100%;
   
 <div >
 			<input class="btn btn-primary"  type="submit" value="Add" />
+			
 </div>
 </form>
 </div>
@@ -184,8 +225,9 @@ width:100%;
 	
 	<div class="projectMenu">
 		
-		<button class="btn btn-link" id="addProj" onclick="">Add Project</button> <br/>
-			
+		<button class="btn btn-info" id="addProj" onclick="">Add Project</button> 
+	    <button class="btn btn-info" id="UpdateProj" >Update Project</button>
+		
 	
 	</div>
 </div>
