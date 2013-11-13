@@ -156,28 +156,19 @@ width:100%;
 				<th>Status</th>
 				<th></th>
 			</tr>
-				<tr>
-				<td><input type="checkbox" /></td>
-				<td>projectId</td>
-				<td><a href="#" style="color:gray; ;">Project Name</a></td>
-				<td>starDate</td>
-				<td>description</td>
-				<td>Disabled</td>
-				<td><button class="btn btn-link">Enable</button></td>
-						
-			</tr>
-		<%-- 	<c:forEach items="${projects}" var="project">
+		<c:forEach items="${inactiveprojects}" var="project">
 			<tr>
 				<td><input type="checkbox" /></td>
-				<td>project.projectId</td>
-				<td><a href="#" style="color:gray; ;">project.projectName</a></td>
-				<td>project.starDate</td>
-				<td>projectdescription</td>
-				<td>Disabled</td>
-				<td><button class="btn btn-link">Enable</button></td>
+				<td>${project.projectId}</td>
+				<td><a  style="color:gray ;">${project.projectName }</a></td>
+				<td>${project.startDate}</td>
+				<td>${projetc.description}</td>
+				<td>Active</td>
+				<td><button class="btn btn-link" type="submit">Disable</button></td>
 						
 			</tr>
-			</c:forEach> --%>
+	</c:forEach>
+	
 		</table>
 		<input type="hidden" value="enable" name="statusChangeTo">
 		</form>
