@@ -123,10 +123,27 @@ public class UploadServlet extends HttpServlet {
 					//String newName = renameFile(id, item.getName());// rename
 					File file = new File(destinationDir, filename);		
 					item.write(file);
-					String absolutePath = destinationDir + "\\";
-					String relativePath = context.getContextPath()
+					
+					String absolutePath = "";
+					String relativePath = "";
+					String libPath = "";
+					
+					if (OSDetails.getServerOS().equals("windows"))
+					{
+						absolutePath = destinationDir + "\\";
+						relativePath = context.getContextPath()
 							+ newFolder;
-					String libPath = libDir + "\\";
+						libPath = libDir + "\\";
+					} 
+					else if (OSDetails.getServerOS().equals("mac") || 
+							OSDetails.getServerOS().equals("unix"))
+					{
+						absolutePath = destinationDir + "/";
+						relativePath = context.getContextPath()
+							+ newFolder;
+						libPath = libDir + "/";
+					}
+					
 					logging.Log.LogCreate().Info("absolutePath " + absolutePath);		
 					request.setAttribute("originalFileName", filename);
 					request.setAttribute("newFileName", filename);
@@ -208,7 +225,10 @@ public class UploadServlet extends HttpServlet {
 			diagramObj.setMerged(0);
 			diagramObj.setUserId(userID);
 			diagramObj.setProjectId(2);
-			diagramObj.setDiagramType("Ecore");
+			//Use of ENCORE in diagramType is wrong, we should use .setFileType instead
+			//diagramObj.setDiagramType("Ecore");
+			diagramObj.setFileType("Ecore");
+			
 			//diagramObj.setDiFileName("baseFileName" + ".di");
 			//diagramObj.setNotationFileName("baseFileName" + ".notation");
 			//diagramObj.setDiFilepath("folder");

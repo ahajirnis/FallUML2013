@@ -5,6 +5,8 @@ package repository;
  * @author yangchen
  */
 import domain.Diagram;
+import domain.DiagramType;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -49,7 +51,8 @@ public class DiagramDAO {
 		
 		pstmt.setInt(1,diagram.getProjectId()); // this need to be implementing 
 		pstmt.setInt(2,diagram.getUserId());
-		pstmt.setString(3,diagram.getDiagramType()); // this need to be implementing 
+		pstmt.setString(3,Integer.toString(1)); //Temporary hack to get code to work. Please replace when 
+												//diagramType comes into effect @AniketHajirnis
 		pstmt.setString(4,diagram.getDiagramName());    // this need to be implementing 
 		pstmt.setString(5,diagram.getFilePath());    // this need to be implementing 
 		pstmt.setString(6,diagram.getFileType());    // this need to be implementing 
@@ -116,7 +119,9 @@ public class DiagramDAO {
 		diagram.setDiagramId(rs.getInt("diagramId"));
 		diagram.setProjectId(rs.getInt("projectId"));
 		diagram.setUserId(rs.getInt("userId"));
-		diagram.setDiagramType(rs.getString("diagramType"));
+		//support for enum type
+		diagram.setDiagramType(DiagramType.fromString(rs.getString("diagramType")));
+		
 		diagram.setDiagramName(rs.getString("diagramName"));
 		diagram.setFilePath(rs.getString("filePath"));
 		diagram.setFileType(rs.getString("fileType"));
@@ -163,7 +168,8 @@ public class DiagramDAO {
 	    diagram.setDiagramId(rs.getInt("diagramId"));
 		diagram.setProjectId(rs.getInt("projectId"));
 		diagram.setUserId(rs.getInt("userId"));
-		diagram.setDiagramType(rs.getString("diagramType"));
+		//support for enum type
+		diagram.setDiagramType(DiagramType.fromString(rs.getString("diagramType")));
 		diagram.setDiagramName(rs.getString("diagramName"));
 		diagram.setFilePath(rs.getString("filePath"));
 		diagram.setFileType(rs.getString("fileType"));
@@ -196,7 +202,8 @@ public class DiagramDAO {
 
 	    pstmt.setInt(1,diagram.getProjectId()); // this need to be implementing 
 		pstmt.setInt(2,diagram.getUserId());
-		pstmt.setString(3,diagram.getDiagramType()); // this need to be implementing 
+		//converted to an enum type to avoid hard coding
+		pstmt.setString(3,diagram.getDiagramType().toString()); // this need to be implementing 
 		pstmt.setString(4,diagram.getDiagramName());    // this need to be implementing 
 		pstmt.setString(5,diagram.getFilePath());    // this need to be implementing 
 		pstmt.setString(6,diagram.getFileType());    // this need to be implementing 

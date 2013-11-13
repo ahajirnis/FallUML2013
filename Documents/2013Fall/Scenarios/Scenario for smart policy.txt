@@ -1,0 +1,53 @@
+ Scenarios for the smart policy 
+
+Step 1 - The user logs into the system .
+Step 2 - The user selects the operation he wants to go ahead with either merge or compare .
+Step 3 - The user is taken to the respective page.
+Step 4 - There the user will be able to upload the diagrams that he needs to compare or merge 
+Step 6 - The User will then go on to select the Domain/Context.
+Step 7 - The Context will be defined by the policy manager. The policy manager will be some one who will
+         be a knowledgeable person who has complete knowledge of the requirements for the problem statement 
+         The context. The context will be defined according to the probolem statement. Each context will be 
+         specific to a certain functionality and will be a small funtion of the project.
+Step 8 - In our project the Context will be made explicit by displayig the definition in a text box.
+Step 9 - In the current state the example of a context can be derived from the computer class diagram.
+Step 10- Each context will be associated with a set of policies and these policies inturn will be associated with a 
+         set of metrics.
+Step 11- There can be a default policy when the user selects the context. 
+Step 12- Under the context there can be multiple policies . But to a particular context only one policy can be  
+         applied to a particluar context. 
+Step 13- Each policy under the context will be associated with a set of metrics these metrics can be anything 
+         ranging from number of classes to number of aggregations to generalizations ...
+Step 14- The user can also select one policy on the basis of the metrics .Each policy can have several metrics 
+         these metrics can be either overlapping or can be independent policy to policy. 
+Step 16- The point where the user selects the context can be either after or before he compares the diagram.
+Step 17- If its after hitting compare then there will be a interface which will decide the policy to be applied.
+Step 18- Idea of Custom metrics.
+         The policy can be also such that it can be tweaked. We can change the values of the metrics or the range of
+         the metrics associated with each policy. But these changes can either be approved by the policy manager 
+         or they can be changed by the user. It can also be changed by the user as it will only be in the realm 
+         of those particular metrics. 
+         For example in websites for buying old cars we can select the price range and the year range.. 
+Step 19- The metrics should have a range instead of a specific value.
+
+The policy manager should perform the following functions 
+1)Identification of classes . This will depend on the problem statement.Thepolicy manager should identify nouns 
+pronouns and noun phrases from the problem statement. 
+2) use subject matter expertise to apply to the identification of classes and filter out redundancy.
+
+For Example 
+Considering the class diagrams created by Seth and prasanna for the class diagram problem.
+
+The policy says that there should be a high level of abstraction and minimum generalization
+The metrics related to the above policy are number of classes and number of generalizations.
+Let us say for example the number of base classes should not exceed 5 and the range of classes is 3-5 
+The number of generalizations in the entire class diagram should not be more than 15 and the range is 10-15
+
+After evaluation of both the diagrams its clear that Seths diagram is better than Prasannas diagram if compared to 
+the above policy.Assigning weights to classes and the generalizations we get a value which ever is the lower value 
+that would be a better diagram.
+
+
+
+
+
