@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
 	pageEncoding="US-ASCII"%>
 	
-	<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -126,17 +126,18 @@ width:100%;
 				<th>Status</th>
 				<th></th>
 			</tr>
+			<c:forEach items="${requestScope.activeprojects}" var="project">
 			<tr>
 				<td><input type="checkbox" /></td>
-				<td>projectId</td>
-				<td><a href="Display" style="color:gray; ;">Project Name</a></td>
-				<td>starDate</td>
-				<td>description</td>
+				<td>${project.projectId}</td>
+				<td><a href="Display" style="color:gray ;">${project.projectName }</a></td>
+				<td>${project.starDate }</td>
+				<td>${projetc.description}</td>
 				<td>Active</td>
 				<td><button class="btn btn-link" type="submit">Disable</button></td>
 						
 			</tr>
-
+	</c:forEach>
 		</table>
 		<input type="hidden" value="disable" name="statusChangeTo">
 		</form>
