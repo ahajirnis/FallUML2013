@@ -8,10 +8,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <!-- BOOTSTRAP -->
 <link href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css"
-	rel="stylesheet">
+	rel="stylesheet"/>
 <link
 	href="http://twitter.github.io/bootstrap/assets/css/bootstrap-responsive.css"
-	rel="stylesheet">
+	rel="stylesheet"/>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
 </script><link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
   <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
@@ -30,16 +30,16 @@
 	
  $(document).ready(function(){
 		
-	$( "#dialogUpdate" ).hide();
+	$( "#dialogUpdatePolicy" ).hide();
 	
 	  $("#UpdatePolicy").click(function(){
-	    $( "#dialogUpdate" ).dialog();
+	    $( "#dialogUpdatePolicy" ).dialog();
 	  });
 	  
-	  	$( "#dialogAdd" ).hide();
+	  	$( "#dialogAddPolicy" ).hide();
 		
 	  $("#addPolicy").click(function(){
-	    $( "#dialogAdd" ).dialog();
+	    $( "#dialogAddPolicy" ).dialog();
 	  });
 	
 }); 
@@ -77,7 +77,7 @@ margin-left:30px;
 </style>
 </head>
 <body>
-<div id="dialogUpdate">
+<div id="dialogUpdatePolicy">
 <form class="form-horizontal" action="UpdateProject" method="post">
     
      <h3><strong>Update Policy</strong></h3>
@@ -113,7 +113,7 @@ margin-left:30px;
 </div>
 
 
-<div id="dialogAdd">
+<div id="dialogAddPolicy">
 <form class="form-horizontal" action="CreatePolicy" method="post">
     
      <h3><strong>Create Policy</strong></h3>
@@ -189,22 +189,6 @@ margin-left:30px;
 	</div>
 </div>
 
-<script type="text/javascript">
-
-		
-	$( "#dialogUpdate" ).hide();
-	
-	  $("#UpdatePolicy").click(function(){
-	    $( "#dialogUpdate" ).dialog();
-	  });
-	  
-	  	$( "#dialogAdd" ).hide();
-		
-	  $("#addPolicy").click(function(){
-	    $( "#dialogAdd" ).dialog();
-	  });
-
-</script>
 
 </body>
 </html>
