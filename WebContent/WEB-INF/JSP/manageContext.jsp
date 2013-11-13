@@ -68,6 +68,11 @@ width:100%;
 margin-left:40px;
 
 }
+.buttoninpopup{
+margin-top:30px;
+margin-left:30px;
+
+}
 
 #enabledTab{
 	padding: 30px;
@@ -88,7 +93,7 @@ margin-left:40px;
     </div>
   </div>
    <div class="form-group">
-    <label class="col-lg-2 control-label">Policy Description</label>
+    <label class="col-lg-2 control-label">Description</label>
     <div class="col-lg-10">
     
       <input type="text" class="form-control" id="PolicyDescription" name="PolicyDescription" placeholder="Description"/>
@@ -104,8 +109,8 @@ margin-left:40px;
  
   
   
-<div >
-			<input class="btn btn-primary"  type="submit" value="Update" />
+<div class="buttoninpopup">
+			<input class="btn btn-info"  type="submit" value="Update" />
 </div>
 </form>
 </div>
@@ -118,7 +123,7 @@ margin-left:40px;
 	 <br/>
 
  <div class="form-group">
-    <label class="col-lg-2 control-label">PolicyName</label>
+    <label class="col-lg-2 control-label">Policy Name</label>
     <div class="col-lg-10">
       <input type="text" class="form-control" id="PolicyName" name ="PolicyName" placeholder="PolicyName"/>
     </div>
@@ -136,14 +141,14 @@ margin-left:40px;
   </div>
   
   <div class="form-group">
-    <label class="col-lg-2 control-label">Level</label>
+    <label class="col-lg-2 control-label">Policy Level</label>
      <div class="col-lg-10">
       <input type="text" class="form-control" id="PolicyLevel" name="PolicyLevel" placeholder="Level"/>
     </div>
   </div>
   
-<div >
-			<input class="btn btn-primary"  type="submit" value="Create" />
+<div class="buttoninpopup">
+			<input class="btn btn-info"  type="submit" value="Create" />
 			
 </div>
 </form>

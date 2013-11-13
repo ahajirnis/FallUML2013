@@ -9,6 +9,7 @@
 <!-- BOOTSTRAP -->
 <link href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css"
 	rel="stylesheet">
+	
 <link
 	href="http://twitter.github.io/bootstrap/assets/css/bootstrap-responsive.css"
 	rel="stylesheet">
@@ -53,6 +54,15 @@ height:150px;
 
 
 }
+.control-label{
+
+
+font-size: 14px;
+font-weight: bold;
+
+}
+
+label {text-align:left;}
 
 .table-hover{
 
@@ -67,10 +77,16 @@ width:100%;
 
 margin-left:40px;
 
+
 }
 
 #enabledTab{
 	padding: 30px;
+}
+.buttoninpopup{
+margin-top:30px;
+margin-left:30px;
+
 }
 </style>
 </head>
@@ -82,7 +98,7 @@ margin-left:40px;
 	 <br/>
 
  <div class="form-group">
-    <label class="col-lg-2 control-label">ProjectName</label>
+    <label class="col-lg-2 control-label">Project Name</label>
     <div class="col-lg-10">
       <input type="text" class="form-control" id="ProjectName" name ="ProjectName" placeholder="ProjectName"/>
     </div>
@@ -96,7 +112,7 @@ margin-left:40px;
   </div>
  
   <div class="form-group">
-    <label class="col-lg-2 control-label">Status</label>
+    <label class="col-lg-2 control-label">Project Status</label>
     <div class="col-lg-10">
      <select>
      	<option>Active Project</option>
@@ -105,8 +121,8 @@ margin-left:40px;
     </div>
   </div>
   
-<div >
-			<input class="btn btn-primary"  type="submit" value="Update" />
+<div class="buttoninpopup">
+			<input class="btn btn-info"  type="submit" value="Update" />
 </div>
 </form>
 </div>
@@ -115,11 +131,10 @@ margin-left:40px;
 <div id="dialogAdd">
 <form class="form-horizontal" action="CreateProject" method="post">
     
-     <h3><strong>Add Project</strong></h3>
-	 <br/>
+    
 
  <div class="form-group">
-    <label class="col-lg-2 control-label">ProjectName</label>
+    <label class="col-lg-2 control-label">Project Name</label>
     <div class="col-lg-10">
       <input type="text" class="form-control" id="ProjectName" name ="ProjectName" placeholder="ProjectName"/>
     </div>
@@ -137,7 +152,7 @@ margin-left:40px;
   </div>
   
   <div class="form-group">
-    <label class="col-lg-2 control-label">Status</label>
+    <label class="col-lg-2 control-label">Porject Status</label>
     <div class="col-lg-10">
      <select>
      	<option>Active Project</option>
@@ -146,8 +161,8 @@ margin-left:40px;
     </div>
   </div>
   
-<div >
-			<input class="btn btn-primary"  type="submit" value="Add" />
+<div class="buttoninpopup">
+			<input class="btn btn-info"  type="submit" value="Add Project" />
 			
 </div>
 </form>
