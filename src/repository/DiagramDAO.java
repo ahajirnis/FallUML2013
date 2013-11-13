@@ -51,7 +51,8 @@ public class DiagramDAO {
 		
 		pstmt.setInt(1,diagram.getProjectId()); // this need to be implementing 
 		pstmt.setInt(2,diagram.getUserId());
-		pstmt.setString(3,diagram.getDiagramType().toString()); // this need to be implementing 
+		pstmt.setString(3,Integer.toString(1)); //Temporary hack to get code to work. Please replace when 
+												//diagramType comes into effect @AniketHajirnis
 		pstmt.setString(4,diagram.getDiagramName());    // this need to be implementing 
 		pstmt.setString(5,diagram.getFilePath());    // this need to be implementing 
 		pstmt.setString(6,diagram.getFileType());    // this need to be implementing 
