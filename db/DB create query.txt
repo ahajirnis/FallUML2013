@@ -87,6 +87,7 @@ CREATE TABLE comment
 (
   	commentId int(11) PRIMARY KEY AUTO_INCREMENT,
 	compareId int(11) NOT NULL,
+	reportId int(11),
 	userId int(11) NOT NULL,
 	commentText varchar(255) NOT NULL,
 	commentTime timestamp NULL
