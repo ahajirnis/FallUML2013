@@ -126,12 +126,12 @@ width:100%;
 				<th>Status</th>
 				<th></th>
 			</tr>
-			<c:forEach items="${requestScope.activeprojects}" var="project">
+			<c:forEach items="${activeprojects}" var="project">
 			<tr>
 				<td><input type="checkbox" /></td>
 				<td>${project.projectId}</td>
 				<td><a href="Display" style="color:gray ;">${project.projectName }</a></td>
-				<td>${project.starDate }</td>
+				<td>${project.startDate}</td>
 				<td>${projetc.description}</td>
 				<td>Active</td>
 				<td><button class="btn btn-link" type="submit">Disable</button></td>
