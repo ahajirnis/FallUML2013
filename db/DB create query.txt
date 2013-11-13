@@ -51,6 +51,7 @@ CREATE TABLE diagram
   diagramId Int(11) NOT NULL AUTO_INCREMENT,
   projectId Int(11) NOT NULL,
   userId Int(11) NOT NULL,
+  contextId int(11) DEFAULT 1,
   diagramType Varchar(45),
   diagramName Varchar(45),
   createTime Timestamp NULL,
@@ -111,6 +112,8 @@ CREATE TABLE diagramContext
     name VARCHAR(45) NOT NULL,
     policyId INT(11) NOT NULL,
     projectId INT(11) NOT NULL,
+    enabled char(1) NOT NULL DEFAULT 'Y',
+    disabledDate timestamp
 );
 
 	
@@ -170,9 +173,11 @@ ALTER TABLE DiagramPolicyScore ADD CONSTRAINT DiagramPolicyScoreHavePolicyId FOR
 ALTER TABLE DiagramPolicyScore ADD CONSTRAINT DiagramPolicyScoreHaveDiagramId FOREIGN KEY (diagramId) REFERENCES diagram (diagramId) ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE diagramContext ADD CONSTRAINT DiagramContextHavePolicyId FOREIGN KEY (policyId) REFERENCES policy (policyId) ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE diagramContext ADD CONSTRAINT diagramContextHaveProjectId FOREIGN KEY (projectId) REFERENCES project (projectId) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
+ALTER TABLE diagram ADD CONSTRAINT diagramHaveDiagramContextId FOREIGN KEY (contextId) REFERENCES diagramContext (diagramcontextId) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- insert sample data--------------------------------------
 insert into project value (1,'clubuml1',now(),'des1','Y','');
 
 insert into project value (2,'clubuml2',now(),'des2','Y','');
+insert into policy (policyName,policyDescription,policyLevel) values ("policy 1","policy 1 description",2);
+insert into diagramContext (description,name,policyId,projectId) values ("context 1 description","Context 1","1","1");
