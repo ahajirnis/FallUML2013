@@ -136,49 +136,6 @@ CREATE TABLE compare
 	PRIMARY KEY (compareId)
 );
 
-CREATE TABLE matricsObject
-(
-	matricsId int(11) NOT NULL AUTO_INCREMENT,
-	policyId int(11),
-	matricsTypeId int(2) NOT NULL,
-	matricsWeight int(11) NOT NULL,
-	PRIMARY KEY (matricsId)
-);
-
-CREATE TABLE matricsType
-(
-	matricsTypeId int(11) NOT NULL,
-	description varchar(255),
-	matricsTypeName varchar(30) NOT NULL,
-	PRIMARY KEY (matricsTypeId)
-);
-
-CREATE TABLE DiagramMatricsScore
-(
-	diagramId int(11) NOT NULL,
-	matricsId int(11) NOT NULL,
-	score int(11) NOT NULL,
-	PRIMARY KEY (diagramId,matricsId)
-);
-
-
-CREATE TABLE attributes
-(
-	matricsId int(11) NOT NULL,
-	averagePointOver int(11),
-	idealNoOfAttributes int(11),
-	maxNoOfAttributes int(11)
-);
-
-CREATE TABLE classes
-(
-	matricsId int(11) NOT NULL,
-	idealNoOfClasses int(11),
-	maxNoOfClasses int(11),
-	totalClassMaxPoints int(11)
-);
-
-
 -- Create relationships section ------------------------------------------------- 
 
 ALTER TABLE diagram ADD CONSTRAINT diagramHaveOwnerId FOREIGN KEY (userId) REFERENCES user (userId) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -213,12 +170,6 @@ ALTER TABLE DiagramPolicyScore ADD CONSTRAINT DiagramPolicyScoreHavePolicyId FOR
 ALTER TABLE DiagramPolicyScore ADD CONSTRAINT DiagramPolicyScoreHaveDiagramId FOREIGN KEY (diagramId) REFERENCES diagram (diagramId) ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE diagramContext ADD CONSTRAINT DiagramContextHavePolicyId FOREIGN KEY (policyId) REFERENCES policy (policyId) ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE diagramContext ADD CONSTRAINT diagramContextHaveProjectId FOREIGN KEY (projectId) REFERENCES project (projectId) ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE matricsObject ADD CONSTRAINT matricsObjectHavePolicyId FOREIGN KEY (policyId) REFERENCES policy (policyId) ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE matricsObject ADD CONSTRAINT matricsObjectHaveMatricsTypeId FOREIGN KEY (matricsTypeId) REFERENCES matricsType (matricsTypeId) ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE DiagramMatricsScore ADD CONSTRAINT DiagramMatricsScoreHaveDiagramId FOREIGN KEY (diagramId) REFERENCES diagram (diagramId) ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE DiagramMatricsScore ADD CONSTRAINT DiagramMatricsScoreHaveMatricsId FOREIGN KEY (matricsId) REFERENCES matricsObject (matricsId) ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE attributes ADD CONSTRAINT attributesHavematricsId FOREIGN KEY (matricsId) REFERENCES matricsObject (matricsId) ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE classes ADD CONSTRAINT classesHavematricsId FOREIGN KEY (matricsId) REFERENCES matricsObject (matricsId) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 
 -- insert sample data--------------------------------------
