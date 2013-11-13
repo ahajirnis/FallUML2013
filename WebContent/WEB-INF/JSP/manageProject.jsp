@@ -71,28 +71,28 @@ width:100%;
  <div class="form-group">
     <label class="col-lg-2 control-label">ProjectName</label>
     <div class="col-lg-10">
-      <input type="text" class="form-control" id="ProjectName" placeholder="ProjectName">
+      <input type="text" class="form-control" id="ProjectName" name ="ProjectName" placeholder="ProjectName">
     </div>
   </div>
   
   <div class="form-group">
     <label class="col-lg-2 control-label">ProjectID</label>
     <div class="col-lg-10">
-      <input type="text" class="form-control" id="ProjectID" placeholder="ProjectID">
+      <input type="text" class="form-control" id="ProjectID" name="ProjectID" placeholder="ProjectID">
     </div>
   </div>
   
  <div class="form-group">
     <label class="col-lg-2 control-label">StartDate</label>
     <div class="col-lg-10">
-      <input type="text" class="form-control" id="StartDate" placeholder="StartDate">
+      <input type="text" class="form-control" id="StartDate" name="StartDate" placeholder="StartDate">
     </div>
   </div>
   
    <div class="form-group">
     <label class="col-lg-2 control-label">Description</label>
     <div class="col-lg-10">
-      <input type="text" class="form-control" id="Description" placeholder="Description">
+      <input type="text" class="form-control" id="Description" name="Description" placeholder="Description">
     </div>
   </div>
   
