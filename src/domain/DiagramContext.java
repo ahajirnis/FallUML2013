@@ -15,7 +15,8 @@ private String diagramContextDescription;
 private int policyID;
 
 private int projectID;
-
+private boolean enabled;
+private String disabledDate;
 
 
  
@@ -98,13 +99,6 @@ this.projectID = projectID;
 
 }
 
- 
-
-public boolean getEnabled(){
-
-return true;
-
-}
 
  
 
@@ -134,6 +128,42 @@ public DiagramContext()
 
 {
 
+}
+
+
+
+/**
+ * @return the disabledDate
+ */
+public String getDisabledDate() {
+	return disabledDate;
+}
+
+
+
+/**
+ * @param disabledDate the disabledDate to set
+ */
+public void setDisabledDate(String disabledDate) {
+	this.disabledDate = disabledDate;
+}
+
+
+
+/**
+ * @return the enabled
+ */
+public boolean getEnabled() {
+	return enabled;
+}
+
+
+
+/**
+ * @param enabled the enabled to set
+ */
+public void setEnabled(boolean enabled) {
+	this.enabled = enabled;
 }
 
  
