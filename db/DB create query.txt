@@ -51,6 +51,7 @@ CREATE TABLE diagram
   diagramId Int(11) NOT NULL AUTO_INCREMENT,
   projectId Int(11) NOT NULL,
   userId Int(11) NOT NULL,
+  contextId int(11) DEFAULT 1,
   diagramType Varchar(45),
   diagramName Varchar(45),
   createTime Timestamp NULL,
@@ -111,6 +112,8 @@ CREATE TABLE diagramContext
     name VARCHAR(45) NOT NULL,
     policyId INT(11) NOT NULL,
     projectId INT(11) NOT NULL,
+    enabled char(1) NOT NULL DEFAULT 'Y',
+    disabledDate timestamp
 );
 
 	
@@ -134,6 +137,48 @@ CREATE TABLE compare
 	promoteCountA int(11) DEFAULT 0,
     promoteCountB int(11) DEFAULT 0,
 	PRIMARY KEY (compareId)
+);
+
+CREATE TABLE matricsObject
+(
+	matricsId int(11) NOT NULL AUTO_INCREMENT,
+	policyId int(11),
+	matricsTypeId int(2) NOT NULL,
+	matricsWeight int(11) NOT NULL,
+	PRIMARY KEY (matricsId)
+);
+
+CREATE TABLE matricsType
+(
+	matricsTypeId int(11) NOT NULL,
+	description varchar(255),
+	matricsTypeName varchar(30) NOT NULL,
+	PRIMARY KEY (matricsTypeId)
+);
+
+CREATE TABLE DiagramMatricsScore
+(
+	diagramId int(11) NOT NULL,
+	matricsId int(11) NOT NULL,
+	score int(11) NOT NULL,
+	PRIMARY KEY (diagramId,matricsId)
+);
+
+
+CREATE TABLE attributes
+(
+	matricsId int(11) NOT NULL,
+	averagePointOver int(11),
+	idealNoOfAttributes int(11),
+	maxNoOfAttributes int(11)
+);
+
+CREATE TABLE classes
+(
+	matricsId int(11) NOT NULL,
+	idealNoOfClasses int(11),
+	maxNoOfClasses int(11),
+	totalClassMaxPoints int(11)
 );
 
 -- Create relationships section ------------------------------------------------- 
@@ -170,9 +215,17 @@ ALTER TABLE DiagramPolicyScore ADD CONSTRAINT DiagramPolicyScoreHavePolicyId FOR
 ALTER TABLE DiagramPolicyScore ADD CONSTRAINT DiagramPolicyScoreHaveDiagramId FOREIGN KEY (diagramId) REFERENCES diagram (diagramId) ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE diagramContext ADD CONSTRAINT DiagramContextHavePolicyId FOREIGN KEY (policyId) REFERENCES policy (policyId) ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE diagramContext ADD CONSTRAINT diagramContextHaveProjectId FOREIGN KEY (projectId) REFERENCES project (projectId) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
+ALTER TABLE diagram ADD CONSTRAINT diagramHaveDiagramContextId FOREIGN KEY (contextId) REFERENCES diagramContext (diagramcontextId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE matricsObject ADD CONSTRAINT matricsObjectHavePolicyId FOREIGN KEY (policyId) REFERENCES policy (policyId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE matricsObject ADD CONSTRAINT matricsObjectHaveMatricsTypeId FOREIGN KEY (matricsTypeId) REFERENCES matricsType (matricsTypeId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE DiagramMatricsScore ADD CONSTRAINT DiagramMatricsScoreHaveDiagramId FOREIGN KEY (diagramId) REFERENCES diagram (diagramId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE DiagramMatricsScore ADD CONSTRAINT DiagramMatricsScoreHaveMatricsId FOREIGN KEY (matricsId) REFERENCES matricsObject (matricsId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE attributes ADD CONSTRAINT attributesHavematricsId FOREIGN KEY (matricsId) REFERENCES matricsObject (matricsId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE classes ADD CONSTRAINT classesHavematricsId FOREIGN KEY (matricsId) REFERENCES matricsObject (matricsId) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- insert sample data--------------------------------------
 insert into project value (1,'clubuml1',now(),'des1','Y','');
 
 insert into project value (2,'clubuml2',now(),'des2','Y','');
+insert into policy (policyName,policyDescription,policyLevel) values ("policy 1","policy 1 description",2);
+insert into diagramContext (description,name,policyId,projectId) values ("context 1 description","Context 1","1","1");
