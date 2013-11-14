@@ -132,7 +132,7 @@ width:100%;
 				<td>${project.projectId}</td>
 				<td><a href="Display" style="color:gray ;">${project.projectName }</a></td>
 				<td>${project.startDate}</td>
-				<td>${projetc.description}</td>
+				<td>${projetct.description}</td>
 				<td>Active</td>
 				<td><button class="btn btn-link" type="submit">Disable</button></td>
 						
@@ -162,7 +162,7 @@ width:100%;
 				<td>${project.projectId}</td>
 				<td><a  style="color:gray ;">${project.projectName }</a></td>
 				<td>${project.startDate}</td>
-				<td>${projetc.description}</td>
+				<td>${projetct.description}</td>
 				<td>Active</td>
 				<td><button class="btn btn-link" type="submit">Disable</button></td>
 						
