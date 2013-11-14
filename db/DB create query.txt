@@ -89,8 +89,7 @@ CREATE TABLE comment
 	compareId int(11) NOT NULL,
 	userId int(11) NOT NULL,
 	commentText varchar(255) NOT NULL,
-	commentTime timestamp NULL,
-	reportId int(11)
+	commentTime timestamp NULL
 )
 ;
 
