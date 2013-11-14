@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
@@ -26,6 +27,9 @@ public class CD_Class {
 	
 	public CD_Class(EClass ecoreClass){
 		
+		attributes = new ArrayList<CD_Attribute>();
+		operations = new ArrayList<CD_Operation>();
+		references = new ArrayList<CD_Reference>();
 		className = ecoreClass.getName();
 		for(EAttribute eAttribute : ecoreClass.getEAttributes())
 		{

@@ -21,6 +21,8 @@ public class Diagram {
     private String diFileName;
     private String diFilepath;
     private DiagramType diagramType;
+    private String diagramRealPath;
+    private String conPath;
     
 	public DiagramType getDiagramType() {
 		//TO DO if null make it return NOTDEFINED and still work!
@@ -240,6 +242,26 @@ public class Diagram {
     public void setProjectId(int projectId) {
         this.projectId = projectId;
     }
+
+	public String getDiagramRealPath() {
+		return diagramRealPath;
+	}
+
+	public void setDiagramRealPath(String diagramRealPath) {
+		this.diagramRealPath = diagramRealPath;
+	}
+
+	public String getConPath() {
+		return this.conPath;
+	}
+
+	public void setConPath(String conPath) {
+		this.conPath = conPath;
+	}
+	
+	
+    
+    
 
 	
     

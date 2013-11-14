@@ -7,6 +7,8 @@ package controller;
 import domain.Diagram;
 import domain.Report;
 import compareAlgorithm.CompareDiagrams;
+import compareAlgorithm.DiagramCompare;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,6 +16,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -22,6 +25,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import repository.DiagramDAO;
 import repository.ReportDAO;
 
@@ -40,6 +44,8 @@ public class Compare extends HttpServlet {
 
 	private int diagramID1;
 	private int diagramID2;
+	private String diagram1RealPath;
+	private String diagram2RealPath;
 
 	/**
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -57,17 +63,27 @@ public class Compare extends HttpServlet {
 	protected void processRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		ServletContext context = this.getServletContext();
-
+		
 		this.diagramID1 = Integer.parseInt(request.getParameter("file1"));
 		this.diagramID2 = Integer.parseInt(request.getParameter("file2"));
 
 		Diagram diagram1 = DiagramDAO.getDiagram(this.diagramID1);
 		Diagram diagram2 = DiagramDAO.getDiagram(this.diagramID2);
+		
+		diagram1.setDiagramRealPath(context.getRealPath(diagram1.getFilePath()));
+		diagram2.setDiagramRealPath(context.getRealPath(diagram2.getFilePath()));
+		// setting context Paths for Diagrams
+		diagram1.setConPath(context.getRealPath("/").toString());
+//		String contextPath = request.getSession().getServletContext().getRealPath("/");
+		System.out.println("context path: " + diagram1.getConPath());
+		diagram2.setConPath(context.getRealPath("/").toString());
 
-		CompareDiagrams compareObj = new CompareDiagrams(
-				context.getRealPath(diagram1.getFilePath()),
-				context.getRealPath(diagram2.getFilePath()),
-				context.getRealPath("/reports/"));
+
+//		CompareDiagrams compareObj = new CompareDiagrams(
+//				context.getRealPath(diagram1.getFilePath()),
+//				context.getRealPath(diagram2.getFilePath()),
+//				context.getRealPath("/reports/"));
+		DiagramCompare compareObj = new DiagramCompare(diagram1, diagram2, context.getRealPath("/reports/"));
 		try {
 			String path = compareObj.process();
 			this.saveReport(path);
@@ -190,4 +206,12 @@ public class Compare extends HttpServlet {
 		}
 		return bos;
 	}
+	
+//	public String getRealPath(Diagram diagram) {
+//		
+//		ServletContext context = this.getServletContext();
+//		
+//		return context.getRealPath(diagram.getFilePath());
+//		
+//	}
 }

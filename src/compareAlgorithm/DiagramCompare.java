@@ -43,6 +43,8 @@ public class DiagramCompare {
 	public String process() throws Exception {
 		try {
 			
+			String conPath = diagram1.getConPath();
+			System.out.println("Context Path: " + conPath);
 			DiagramParserFactory factory = new DiagramParserFactory();
 			DiagramParser diag1Parser = DiagramParserFactory.getDiagramParser(diagram1);
 			DiagramParser diag2Parser = DiagramParserFactory.getDiagramParser(diagram2);
@@ -54,7 +56,7 @@ public class DiagramCompare {
 			UnifiedAlgorithm algoObj = new UnifiedAlgorithm(diag1Parser, diag2Parser, pathToReport);
 
 			// Begin comparison
-			algoObj.compare();
+			algoObj.testClasses();
 
 		} catch (IOException e) {
 			throw new Exception(e);

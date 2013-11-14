@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 
+import controller.Compare;
 import domain.CD_Attribute;
 import domain.CD_Class;
 import domain.CD_Operation;
@@ -30,7 +31,8 @@ public class ENClassDiagramParser extends ClassDiagramParser{
 		super(diagramObj);
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
 				"ecore", new EcoreResourceFactoryImpl());
-		this.ecorePath = ecorePath;
+		this.ecorePath = diagramObj.getDiagramRealPath();
+		System.out.println("ecorepath: " + this.ecorePath);
 		this.parseModels();
 	}
 	
@@ -86,9 +88,9 @@ public class ENClassDiagramParser extends ClassDiagramParser{
 		List<CD_Class> finalClassList = new ArrayList<CD_Class>();
 		for (int i = 0; i < ecoreModel.size(); i++) {
 			EClass ecoreClass = (EClass) ecoreModel.get(i);
+			System.out.println("super Class:" + ecoreClass.getESuperTypes());
 			CD_Class tmpClass = new CD_Class(ecoreClass);
 			finalClassList.add(tmpClass);
-			
 		}
 		return finalClassList;
 	}

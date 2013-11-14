@@ -13,7 +13,7 @@ import domain.DiagramType;
 public class DiagramParserFactory {
 
 	private final static String ENCORE = "encore";
-	private final static String XMI = "xmi";
+	private final static String XMI = "XMI";
 	private final static String CLASS = "class";
 	
 	//Use this method to create appropriate DiagramParser by supplying the Diagram object. The diagram object should have the diagramType and fileType properties
@@ -34,10 +34,12 @@ public class DiagramParserFactory {
 				switch ((diagram.getFileType()))
 				{
 					case XMI:
+//					default:
 						return new XMIClassDiagramParser(diagram);
 					
 					//ENCORE
 					default :
+//					case ENCORE:
 						return new ENClassDiagramParser(diagram, diagram.getFilePath()); //Eliminate use of filepath
 				}
 			default:

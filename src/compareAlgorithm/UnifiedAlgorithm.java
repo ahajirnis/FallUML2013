@@ -1,6 +1,8 @@
 package compareAlgorithm;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.codec.EncoderException;
 import org.apache.commons.codec.language.Soundex;
 import org.eclipse.emf.common.util.EList;
@@ -12,7 +14,9 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
+import controller.diagramparser.ClassDiagramParser;
 import controller.diagramparser.DiagramParser;
+import domain.CD_Class;
 
 /**
  * Algorithm class that compares all the features of a class diagram.
@@ -62,6 +66,16 @@ public class UnifiedAlgorithm {
 		report = new Report(reportFile);
 		matchedClasses = new ArrayList<String>();
 		comparedClasses = new ArrayList<String>();
+	}
+	
+	public void testClasses() {
+		
+		List<CD_Class> classList = ((ClassDiagramParser) diagParser1).getClasses();
+		for(CD_Class cdClass : classList) {
+			System.out.println("Class Name: " + cdClass.getClassName());
+//			System.out.println("Super Class: " + );
+		}
+		
 	}
 
 	/**
