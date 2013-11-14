@@ -1,57 +1,152 @@
-
--------------------------------------- Update Queries -----------------------------------------
-
-
--- 2013/10/11 Add userType into table user  --
-ALTER TABLE user ADD COLUMN userType char(2) NOT NULL DEFAULT "U";
-
-
--- 2013/10/15 Create Table userproject for mapping between user and project --
-CREATE TABLE userproject 
-(
-	userId INT(11) NOT NULL,
-	projectId INT(11) NOT NULL,
-	PRIMARY KEY (userId, projectId),
-);
--- 2013/10/15 Fix name errors in table project --
-ALTER TABLE project CHANGE desceiption description varchar(255);
-ALTER TABLE project CHANGE starDate startDate varchar(45);
-
-
--- 2013/10/22 Create Table Policy --
-CREATE TABLE policy
-(
-	policyId INT(11) PRIMARY KEY AUTO_INCREMENT,
-	policyName VARCHAR(45) NOT NULL UNIQUE,
-	policyDescription VARCHAR(255),	
-	policyLevel INT(11)	NOT NULL
-);
-
-
--- 2013/10/22 Create Table DiagramContext --
-CREATE TABLE diagramContext
-(
-	diagramContextId Int(11) PRIMARY KEY AUTO_INCREMENT,
-	description VARCHAR(255),    
-    name VARCHAR(45) NOT NULL,
-    policyId INT(11) NOT NULL,
-    projectId INT(11) NOT NULL,
-);
-
-	
--- 2013/10/22 Create Table DiagramPolicyScore --
-CREATE TABLE DiagramPolicyScore
-(
-	diagramId INT(11) NOT NULL,
-	justification VARCHAR(100),
-	policyId INT(11) NOT NULL,
-	score INT(11) DEFAULT 0,
+
+-------------------------------------- Update Queries -----------------------------------------
+
+
+
+
+
+-- 2013/10/11 Add userType into table user  --
+
+ALTER TABLE user ADD COLUMN userType char(2) NOT NULL DEFAULT "U";
+
+
+
+
+
+-- 2013/10/15 Create Table userproject for mapping between user and project --
+
+CREATE TABLE userproject 
+
+(
+
+	userId INT(11) NOT NULL,
+
+	projectId INT(11) NOT NULL,
+
+	PRIMARY KEY (userId, projectId),
+
+);
+
+-- 2013/10/15 Fix name errors in table project --
+
+ALTER TABLE project CHANGE desceiption description varchar(255);
+
+ALTER TABLE project CHANGE starDate startDate varchar(45);
+
+
+
+
+
+-- 2013/10/22 Create Table Policy --
+
+CREATE TABLE policy
+
+(
+
+	policyId INT(11) PRIMARY KEY AUTO_INCREMENT,
+
+	policyName VARCHAR(45) NOT NULL UNIQUE,
+
+	policyDescription VARCHAR(255),	
+
+	policyLevel INT(11)	NOT NULL
+
+);
+
+
+
+
+
+-- 2013/10/22 Create Table DiagramContext --
+
+CREATE TABLE diagramContext
+
+(
+
+	diagramContextId Int(11) PRIMARY KEY AUTO_INCREMENT,
+
+	description VARCHAR(255),    
+
+    name VARCHAR(45) NOT NULL,
+
+    policyId INT(11) NOT NULL,
+
+    projectId INT(11) NOT NULL,
+
+);
+
+
+
+	
+
+-- 2013/10/22 Create Table DiagramPolicyScore --
+
+CREATE TABLE DiagramPolicyScore
+
+(
+
+	diagramId INT(11) NOT NULL,
+
+	justification VARCHAR(100),
+
+	policyId INT(11) NOT NULL,
+
+	score INT(11) DEFAULT 0,
+
 	PRIMARY KEY (diagramId, policyId),
-);
-
--- 2013/10/22 Add enabled and disabledDate into table project, fix duplicate projectName and userName issue --
-ALTER TABLE project ADD disabledDate VARCHAR(45);
-ALTER TABLE project ADD enabled char(1) DEFAULT 'Y';
-ALTER TABLE project ADD UNIQUE (projectName);
-ALTER TABLE user ADD UNIQUE (userName);-- 2013/11/12 Drop old comment table --DROP TABLE comment;-- 2013/11/12 Create table comment --CREATE TABLE comment(	commentId int(11) PRIMARY KEY AUTO_INCREMENT,	compareId int(11) NOT NULL,	userId int(11) NOT NULL,	commentText varchar(255) NOT NULL,	commentTime timestamp NULL);-- 2013/11/12 Create table compare --CREATE TABLE compare(	compareId int(11) NOT NULL AUTO_INCREMENT,	diagramAId int(11) NOT NULL,	diagramBId int(11) NOT NULL,	reportId int(11) NOT NULL,	promoteCountA int(11) DEFAULT 0,    promoteCountB int(11) DEFAULT 0,	PRIMARY KEY (compareId));
--- 2013/11/12 Add Constraint --ALTER TABLE userproject ADD CONSTRAINT userprojectHaveUserId FOREIGN KEY (userId) REFERENCES user (userId) ON DELETE NO ACTION ON UPDATE NO ACTION;ALTER TABLE userproject ADD CONSTRAINT userprojectHaveProjectId FOREIGN KEY (projectId) REFERENCES project (projectId) ON DELETE NO ACTION ON UPDATE NO ACTION;ALTER TABLE comment ADD CONSTRAINT commentHaveCompareId FOREIGN KEY (compareId) REFERENCES compare (compareId) ON DELETE NO ACTION ON UPDATE NO ACTION;ALTER TABLE comment ADD CONSTRAINT commentHaveUserId FOREIGN KEY (userId) REFERENCES user (userId) ON DELETE NO ACTION ON UPDATE NO ACTION;ALTER TABLE compare ADD CONSTRAINT compareHaveReportId FOREIGN KEY (reportId) REFERENCES report (reportId) ON DELETE NO ACTION ON UPDATE NO ACTION;ALTER TABLE compare ADD CONSTRAINT compareHaveDiagramAId FOREIGN KEY (diagramAId) REFERENCES diagram (diagramId) ON DELETE NO ACTION ON UPDATE NO ACTION;ALTER TABLE compare ADD CONSTRAINT compareHaveDiagramBId FOREIGN KEY (diagramBId) REFERENCES diagram (diagramId) ON DELETE NO ACTION ON UPDATE NO ACTION;ALTER TABLE DiagramPolicyScore ADD CONSTRAINT DiagramPolicyScoreHavePolicyId FOREIGN KEY (policyId) REFERENCES policy (policyId) ON DELETE NO ACTION ON UPDATE NO ACTION;ALTER TABLE DiagramPolicyScore ADD CONSTRAINT DiagramPolicyScoreHaveDiagramId FOREIGN KEY (diagramId) REFERENCES diagram (diagramId) ON DELETE NO ACTION ON UPDATE NO ACTION;ALTER TABLE diagramContext ADD CONSTRAINT DiagramContextHavePolicyId FOREIGN KEY (policyId) REFERENCES policy (policyId) ON DELETE NO ACTION ON UPDATE NO ACTION;ALTER TABLE diagramContext ADD CONSTRAINT diagramContextHaveProjectId FOREIGN KEY (projectId) REFERENCES project (projectId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+);
+
+
+
+-- 2013/10/22 Add enabled and disabledDate into table project, fix duplicate projectName and userName issue --
+
+ALTER TABLE project ADD disabledDate VARCHAR(45);
+
+ALTER TABLE project ADD enabled char(1) DEFAULT 'Y';
+
+ALTER TABLE project ADD UNIQUE (projectName);
+
+ALTER TABLE user ADD UNIQUE (userName);
+
+
+-- 2013/11/12 Drop old comment table --
+DROP TABLE comment;
+
+
+-- 2013/11/12 Create table comment --
+CREATE TABLE comment
+(
+	commentId int(11) PRIMARY KEY AUTO_INCREMENT,
+	compareId int(11) NOT NULL,
+	userId int(11) NOT NULL,
+	commentText varchar(255) NOT NULL,
+	commentTime timestamp NULL,
+	reportId int(11)
+);
+
+-- 2013/11/12 Create table compare --
+CREATE TABLE compare
+(
+	compareId int(11) NOT NULL AUTO_INCREMENT,
+	diagramAId int(11) NOT NULL,
+	diagramBId int(11) NOT NULL,
+	reportId int(11) NOT NULL,
+	promoteCountA int(11) DEFAULT 0,
+    promoteCountB int(11) DEFAULT 0,
+	PRIMARY KEY (compareId)
+);
+
+-- 2013/11/12 Add Constraint --
+ALTER TABLE userproject ADD CONSTRAINT userprojectHaveUserId FOREIGN KEY (userId) REFERENCES user (userId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE userproject ADD CONSTRAINT userprojectHaveProjectId FOREIGN KEY (projectId) REFERENCES project (projectId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE comment ADD CONSTRAINT commentHaveCompareId FOREIGN KEY (compareId) REFERENCES compare (compareId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE comment ADD CONSTRAINT commentHaveUserId FOREIGN KEY (userId) REFERENCES user (userId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE compare ADD CONSTRAINT compareHaveReportId FOREIGN KEY (reportId) REFERENCES report (reportId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE compare ADD CONSTRAINT compareHaveDiagramAId FOREIGN KEY (diagramAId) REFERENCES diagram (diagramId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE compare ADD CONSTRAINT compareHaveDiagramBId FOREIGN KEY (diagramBId) REFERENCES diagram (diagramId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE DiagramPolicyScore ADD CONSTRAINT DiagramPolicyScoreHavePolicyId FOREIGN KEY (policyId) REFERENCES policy (policyId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE DiagramPolicyScore ADD CONSTRAINT DiagramPolicyScoreHaveDiagramId FOREIGN KEY (diagramId) REFERENCES diagram (diagramId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE diagramContext ADD CONSTRAINT DiagramContextHavePolicyId FOREIGN KEY (policyId) REFERENCES policy (policyId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE diagramContext ADD CONSTRAINT diagramContextHaveProjectId FOREIGN KEY (projectId) REFERENCES project (projectId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+
