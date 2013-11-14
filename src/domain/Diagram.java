@@ -21,6 +21,7 @@ public class Diagram {
     private String diFileName;
     private String diFilepath;
     private DiagramType diagramType;
+    private int diagramContextId;
     
 	public DiagramType getDiagramType() {
 		return diagramType;
@@ -239,6 +240,20 @@ public class Diagram {
     public void setProjectId(int projectId) {
         this.projectId = projectId;
     }
+
+	/**
+	 * @return the diagramContextId
+	 */
+	public int getDiagramContextId() {
+		return diagramContextId;
+	}
+
+	/**
+	 * @param diagramContextId the diagramContextId to set
+	 */
+	public void setDiagramContextId(int diagramContextId) {
+		this.diagramContextId = diagramContextId;
+	}
 
 	
     
