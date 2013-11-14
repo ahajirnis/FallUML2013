@@ -32,6 +32,10 @@
    	<servlet-name>ManageContext</servlet-name>
   	<servlet-class>controller.ManageContext</servlet-class>
   </servlet>
+   <servlet>
+  	<servlet-name>ManagePolicy</servlet-name>
+  	<servlet-class>controller.ManagePolicy</servlet-class>
+  </servlet>
   
  
   <servlet-mapping>
@@ -77,6 +81,11 @@
     <servlet-mapping>
   	<servlet-name>ManageContext</servlet-name>
   	<url-pattern>/ManageContext</url-pattern>
+  </servlet-mapping>
+   
+    <servlet-mapping>
+  	<servlet-name>ManagePolicy</servlet-name>
+  	<url-pattern>/ManagePolicy</url-pattern>
   </servlet-mapping>
   
   

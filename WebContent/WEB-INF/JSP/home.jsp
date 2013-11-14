@@ -78,7 +78,7 @@ body {
 						<li><a href="#tabs-1">Home</a></li>
 						<li><a href="ManageProject">Project</a></li>
 						<li><a href="ManageContext">Context</a></li>
-						<li><a href="#tabs-4">Policy</a></li>
+						<li><a href="ManagePolicy">Policy</a></li>
 					</ul>
 					<div id="tabs-1">
 						<div class="mainbar">
@@ -114,6 +114,9 @@ body {
 					</div>
 					<div id="tabs-3">
 						<p>Tab 3.</p>
+					</div>
+					<div id="tabs-4">
+						<p>Tab 4.</p>
 					</div>
 				</div>
 				<div></div>
