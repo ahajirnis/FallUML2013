@@ -51,7 +51,7 @@ public class PolicyDAO {
      * 			
      * @param policy
      */    
-    public static Policy UpdatePolicy(Policy policy) {
+    public static Policy updatePolicy(Policy policy) {
     	try {
     		
     		Connection conn = DbManager.getConnection();
@@ -68,7 +68,7 @@ public class PolicyDAO {
     	    conn.close();
     	} catch (SQLException e) {
     	    e.printStackTrace();
-    	    return policy;
+    	    return null;
     	}
     	return policy;
         }
