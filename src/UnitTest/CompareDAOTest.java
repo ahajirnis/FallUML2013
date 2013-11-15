@@ -3,6 +3,7 @@ package UnitTest;
 import static org.junit.Assert.*;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.junit.Test;
@@ -21,7 +22,7 @@ public class CompareDAOTest {
 	
 
 		@Test
-		public void test() {
+		public void test() throws SQLException {
 			System.out.println("d");
 			
 			
