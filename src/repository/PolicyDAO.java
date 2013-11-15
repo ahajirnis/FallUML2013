@@ -41,7 +41,7 @@ public class PolicyDAO {
 	    conn.close();
 	} catch (SQLException e) {
 	    e.printStackTrace();
-	    return policy;
+	    return null;
 	}
 	return policy;
     }
