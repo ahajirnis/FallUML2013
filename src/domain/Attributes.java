@@ -6,21 +6,21 @@ package domain;
  *
  */
 public class Attributes extends Metrics {
-	private int metricsId;
+	private int metricId;
 	private int averagePointOver;
 	private int idealNoOfAttributes;
 	private int maxNoOfAttributes;
 	/**
 	 * @return the matricsId
 	 */
-	public int getMetricsId() {
-		return metricsId;
+	public int getMetricId() {
+		return metricId;
 	}
 	/**
 	 * @param metricsId the metricsId to set
 	 */
-	public void setMetricsId(int metricsId) {
-		this.metricsId = metricsId;
+	public void setMetricId(int metricId) {
+		this.metricId = metricId;
 	}
 	/**
 	 * @return the averagePointOver

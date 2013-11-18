@@ -6,21 +6,21 @@ package domain;
  *
  */
 public class Classes extends Metrics {
-	private int metricsId;
+	private int metricId;
 	private int idealNoOfClasses;
 	private int maxNoOfClasses;
 	private int minNoOfClasses;
 	/**
 	 * @return the metricsId
 	 */
-	public int getMetricsId() {
-		return metricsId;
+	public int getMetricId() {
+		return metricId;
 	}
 	/**
 	 * @param metricsId the metricsId to set
 	 */
-	public void setMetricsId(int metricsId) {
-		this.metricsId = metricsId;
+	public void setMetricId(int metricId) {
+		this.metricId = metricId;
 	}
 	/**
 	 * @return the idealNoOfClasses

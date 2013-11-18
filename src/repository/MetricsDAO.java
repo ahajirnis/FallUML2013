@@ -43,7 +43,7 @@ public class MetricsDAO {
 	     
 	     ResultSet lastIdResult = null;
 	     
-	     int newMetricsId = 0;
+	     int newMetricId = 0;
 	     
 	     String getLastIdString = "SELECT LAST_INSERT_ID();";
 
@@ -54,9 +54,9 @@ public class MetricsDAO {
 	      		
 	      		pstmt = conn.prepareStatement(
 
-	     	           "INSERT into metrics(metricsTypeID, metricsWeight, policyID) VALUES(?,?,?,?);");
+	     	           "INSERT into metrics(metricTypeID, metricsWeight, policyID) VALUES(?,?,?,?);");
 
-	     	         pstmt.setInt(1, metrics.getMetricsTypeId());
+	     	         pstmt.setInt(1, metrics.getMetricTypeId());
 
 	     	         pstmt.setInt(2, metrics.getMetricsWeight());
 	     	         
@@ -69,12 +69,12 @@ public class MetricsDAO {
 	     	     lastIdResult = lastIdStatement.executeQuery();
 	     	     
 	     	     while (lastIdResult.next()){
-	     	    	 newMetricsId = lastIdResult.getInt(1);
+	     	    	 newMetricId = lastIdResult.getInt(1);
 	     	     }
 	     	      
 	     	     metricsReturn = new Associations();
-	     	     metricsReturn.setMetricsId(newMetricsId);
-	     	     metricsReturn.setMetricsTypeId(metrics.getMetricsTypeId());
+	     	     metricsReturn.setMetricId(newMetricId);
+	     	     metricsReturn.setMetricTypeId(metrics.getMetricTypeId());
 	     	     metricsReturn.setMetricsWeight(metrics.getMetricsWeight());
 	     	     metricsReturn.setPolicyId(metrics.getPolicyId());
 	     
@@ -116,7 +116,7 @@ public class MetricsDAO {
 	     
 	     ResultSet lastIdResult = null;
 	     
-	     int newMetricsId = 0;
+	     int newMetricId = 0;
 	     
 	     String getLastIdString = "SELECT LAST_INSERT_ID();";
 
@@ -126,9 +126,9 @@ public class MetricsDAO {
 	      		
 	      		pstmt = conn.prepareStatement(
 
-		     	           "INSERT into metrics(metricsTypeID, metricsWeight, policyID) VALUES(?,?,?,?);");
+		     	           "INSERT into metrics(metricTypeID, metricsWeight, policyID) VALUES(?,?,?,?);");
 
-		     	         pstmt.setInt(1, metrics.getMetricsTypeId());
+		     	         pstmt.setInt(1, metrics.getMetricTypeId());
 
 		     	         pstmt.setInt(2, metrics.getMetricsWeight());
 		     	         
@@ -141,14 +141,14 @@ public class MetricsDAO {
 			    lastIdResult = lastIdStatement.executeQuery();
 			     	     
 			    	while (lastIdResult.next()){
-			     	    	 newMetricsId = lastIdResult.getInt(1);
+			     	    	 newMetricId = lastIdResult.getInt(1);
 			     	}
 			     	      
 			    	pstmt = conn.prepareStatement(
 
-			     	           "INSERT into Attributes(metricsId, averagePointsOver, idealNoOfAttributes, maxNoOfAttributes) VALUES(?,?,?,?);");
+			     	           "INSERT into Attributes(metricId, averagePointOver, idealNoOfAttributes, maxNoOfAttributes) VALUES(?,?,?,?);");
 
-			     	         pstmt.setInt(1, newMetricsId);
+			     	         pstmt.setInt(1, newMetricId);
 
 			     	         pstmt.setInt(2, metrics.getAveragePointOver());
 			     	         
@@ -160,8 +160,8 @@ public class MetricsDAO {
 		     	         
 		     	 
 	      	      	metricsReturn = new Attributes();
-	      	      	metricsReturn.setMetricsId(newMetricsId);
-	      	      	metricsReturn.setMetricsTypeId(metrics.getMetricsTypeId());
+	      	      	metricsReturn.setMetricId(newMetricId);
+	      	      	metricsReturn.setMetricTypeId(metrics.getMetricTypeId());
 	      	      	metricsReturn.setMetricsWeight(metrics.getMetricsWeight());
 	      	      	metricsReturn.setPolicyId(metrics.getPolicyId());
 	      	      	metricsReturn.setAveragePointOver(metrics.getAveragePointOver());
@@ -204,7 +204,7 @@ public class MetricsDAO {
 	     
 	     ResultSet lastIdResult = null;
 	     
-	     int newMetricsId = 0;
+	     int newMetricId = 0;
 	     
 	     String getLastIdString = "SELECT LAST_INSERT_ID();";
 
@@ -214,9 +214,9 @@ public class MetricsDAO {
 	      		
 	      		pstmt = conn.prepareStatement(
 
-		     	           "INSERT into metrics(metricsTypeID, metricsWeight, policyID) VALUES(?,?,?,?);");
+		     	           "INSERT into metrics(metricTypeID, metricsWeight, policyID) VALUES(?,?,?,?);");
 
-		     	         pstmt.setInt(1, metrics.getMetricsTypeId());
+		     	         pstmt.setInt(1, metrics.getMetricTypeId());
 
 		     	         pstmt.setInt(2, metrics.getMetricsWeight());
 		     	         
@@ -229,14 +229,14 @@ public class MetricsDAO {
 			    lastIdResult = lastIdStatement.executeQuery();
 			     	     
 			    	while (lastIdResult.next()){
-			     	    	 newMetricsId = lastIdResult.getInt(1);
+			     	    	 newMetricId = lastIdResult.getInt(1);
 			     	}
 			     	      
 			    	pstmt = conn.prepareStatement(
 
-			     	           "INSERT into Classes(metricsId, idealNoOfClasses, maxNoOfClasses, minNoOfClasses) VALUES(?,?,?,?);");
+			     	           "INSERT into Classes(metricId, idealNoOfClasses, maxNoOfClasses, minNoOfClasses) VALUES(?,?,?,?);");
 
-			     	         pstmt.setInt(1, newMetricsId);
+			     	         pstmt.setInt(1, newMetricId);
 
 			     	         pstmt.setInt(2, metrics.getIdealNoOfClasses());
 			     	         
@@ -248,8 +248,8 @@ public class MetricsDAO {
 		     	         
 		     	 
 	      	      	metricsReturn = new Classes();
-	      	      	metricsReturn.setMetricsId(newMetricsId);
-	      	      	metricsReturn.setMetricsTypeId(metrics.getMetricsTypeId());
+	      	      	metricsReturn.setMetricId(newMetricId);
+	      	      	metricsReturn.setMetricTypeId(metrics.getMetricTypeId());
 	      	      	metricsReturn.setMetricsWeight(metrics.getMetricsWeight());
 	      	      	metricsReturn.setPolicyId(metrics.getPolicyId());
 	      	      	metricsReturn.setMinNoOfClasses(metrics.getMinNoOfClasses());
@@ -292,7 +292,7 @@ public class MetricsDAO {
 	     
 	     ResultSet lastIdResult = null;
 	     
-	     int newMetricsId = 0;
+	     int newMetricId = 0;
 	     
 	     String getLastIdString = "SELECT LAST_INSERT_ID();";
 
@@ -302,9 +302,9 @@ public class MetricsDAO {
 	      		
 	      		pstmt = conn.prepareStatement(
 
-	     	           "INSERT into metrics(metricsTypeID, metricsWeight, policyID) VALUES(?,?,?,?);");
+	     	           "INSERT into metrics(metricTypeID, metricsWeight, policyID) VALUES(?,?,?,?);");
 
-	     	         pstmt.setInt(1, metrics.getMetricsTypeId());
+	     	         pstmt.setInt(1, metrics.getMetricTypeId());
 
 	     	         pstmt.setInt(2, metrics.getMetricsWeight());
 	     	         
@@ -317,12 +317,12 @@ public class MetricsDAO {
 	     	     lastIdResult = lastIdStatement.executeQuery();
 	     	     
 	     	     while (lastIdResult.next()){
-	     	    	 newMetricsId = lastIdResult.getInt(1);
+	     	    	 newMetricId = lastIdResult.getInt(1);
 	     	     }
 	     	      
 	     	     metricsReturn = new Multiplicities();
-	     	     metricsReturn.setMetricsId(newMetricsId);
-	     	     metricsReturn.setMetricsTypeId(metrics.getMetricsTypeId());
+	     	     metricsReturn.setMetricId(newMetricId);
+	     	     metricsReturn.setMetricTypeId(metrics.getMetricTypeId());
 	     	     metricsReturn.setMetricsWeight(metrics.getMetricsWeight());
 	     	     metricsReturn.setPolicyId(metrics.getPolicyId());
 	     
@@ -356,6 +356,28 @@ public class MetricsDAO {
 	  
 		 ArrayList<Metrics> metricsList = null;
 		 
+		 Connection conn = null;
+		 
+		 PreparedStatement pstmt = null;
+		 
+		 ResultSet resultSet = null;
+		 
+		 try {
+			 conn = DbManager.getConnection();
+			 
+			 
+		 }
+		 catch (SQLException sqlE){
+			 sqlE.printStackTrace();
+		 }
+		 finally{
+			 
+			  if( pstmt != null) {pstmt.close();}
+
+		      if( conn != null) {conn.close();}
+
+		 }
+		 
 		 
 		 return metricsList;
 
@@ -363,12 +385,12 @@ public class MetricsDAO {
 	 
 	 /**
 	  * 
-	  * @param metricsId	metricsId 
+	  * @param metricId	metricId 
 	  * @return	Metrics		Relevant Metrics sub-class
 	  * @throws SQLException
 	  */
 	 
-	 public static Metrics getMetrics(int metricsId) throws SQLException {
+	 public static Metrics getMetrics(int metricId) throws SQLException {
 
 	     Metrics metrics = null;
 

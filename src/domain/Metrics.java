@@ -6,37 +6,37 @@ package domain;
  *
  */
 public class Metrics {
-	private int metricsId;
-	private int metricsTypeId;
+	private int metricId;
+	private int metricTypeId;
 	private int metricsWeight;
 	private int policyId;
 	private MetricsType metricsType;
 	/**
-	 * @return the metricsId
+	 * @return the metricId
 	 */
-	public int getMetricsId() {
-		return metricsId;
+	public int getMetricId() {
+		return metricId;
 	}
 	/**
-	 * @param metricsId the metricsId to set
+	 * @param metricId the metricsId to set
 	 */
-	public void setMetricsId(int metricsId) {
-		this.metricsId = metricsId;
+	public void setMetricId(int metricId) {
+		this.metricId = metricId;
 	}
 	/**
-	 * @return the metricsTypeId
+	 * @return the metricTypeId
 	 */
-	public int getMetricsTypeId() {
-		return metricsTypeId;
+	public int getMetricTypeId() {
+		return metricTypeId;
 	}
 	/**
-	 * @param metricsTypeId the metricsTypeId to set
+	 * @param metricTypeId the metricTypeId to set
 	 */
-	public void setMetricsTypeId(int metricsTypeId) {
-		this.metricsTypeId = metricsTypeId;
+	public void setMetricTypeId(int metricTypeId) {
+		this.metricTypeId = metricTypeId;
 	}
 	/**
-	 * @return the matricsWeight
+	 * @return the mtricsWeight
 	 */
 	public int getMetricsWeight() {
 		return metricsWeight;
