@@ -5,22 +5,22 @@ package domain;
  * @author Jiayuan Song
  *
  */
-public class Attributes extends MatricsObject {
-	private int matricsId;
+public class Attributes extends Metrics {
+	private int metricsId;
 	private int averagePointOver;
 	private int idealNoOfAttributes;
 	private int maxNoOfAttributes;
 	/**
 	 * @return the matricsId
 	 */
-	public int getMatricsId() {
-		return matricsId;
+	public int getMetricsId() {
+		return metricsId;
 	}
 	/**
-	 * @param matricsId the matricsId to set
+	 * @param metricsId the metricsId to set
 	 */
-	public void setMatricsId(int matricsId) {
-		this.matricsId = matricsId;
+	public void setMetricsId(int metricsId) {
+		this.metricsId = metricsId;
 	}
 	/**
 	 * @return the averagePointOver

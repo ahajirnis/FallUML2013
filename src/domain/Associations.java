@@ -5,6 +5,6 @@ package domain;
  * @author Jiayuan Song
  *
  */
-public class Associations extends MatricsObject {
+public class Associations extends Metrics {
 
 }
