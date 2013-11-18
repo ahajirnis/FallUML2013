@@ -44,7 +44,7 @@ public class ContextDAO {
 
      */
 
-    public static DiagramContext getContextByProject(int projectId) throws SQLException {
+    public static DiagramContext getContext(int projectId) throws SQLException {
 
     DiagramContext context = null;
 
@@ -585,6 +585,57 @@ return false;
      return context;
 
     }   
+    
+    
+    
+    public static DiagramContext getContext(int projectid, String contextName) throws SQLException {
+
+        DiagramContext context = null;
+
+        Connection conn = null;
+
+        PreparedStatement pstmt = null;
+
+        ResultSet rs = null;
+
+        try {
+
+         conn = DbManager.getConnection();
+
+            pstmt = conn.prepareStatement(
+
+             "SELECT * FROM diagramContext where contextName = ? AND projectId = ?;");
+
+            pstmt.setString(1, contextName);
+            pstmt.setInt(2, projectid);
+
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+
+         context = new DiagramContext();
+
+            }
+
+            return context;
+
+        } catch (SQLException e) {
+
+            System.out.println("Using default model.");
+
+        } finally {
+
+         if( rs != null) {rs.close();}
+
+         if( pstmt != null) {pstmt.close();}
+
+         if( conn != null) {conn.close();}
+
+        }
+
+        return context;
+
+       }   
 
 }
 
