@@ -209,7 +209,8 @@
 		<c:if test="${requestScope.diagramId1 != null}">
 			<img src="${requestScope.firstPath}"/>
 		</c:if>
-		<br><b>Comments : </b>
+		<!-- 
+			<br><b>Comments : </b>
 		<c:if test="${requestScope.comments != null}">
 			<div id="commentBox">
 				<table id="myTable">
@@ -222,6 +223,8 @@
 				</table>
 			</div>
 		</c:if>
+		 -->
+		
 	</div>
     
     <div id="rightContainer">
