@@ -47,18 +47,16 @@ public class Promote extends HttpServlet {
 	    throws ServletException, IOException {
 	int imageId = Integer.parseInt(request.getParameter("imageId"));
 	String comment = request.getParameter("comment");
+	int diagramId = Integer.parseInt(request.getParameter("diagramId"));
 
 	HttpSession session = request.getSession(true);
-	//String userId = session.getAttribute("userId").toString();
+	int userId = Integer.parseInt(session.getAttribute("userId").toString());
+	String userName = session.getAttribute("username").toString();
 	// TODO debug userId
-	String userId = "1";
+	//String userId = "1";
 	
 	//Save the comment
-	Comment commentObj = new Comment();
-	commentObj.setReportId(imageId);
-	commentObj.setUserId(Integer.parseInt(userId));
-	commentObj.setContent(comment);
-	CommentDAO.addComment(commentObj);
+	//saveComment(request, userId, userName);
 
 	/* removed by Xuesong Meng
 	EditingHistory editObj = new EditingHistory();
@@ -67,7 +65,7 @@ public class Promote extends HttpServlet {
 	//update edit history
 	EditingHistoryDAO.addHistory(editObj);
 	*/
-	request.setAttribute("comments", comment);
+	
 	RequestDispatcher dispatcher = request.getRequestDispatcher("Display");
 	dispatcher.forward(request, response);
 
@@ -85,5 +83,13 @@ public class Promote extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	processRequest(request, response);
+    }
+    
+    private void saveComment(HttpServletRequest request, int userId, String userName) {
+    	Comment comment = new Comment();
+    	comment.setPromotedDiagramId(Integer.parseInt(request.getParameter("diagramId")));
+    	comment.setCommentText(request.getParameter("comment"));
+    	comment.setUserId(userId);
+    	comment.setUserName(userName);
     }
 }

@@ -7,6 +7,7 @@ package controller;
 import domain.Diagram;
 import domain.Report;
 import compareAlgorithm.CompareDiagrams;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -22,6 +24,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.parser.PdfReaderContentParser;
+import com.itextpdf.text.pdf.parser.SimpleTextExtractionStrategy;
+import com.itextpdf.text.pdf.parser.TextExtractionStrategy;
+
 import repository.DiagramDAO;
 import repository.ReportDAO;
 
@@ -72,11 +80,13 @@ public class Compare extends HttpServlet {
 			String path = compareObj.process();
 			this.saveReport(path);
 			// this.showPdf(path, request, response);
+			String reportText = PDFToText(path);
+			request.setAttribute("reportText", reportText);
 			request.setAttribute("reportPath", path);
 			request.setAttribute("path1", diagram1.getFilePath() + ".png");
 			request.setAttribute("path2", diagram2.getFilePath() + ".png");
-			request.setAttribute("val1", diagram1.getDiagramId());
-			request.setAttribute("val2", diagram2.getDiagramId());
+			request.setAttribute("diagramAId", diagram1.getDiagramId());
+			request.setAttribute("diagramBId", diagram1.getDiagramId());
 			RequestDispatcher dispatcher = request
 					.getRequestDispatcher("WEB-INF/JSP/promote.jsp");
 			dispatcher.forward(request, response);
@@ -148,7 +158,28 @@ public class Compare extends HttpServlet {
 		ReportDAO.addReport(reportObj);
 	}
 
+	private String PDFToText(String filePath) throws IOException {
+		PdfReader reader = new PdfReader(filePath);
 
+		PdfReaderContentParser parser = new
+
+		   PdfReaderContentParser(reader);
+
+		TextExtractionStrategy strategy = null;
+		StringBuffer text = new StringBuffer();
+
+		for(int i = 1; i <= reader.getNumberOfPages(); i++) {
+
+		       strategy = parser.processContent(i,
+
+		          new SimpleTextExtractionStrategy());
+		       
+		       text.append(strategy.getResultantText());
+		       //System.out.println(strategy.getResultantText());
+
+		}
+		return text.toString();
+	}
 	 /**
 	 * @throws IOException
 	 *             if an I/O error occurs
@@ -189,5 +220,9 @@ public class Compare extends HttpServlet {
 			ex.printStackTrace();
 		}
 		return bos;
+	}
+	
+	private void searchAndLoadCompare(int diagramAId, int diagramBId) {
+		
 	}
 }
