@@ -346,7 +346,7 @@ ol li .send {
 	width: 600px;
 	float: right;
 }
-#myContainer{
+#promote-container{
     width: 1200px;
     margin-left: auto;
     margin-right: auto;
@@ -409,8 +409,8 @@ ol li .send {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     background-color: #EEEBE7;
-    width: 500px;
-    height: 575px;
+    width: 46%;
+    height: 700px;
     -moz-box-shadow: 0 0 1px 1px #888;
     -webkit-box-shadow: 0 0 1px 1px #888;
     box-shadow: 0 0 1px 1px #888;
@@ -419,10 +419,32 @@ ol li .send {
 .file2{
     float:right;
 }
-.file1 img, .file2 img{
+/*.file1 img, .file2 img{
+    padding: 25px;
+}*/
+.file1 form, .file2 form{
+    padding-left: 50px;
+    padding-top: 30px;
+}
+.compare-file1,.compare-file2 {
+	display:block;
+	-moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    background-color: #EEEBE7;
+    width: 43%;
+    height: 575px;
+    -moz-box-shadow: 0 0 1px 1px #888;
+    -webkit-box-shadow: 0 0 1px 1px #888;
+    box-shadow: 0 0 1px 1px #888;
+    margin-top:10px;
+}
+.compare-file2{
+    float:right;
+}
+.compare-file1 img, .compare-file2 img{
     padding: 25px;
 }
-.file1 form, .file2 form{
+.compare-file1 form, .compare-file2 form{
     padding-left: 50px;
     padding-top: 30px;
 }

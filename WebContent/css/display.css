@@ -59,30 +59,6 @@
     left:40%;
 }
 
-
-.file1{
-
-display:block;
-float:left;
-width:46%;
-height:650px;
-border-color: #000;
-background-color:lightcyan;
-
-
-}
-
-.file2{
-
-display:block;
-float:right;
-width:46%;
-height:650px;
-border-color: #000;
-background-color:lightcyan;
-
-
-}
 .compare{
 
 display:block;
