@@ -104,7 +104,7 @@ public class ProjectDAOTest {
 	
 	@Test
 	public void testUpdateProject() throws SQLException {
-		Project project = new Project("21","clubuml6-new","des6","","N","");
+		Project project = new Project("21","clubuml6-new","des6","",false,"");
 		boolean result = ProjectDAO.updateProject(project);
 		Assert.assertEquals(true, result);
 	}

@@ -26,7 +26,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 }
 
 private void Success(HttpServletRequest request,
-		HttpServletResponse response, RequestDispatcher dispatcher,
+		HttpServletResponse response,
 		Project projectObj) throws ServletException, IOException, SQLException {
 
 	
@@ -35,41 +35,49 @@ private void Success(HttpServletRequest request,
 	System.out.println("Successfully added project");
 	//HttpSession session = request.getSession(true);
 	
+	RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/JSP/home.jsp");
     dispatcher.forward(request, response);
+	//getServletConfig().getServletContext().getRequestDispatcher("/ManageProject").forward(request,response);
+    //dispatcher.forward(request, response);
 }
 
 private void Failed(HttpServletRequest request,
-		HttpServletResponse response, RequestDispatcher dispatcher) throws ServletException, IOException {
+		HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Project Already Exist");
 		response.getWriter().write("FAILED");
 }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
+		
 		processRequest(request, response);
+		System.out.println("enters create project servlet");
 	}
 
 	private void processRequest(HttpServletRequest request,
 			HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		
-		RequestDispatcher dispatcher = null;
+		
 
 		String projectname = request.getParameter("ProjectName");
 		String projectid = request.getParameter("ProjectID");
 		String startdate = request.getParameter("StartDate");
 		String description = request.getParameter("Description");
+		Boolean enabled = Boolean.valueOf(request.getParameter("statusChangeTo"));
 		
 		
 	
 			try {
 				if (ProjectDAO.isExisted(projectname)) {
-					Failed(request, response, dispatcher);		//project already existed
+					Failed(request, response);		//project already existed
 				} else {
 					
-					dispatcher = request.getRequestDispatcher("WEB-INF/JSP/manageProject.jsp");
-					Project projectObj = new Project(projectid, projectname, description, startdate);
-					Success(request, response, dispatcher, projectObj);	//registration succeeded
+					//dispatcher = request.getRequestDispatcher("ManageProject");
+					
+					//getServletConfig().getServletContext().getRequestDispatcher("/ManageProject").forward(request,response);
+					Project projectObj = new Project(projectname, description, enabled);
+					Success(request, response, projectObj);	//registration succeeded
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

@@ -195,7 +195,8 @@ margin-left:30px;
 			</tr>
 	</c:forEach>
 		</table>
-		<input type="hidden" value="disable" name="statusChangeTo">
+<!-- 	sid changed from disable to false to match boolean value -->
+		<input type="hidden" value= false name="statusChangeTo">
 		</form>
 		
 		<form action="ChangeProjectStatus" method="post">
@@ -219,14 +220,15 @@ margin-left:30px;
 				<td><a  style="color:gray ;">${project.projectName }</a></td>
 				<td>${project.startDate}</td>
 				<td>${projetct.description}</td>
-				<td>Active</td>
-				<td><button class="btn btn-link" type="submit">Disable</button></td>
+				<td>InActive</td>
+				<td><button class="btn btn-link" type="submit">Enable</button></td>
 						
 			</tr>
 	</c:forEach>
 	
 		</table>
-		<input type="hidden" value="enable" name="statusChangeTo">
+		<!-- 	sid changed from enabled to true to match boolean value -->
+		<input type="hidden" value= true name="statusChangeTo">
 		</form>
 	</div>
 	

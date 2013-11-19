@@ -3,6 +3,7 @@ package domain;
 /**
  * Information class that contains all the features of one project
  * @ doc author	Dong Guo
+ * 11/18 Sid changed String enabled to boolean enabled
  */
 
 public class Project {
@@ -12,7 +13,7 @@ public class Project {
 	private String description;
 	private byte achived = 0;// Default
 	private String startDate;
-	private String enabled;
+	private boolean enabled;
 	private String disabledDate;
 
 	public String getStartDate() {
@@ -28,8 +29,14 @@ public class Project {
 	 *
 	 * @param projectName
 	 * 			The name of the project
+	 * @param string4 
+	 * @param b 
+	 * @param string3 
+	 * @param string2 
+	 * @param string 
 	 */
-	public Project(String projectName) {
+	public Project(String projectName, String description, String startDate,
+			boolean enabled, String disabledDate) {
 		this.projectName = projectName;
 	}
 
@@ -65,7 +72,7 @@ public class Project {
 	 * @param disabledDate
 	 */
 	public Project(String projectId, String projectName, String description, String startDate,
-			String enabled, String disabledDate) {
+			boolean enabled, String disabledDate) {
 		this.projectId = projectId;
 		this.projectName = projectName;
 		this.description = description;
@@ -94,6 +101,25 @@ public class Project {
 		this.projectName = projectName;
 		this.description = description;
 		this.startDate = startDate;
+		// TODO Auto-generated constructor stub
+	}
+	
+	/**
+	 * Constructor to initialize necessary class members
+	 *
+	 * @param projectName
+	 * 			The name of the project 
+	 * @param description
+	 * 			The description of the project			
+	 * @param startDate
+	 * 			The enabled value of the project
+	 */
+	public Project(String projectName, String description,
+			boolean enabled) {
+		
+		this.projectName = projectName;
+		this.description = description;
+		this.enabled = enabled;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -181,11 +207,11 @@ public class Project {
 		this.disabledDate = disabledDate;
 	}
 
-	public String getEnabled() {
+	public boolean getEnabled() {
 		return enabled;
 	}
 
-	public void setEnabled(String enabled) {
+	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
 

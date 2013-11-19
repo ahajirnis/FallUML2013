@@ -124,7 +124,7 @@ CREATE TABLE DiagramPolicyScore
 	justification VARCHAR(100),
 	policyId INT(11) NOT NULL,
 	score INT(11) DEFAULT 0,
-	PRIMARY KEY (diagramId, policyId),
+	PRIMARY KEY (diagramId, policyId)
 );
 
 -- 2013/11/12 Create Table compare --

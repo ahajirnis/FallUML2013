@@ -49,7 +49,7 @@ public class ManageProject extends HttpServlet {
 		inactiveProjects = new ArrayList<>();
 		
 		for(Project p: allProjects){
-			if(p.getEnabled().equals("t")){
+			if(p.getEnabled()){
 				activeProjects.add(p);
 			}else{
 				inactiveProjects.add(p);

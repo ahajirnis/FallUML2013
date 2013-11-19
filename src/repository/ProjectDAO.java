@@ -2,8 +2,12 @@ package repository;
 
 /**
  * @author Xuesong Meng&Yidu Liang
+
  * @author Joanne Zhuo
  * @author Ying Gan
+ * @author Siddhesh Jaiswal
+ * 11/18 sid changed String enabled to boolean
+ * 11/18 indrajit changed setString enabled to setBoolean to match the changes
  */
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -35,7 +39,7 @@ public class ProjectDAO {
     	    if (rs.next()) {
     		project = new Project(rs.getString("projectId"), rs.getString("projectName"),
     				rs.getString("description"), rs.getString("startDate"),
-    				rs.getString("enabled"),rs.getString("disabledDate"));
+    				rs.getBoolean("enabled"),rs.getString("disabledDate"));
     	    }
     	    return project;
     	} catch (SQLException e) {
@@ -60,9 +64,10 @@ public class ProjectDAO {
     	try {
     		conn = DbManager.getConnection();
     	    pstmt = conn.prepareStatement(
-    	    		"INSERT into project(projectName, startDate ,description) VALUES(?,NOW(),?);");
+    	    		"INSERT into project(projectName, startDate, description, enabled) VALUES(?,NOW(),?,?);");
     	    pstmt.setString(1, project.getProjectName());
     	    pstmt.setString(2, project.getDescription());
+    	    pstmt.setBoolean(3, project.getEnabled());
     	    if(pstmt.executeUpdate() != 0) {
     	    	return true;
     	    } else {
@@ -82,7 +87,7 @@ public class ProjectDAO {
     	PreparedStatement pstmt = null;
     	try {
     		conn = DbManager.getConnection();
-    		if (project.getEnabled() == "N") {
+    		if (!project.getEnabled()) {
     			pstmt = conn.prepareStatement(
         	    		"UPDATE project SET projectName = ?, description = ?, enabled = ?, "
         	    		+ "disabledDate = NOW() WHERE projectId = ?;");
@@ -94,7 +99,7 @@ public class ProjectDAO {
     		} 	    
     	    pstmt.setString(1, project.getProjectName());
     	    pstmt.setString(2, project.getDescription());
-    	    pstmt.setString(3, project.getEnabled());
+    	    pstmt.setBoolean(3, project.getEnabled());
     	    pstmt.setString(4, project.getProjectId());
     	    if(pstmt.executeUpdate() != 0) {
     	    	return true;
@@ -199,7 +204,7 @@ public class ProjectDAO {
     	    while (rs.next()) {
     		Project project = new Project(rs.getString("projectId"), rs.getString("projectName"),
     				rs.getString("description"), rs.getString("startDate"),
-    				rs.getString("enabled"),rs.getString("disabledDate"));
+    				rs.getBoolean("enabled"),rs.getString("disabledDate"));
     		projects.add(project);
     	    }
     	    return projects;
