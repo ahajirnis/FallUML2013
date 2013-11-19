@@ -74,10 +74,10 @@ CREATE TABLE report
   diagramA Int(11) NOT NULL,
   diagramB Int(11) NOT NULL,
   mergedDiagram Int(11),
-  type Varchar(20) NOT NULL,
+  type Varchar(20) NULL,
   time Timestamp NOT NULL,
-  reportFilePath Varchar(45) NOT NULL,
-  reportFileName Varchar(45) NOT NULL,
+  reportFilePath Varchar(200) NOT NULL,
+  reportFileName Varchar(45) NULL,
  PRIMARY KEY (reportId)
 )
 ;
@@ -90,7 +90,9 @@ CREATE TABLE comment
 	compareId int(11) NOT NULL,
 	userId int(11) NOT NULL,
 	commentText varchar(255) NOT NULL,
-	commentTime timestamp NULL
+	commentTime timestamp NULL,
+	promotedDiagramId int(11),
+	userName varchar(45)
 )
 ;
 
@@ -168,9 +170,10 @@ CREATE TABLE DiagramMetricsScore
 CREATE TABLE attributes
 (
   metricId int(11) NOT NULL,
-  averagePointOver int(11),
+
   idealNoOfAttributes int(11),
-  maxNoOfAttributes int(11)
+  maxNoOfAttributes int(11),
+  minNoOfAttributes int(11)
 );
 
 CREATE TABLE classes
@@ -178,6 +181,7 @@ CREATE TABLE classes
   metricId int(11) NOT NULL,
   idealNoOfClasses int(11),
   maxNoOfClasses int(11),
+  minNoOfClasses int(11)
 );
 
 -- Create relationships section ------------------------------------------------- 
