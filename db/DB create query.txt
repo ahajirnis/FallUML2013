@@ -178,7 +178,6 @@ CREATE TABLE classes
   metricId int(11) NOT NULL,
   idealNoOfClasses int(11),
   maxNoOfClasses int(11),
-  totalClassMaxPoints int(11)
 );
 
 -- Create relationships section ------------------------------------------------- 
