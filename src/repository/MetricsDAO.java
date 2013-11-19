@@ -151,15 +151,16 @@ public class MetricsDAO {
 			     	      
 			    	pstmt = conn.prepareStatement(
 
-			     	           "INSERT into Attributes(metricId, averagePointOver, idealNoOfAttributes, maxNoOfAttributes) VALUES(?,?,?,?);");
+			     	           "INSERT into Attributes(metricId, idealNoOfAttributes, maxNoOfAttributes, minNoOfAttributes) VALUES(?,?,?,?);");
 
 			     	         pstmt.setInt(1, newMetricId);
 
-			     	         pstmt.setInt(2, metrics.getAveragePointOver());
 			     	         
-			     	         pstmt.setInt(3, metrics.getIdealNoOfAttributes());
+			     	         pstmt.setInt(2, metrics.getIdealNoOfAttributes());
 			     	         
-			     	         pstmt.setInt(4, metrics.getMaxNoOfAttributes());
+			     	         pstmt.setInt(3, metrics.getMaxNoOfAttributes());
+			     	         
+			     	         pstmt.setInt(4, metrics.getMinNoOfAttributes());
 
 			     	        pstmt.executeUpdate();
 		     	         
@@ -169,9 +170,9 @@ public class MetricsDAO {
 	      	      	metricsReturn.setMetricTypeId(metrics.getMetricTypeId());
 	      	      	metricsReturn.setMetricsWeight(metrics.getMetricsWeight());
 	      	      	metricsReturn.setPolicyId(metrics.getPolicyId());
-	      	      	metricsReturn.setAveragePointOver(metrics.getAveragePointOver());
 	      	      	metricsReturn.setIdealNoOfAttributes(metrics.getIdealNoOfAttributes());
 	      	      	metricsReturn.setMaxNoOfAttributes(metrics.getMaxNoOfAttributes());
+	      	      	metricsReturn.setMinNoOfAttributes(metrics.getMinNoOfAttributes());
 	      	
 	         
 
@@ -376,10 +377,10 @@ public class MetricsDAO {
 		 int thisMetricId = 0;
 		 int thisMetricTypeId = 0;
 		 
-		 String attributesSelectStatement = "SELECT * FROM Associations WHERE metricId = ?";
+		 String attributesSelectStatement = "SELECT * FROM Associations WHERE metricId = ?;";
 		 
 		 
-		 String classesSelectStatement = "SELECT * FROM Classes WHERE metricId = ?";
+		 String classesSelectStatement = "SELECT * FROM Classes WHERE metricId = ?;";
 		 
 		 
 		 try {
@@ -421,9 +422,9 @@ public class MetricsDAO {
 					 		attribute.setPolicyId(metricsResultSet.getInt("policyId"));
 					 		attribute.setMetricsWeight(metricsResultSet.getInt("metricsWeight"));
 					 		attribute.setMetricTypeId(metricsResultSet.getInt("metricTypeId"));
-					 		attribute.setAveragePointOver(innerResultSet.getInt("averagePointOver"));
 					 		attribute.setIdealNoOfAttributes(innerResultSet.getInt("idealNoOfAttributes"));
 					 		attribute.setMaxNoOfAttributes(innerResultSet.getInt("maxNoOfAttributes"));
+					 		attribute.setMinNoOfAttributes(innerResultSet.getInt("minNoOfAttributes"));
 					 		attribute.setMetricsType(MetricsType.ATTRIBUTES);
 					 		
 					 		metricsList.add(attribute);
@@ -517,10 +518,141 @@ public class MetricsDAO {
 	 public static Metrics getMetrics(int metricId) throws SQLException {
 
 	     Metrics metrics = null;
-
+	     
+	     Connection conn = null;
+	     
+	     Connection subConnection = null;
+	     
+	     PreparedStatement pstmt = null;
+	     
+	     PreparedStatement innerPreparedStatement = null;
+	     
+	     ResultSet metricsResultSet = null;
+	     
+	     ResultSet innerResultSet = null;
+	     
+	     String attributesSelectStatement = "SELECT * FROM Attributes WHERE metricId = ?;";
+	     
+	     String classesSelectStatement = "SELECT * FROM Classes WHERE metricId = ?;";
+	     
+	     int thisMetricId = 0;
+	     
+	     int thisMetricTypeId = 0;
 	    
+	     try {
+	    	 
+	    	 conn = DbManager.getConnection();
+	    	 subConnection = DbManager.getConnection();
+	    	 
+	    	 pstmt = conn.prepareStatement("SELECT * FROM metrics WHERE metricId = ?;");
+	    	 pstmt.setInt(1, metricId);
+	    	 
+	    	 metricsResultSet =  pstmt.executeQuery();
+	    	 
+	    	 while (metricsResultSet.next()){
+	    		 
+	    		 // Based on metricTypeId , determine which sub Class should be returned
+	    		 
+	    		 thisMetricId = metricsResultSet.getInt("metricId");
+	    		 thisMetricTypeId = metricsResultSet.getInt("metricTypeId");
+	    		 
+	    		 switch (thisMetricTypeId){
+	    		 
+	    		 case ATTRIBUTES_TYPE:
+	    			 
+	    			 Attributes attributes = new Attributes();
+	    			 
+	    			 innerPreparedStatement = subConnection.prepareStatement(attributesSelectStatement);
+	    			 innerPreparedStatement.setInt(1, thisMetricId);
+	    			 
+	    			 innerResultSet = innerPreparedStatement.executeQuery();
+	    			 
+	    			 while (innerResultSet.next()){
+	    				 
+	    				 attributes.setMetricId(metricsResultSet.getInt("metricId"));
+	    				 attributes.setPolicyId(metricsResultSet.getInt("policyId"));
+	    				 attributes.setMetricTypeId(metricsResultSet.getInt("metricTypeId"));
+	    				 attributes.setMetricsWeight(metricsResultSet.getInt("metricsWeight"));
+	    				 attributes.setMetricsType(MetricsType.ATTRIBUTES);
+	    				 attributes.setIdealNoOfAttributes(innerResultSet.getInt("idealNoOfAttributes"));
+	    				 attributes.setMaxNoOfAttributes(innerResultSet.getInt("maxNoOfAttributes"));
+	    				 attributes.setMinNoOfAttributes(innerResultSet.getInt("minNoOfAttributes"));
+	    				 
+	    			 }
+	    			 
+	    			 metrics = attributes;
+	    			 
+	    		 case CLASSES_TYPE:
+	    			 
+	    			 Classes classes = new Classes();
+	    			 
+	    			 innerPreparedStatement = subConnection.prepareStatement(classesSelectStatement);
+	    			 innerPreparedStatement.setInt(1, thisMetricId);
+	    			 
+	    			 innerResultSet = innerPreparedStatement.executeQuery();
+	    			 while (innerResultSet.next()){
+	    				 
+	    				 classes.setMetricId(metricsResultSet.getInt("metricId"));
+	    				 classes.setPolicyId(metricsResultSet.getInt("policyId"));
+	    				 classes.setMetricTypeId(metricsResultSet.getInt("metricTypeId"));
+	    				 classes.setMetricsWeight(metricsResultSet.getInt("metricsWeight"));
+	    				 classes.setMetricsType(MetricsType.CLASSES);
+	    				 classes.setIdealNoOfClasses(innerResultSet.getInt("idealNoOfClasses"));
+	    				 classes.setMaxNoOfClasses(innerResultSet.getInt("maxNoOfClasses"));
+	    				 classes.setMinNoOfClasses(innerResultSet.getInt("minNoOfClasses"));
+	    			 }
+	    			 
+	    			 	metrics = classes;
+	    			 	
+	    		 case MULTIPLICITIES_TYPE:
+	    			 
+	    			 Multiplicities multiplicities = new Multiplicities();
+	    			 
+	    			 multiplicities.setMetricId(metricsResultSet.getInt("metricId"));
+	    			 multiplicities.setPolicyId(metricsResultSet.getInt("policyId"));
+	    			 multiplicities.setMetricTypeId(metricsResultSet.getInt("metricTypeId"));
+	    			 multiplicities.setMetricsWeight(metricsResultSet.getInt("metricsWeight"));
+	    			 multiplicities.setMetricsType(MetricsType.MULTIPLICITIES);
+	    			 
+	    			 metrics = multiplicities;
+	    			 
+	    		 case ASSOCIATIONS_TYPE:
+	    		 
+	    			 Associations associations = new Associations();
+	    			 
+	    			 associations.setMetricId(metricsResultSet.getInt("metricId"));
+	    			 associations.setPolicyId(metricsResultSet.getInt("policyId"));
+	    			 associations.setMetricTypeId(metricsResultSet.getInt("metricTypeId"));
+	    			 associations.setMetricsWeight(metricsResultSet.getInt("metricsWeight"));
+	    			 associations.setMetricsType(MetricsType.ASSOCIATIONS);
+	    			 
+	    			 metrics = associations;
+	    			 
+	    		 }
+	    		 
+	    		 
+	    		 
+	    	 }
+	    	 
+	    	 
+	     }
+	     catch (SQLException sqlE){
+	    	 sqlE.printStackTrace();
+	     }
+	     finally {
+	    	 
+	    	 if (pstmt != null) {pstmt.close();}
+	    	 
+	    	 if (innerPreparedStatement != null ) {innerPreparedStatement.close();}
+	    	 
+	    	 if (conn != null ) {conn.close();}
+	    	 
+	    	 if (subConnection != null ) {subConnection.close();}
+	     }
 
 	     return metrics;
 
 	    }   
+	 
+	 
 }

@@ -7,9 +7,9 @@ package domain;
  */
 public class Attributes extends Metrics {
 	private int metricId;
-	private int averagePointOver;
 	private int idealNoOfAttributes;
 	private int maxNoOfAttributes;
+	private int minNoOfAttributes;
 	/**
 	 * @return the matricsId
 	 */
@@ -22,18 +22,7 @@ public class Attributes extends Metrics {
 	public void setMetricId(int metricId) {
 		this.metricId = metricId;
 	}
-	/**
-	 * @return the averagePointOver
-	 */
-	public int getAveragePointOver() {
-		return averagePointOver;
-	}
-	/**
-	 * @param averagePointOver the averagePointOver to set
-	 */
-	public void setAveragePointOver(int averagePointOver) {
-		this.averagePointOver = averagePointOver;
-	}
+	
 	/**
 	 * @return the idealNoOfAttributes
 	 */
@@ -57,6 +46,21 @@ public class Attributes extends Metrics {
 	 */
 	public void setMaxNoOfAttributes(int maxNoOfAttributes) {
 		this.maxNoOfAttributes = maxNoOfAttributes;
+	}
+	/**
+	 * 
+	 * @return minNoOfAttributes
+	 */
+	public int getMinNoOfAttributes(){
+		return minNoOfAttributes;
+	}
+	/**
+	 * 
+	 * @param minNoOfAttributes the mininum # of attributes
+	 */
+	
+	public void setMinNoOfAttributes(int minNoOfAttributes){
+		this.minNoOfAttributes = minNoOfAttributes;
 	}
 	
 	
