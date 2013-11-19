@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html style="background-color: #F3F3F3" xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -16,19 +17,21 @@
 			
 			$( "#dialog1" ).hide();
 	
- 			 $("#btn1").click(function(){
-   			 $( "#dialog1" ).dialog();
- 			 });
- 			 $( "#dialog2" ).hide();
-	
+ 			$("#btn1").click(function(){
+   				$( "#dialog1" ).dialog();
+ 			});
+ 			$( "#dialog2" ).hide();
  			$("#btn2").click(function(){
-   			 $( "#dialog2" ).dialog();
-  		});
+   			 	$( "#dialog2" ).dialog();
+  			});
 
-		var report = "reports/";
-		var link = $("#reportLink").html();
-		var reportLink = link.substring(link.lastIndexOf("/"));
-		report = report + reportLink;
+			var report = "reports/";
+			var link = $("#reportLink").val();
+			var reportLink = link.substring(link.lastIndexOf("/"));
+			report = report + reportLink;
+			$("#saveAsPdf").click(function(e){
+			    window.open(report,'Download');
+			});
 	    });
 	    
 	    function checkComments(dialog){
@@ -53,6 +56,7 @@
     <body style="background-color: #F3F3F3">
 	<div id="myHeader">
 	    <h1 id="banner">Promote Diagram</h1>
+	    <input type="hidden" id="reportLink" value="${requestScope.reportPath}"></input>
 	</div>
 	<div id="promote-container">
 	    <div class="file1" style="float:left;">
@@ -68,7 +72,13 @@
 		   
 				<div class="comment1">
 			 		Comment : 
-			 		<div class="scroll1" >this is test for diagram1 we need to get the information from database</div>
+			 		<div class="scroll1" >
+			 			<c:forEach items="${requestScope.diagram1comments}" var="comment">
+			 			<div class="commenttime">(${comment.commentTime})</div>
+			 			<div class="username">${comment.userName}&nbsp;:&nbsp;&nbsp;</div>
+			 			<div class="comment">${comment.commentText}</div>
+			 			</c:forEach>
+			 		</div>
 				</div>
 				<br/> 
 			 
@@ -78,6 +88,9 @@
 						<div class="sumbitbutton">
 						<button id="button1" class="pbutton">Submit</button><br/></div>
 						<input type="hidden" name="diagramId" value="${requestScope.diagramAId}"/>
+						<input type="hidden" name="compareId" value="${requestScope.compareId}"/>
+						<input type="hidden" name="A" value="${requestScope.A}"/>
+						<input type="hidden" name="B" value="${requestScope.B}"/>
 					</form>
 	    		</div>
 	    	</div>
@@ -99,17 +112,27 @@
 		                	<!---- <input type="submit" id="button2" value="Promote" class="pbutton"/>--->
 							<button id="button2" class="pbutton">Submit</button><br/>
 							<input type="hidden" name="diagramId" value="${requestScope.diagramBId}"/>
+							<input type="hidden" name="compareId" value="${requestScope.compareId}"/>
+							<input type="hidden" name="A" value="${requestScope.A}"/>
+							<input type="hidden" name="B" value="${requestScope.B}"/>
 						</div>
 					</form>
 				</div>
 				<div class="comment2">
 			 		Comment :
-			 		<div class="scroll" >this is test for diagram2 we need to get the information from database</div>
+			 		<div class="scroll" >
+			 			<c:forEach items="${requestScope.diagram2comments}" var="comment">
+			 			<div class="commenttime">(${comment.commentTime})</div>
+			 			<div class="username">${comment.userName}&nbsp;:&nbsp;&nbsp;</div>
+			 			<div class="comment">${comment.commentText}</div>
+			 			</c:forEach>
+			 		</div>
 			 	</div>
 			 
 		
 			</div>
 	    </div>
+	    <p>${requestScope.compareId}</p>
 		<br/>
 		<div class="reportfile" style="float:left;">
 			<!---- <div id="reportLink" style="display: none">${requestScope.reportPath}</div>---->
@@ -121,7 +144,7 @@
 			</div>
 			<div class="promote-bottom-button-wrap">
 				<div class="promote-bottom-button">
-					<button  class="pbutton">Save As PDF</button>
+					<button id="saveAsPdf" class="pbutton">Save As PDF</button>
 					<button  class="pbutton">Suggestion Promote</button>
 					<button  class="pbutton">Return</button>
 				</div>

@@ -13,6 +13,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,6 +32,8 @@ import com.itextpdf.text.pdf.parser.PdfReaderContentParser;
 import com.itextpdf.text.pdf.parser.SimpleTextExtractionStrategy;
 import com.itextpdf.text.pdf.parser.TextExtractionStrategy;
 
+import repository.CommentDAO;
+import repository.CompareDAO;
 import repository.DiagramDAO;
 import repository.ReportDAO;
 
@@ -71,6 +75,8 @@ public class Compare extends HttpServlet {
 
 		Diagram diagram1 = DiagramDAO.getDiagram(this.diagramID1);
 		Diagram diagram2 = DiagramDAO.getDiagram(this.diagramID2);
+		
+		
 
 		CompareDiagrams compareObj = new CompareDiagrams(
 				context.getRealPath(diagram1.getFilePath()),
@@ -80,6 +86,9 @@ public class Compare extends HttpServlet {
 			String path = compareObj.process();
 			this.saveReport(path);
 			// this.showPdf(path, request, response);
+			int compareId = searchAndLoadCompare(request,diagram1.getDiagramId(), diagram2.getDiagramId());
+			loadComments(request, compareId);
+			
 			String reportText = PDFToText(path);
 			request.setAttribute("reportText", reportText);
 			request.setAttribute("reportPath", path);
@@ -222,7 +231,42 @@ public class Compare extends HttpServlet {
 		return bos;
 	}
 	
-	private void searchAndLoadCompare(int diagramAId, int diagramBId) {
-		
+	private int searchAndLoadCompare(HttpServletRequest request, int diagramAId, int diagramBId) {
+		domain.Compare compare = null;
+		domain.Compare c = CompareDAO.searchCompare(diagramAId, diagramBId);
+		if(c != null) {
+			compare = c;
+			
+		}
+		else {
+			domain.Compare newCompare = new domain.Compare();
+			newCompare.setDiagramAId(diagramAId);
+			newCompare.setDiagramBId(diagramBId);
+			newCompare = CompareDAO.addCompare(newCompare);
+			if(newCompare != null) {
+				compare = newCompare;
+			}
+			
+		}
+		request.setAttribute("compareId", compare.getCompareId());
+		request.setAttribute("A", compare.getDiagramAId());
+		request.setAttribute("B", compare.getDiagramBId());
+		return compare.getCompareId();
+	}
+	
+	private void loadComments(HttpServletRequest request, int compareId) {
+		ArrayList<domain.Comment> comments = CommentDAO.getComments(compareId);
+		ArrayList<domain.Comment> diagram1Comments = new ArrayList<domain.Comment>();
+		ArrayList<domain.Comment> diagram2Comments = new ArrayList<domain.Comment>();
+		for(domain.Comment comment: comments) {
+			if(comment.getPromotedDiagramId() == diagramID1) {
+				diagram1Comments.add(comment);
+			}
+			else if(comment.getPromotedDiagramId() == diagramID2) {
+				diagram2Comments.add(comment);
+			}
+		}
+		request.setAttribute("diagram1comments", diagram1Comments);
+		request.setAttribute("diagram2comments", diagram2Comments);
 	}
 }

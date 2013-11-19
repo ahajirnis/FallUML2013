@@ -149,8 +149,14 @@ margin-left:0px   ;
 	text-align:center;
 }
 
-.promote-comment-text {
-	
+.commenttime {
+	float:left;
+	width:140px;
+}
+.username {
+	float:left;
+	width:60px;
+	text-align:right;
 }
 /*#btn2{
 
