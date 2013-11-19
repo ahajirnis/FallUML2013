@@ -11,13 +11,13 @@ public class Attributes extends Metrics {
 	private int maxNoOfAttributes;
 	private int minNoOfAttributes;
 	/**
-	 * @return the matricsId
+	 * @return the metricId
 	 */
 	public int getMetricId() {
 		return metricId;
 	}
 	/**
-	 * @param metricsId the metricsId to set
+	 * @param metricId the metricId to set
 	 */
 	public void setMetricId(int metricId) {
 		this.metricId = metricId;
@@ -56,7 +56,7 @@ public class Attributes extends Metrics {
 	}
 	/**
 	 * 
-	 * @param minNoOfAttributes the mininum # of attributes
+	 * @param minNoOfAttributes the minimum # of attributes
 	 */
 	
 	public void setMinNoOfAttributes(int minNoOfAttributes){

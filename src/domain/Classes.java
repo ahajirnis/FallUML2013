@@ -11,13 +11,13 @@ public class Classes extends Metrics {
 	private int maxNoOfClasses;
 	private int minNoOfClasses;
 	/**
-	 * @return the metricsId
+	 * @return the metricId
 	 */
 	public int getMetricId() {
 		return metricId;
 	}
 	/**
-	 * @param metricsId the metricsId to set
+	 * @param metricId the metricId to set
 	 */
 	public void setMetricId(int metricId) {
 		this.metricId = metricId;

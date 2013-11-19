@@ -18,7 +18,7 @@ public class Metrics {
 		return metricId;
 	}
 	/**
-	 * @param metricId the metricsId to set
+	 * @param metricId the metricId to set
 	 */
 	public void setMetricId(int metricId) {
 		this.metricId = metricId;
@@ -36,7 +36,7 @@ public class Metrics {
 		this.metricTypeId = metricTypeId;
 	}
 	/**
-	 * @return the mtricsWeight
+	 * @return the metricsWeight
 	 */
 	public int getMetricsWeight() {
 		return metricsWeight;

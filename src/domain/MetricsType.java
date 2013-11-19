@@ -12,8 +12,8 @@ public enum MetricsType {
 	CLASSES (4);
 	
 	private int mTypeId;
-	MetricsType(int matricsTypeId){
-		this.mTypeId = matricsTypeId;
+	MetricsType(int metricsTypeId){
+		this.mTypeId = metricsTypeId;
 	}
 	
 	
