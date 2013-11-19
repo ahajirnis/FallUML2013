@@ -15,7 +15,7 @@ CREATE TABLE project
   projectName Varchar(45) NOT NULL UNIQUE,
   startDate Varchar(45),
   description Varchar(255),
-  enabled char(1) DEFAULT 'Y',
+  enabled BOOLEAN NOT NULL DEFAULT true,
   disabledDate Timestamp,
   PRIMARY KEY (projectId)
 )
@@ -112,7 +112,7 @@ CREATE TABLE diagramContext
     name VARCHAR(45) NOT NULL,
     policyId INT(11) NOT NULL,
     projectId INT(11) NOT NULL,
-    enabled char(1) NOT NULL DEFAULT 'Y',
+    enabled BOOLEAN NOT NULL DEFAULT true,
     disabledDate timestamp
 );
 
