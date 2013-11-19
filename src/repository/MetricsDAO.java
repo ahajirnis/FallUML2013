@@ -24,6 +24,11 @@ import domain.Classes;
 
 public class MetricsDAO {
 	
+	public static final int ASSOCIATIONS_TYPE = 1;
+	public static final int MULTIPLICITIES_TYPE = 2;
+	public static final int ATTRIBUTES_TYPE = 3;
+	public static final int CLASSES_TYPE = 4;
+	
 	/**
 	 * 
 	 * @param metrics	@see Associations
@@ -358,12 +363,127 @@ public class MetricsDAO {
 		 
 		 Connection conn = null;
 		 
+		 Connection subConnection = null;
+		 
 		 PreparedStatement pstmt = null;
 		 
-		 ResultSet resultSet = null;
+		 PreparedStatement innerPreparedStatement = null;
+		 
+		 ResultSet metricsResultSet = null;
+		 
+		 ResultSet innerResultSet = null;
+		 
+		 int thisMetricId = 0;
+		 int thisMetricTypeId = 0;
+		 
+		 String attributesSelectStatement = "SELECT * FROM Associations WHERE metricId = ?";
+		 
+		 
+		 String classesSelectStatement = "SELECT * FROM Classes WHERE metricId = ?";
+		 
 		 
 		 try {
 			 conn = DbManager.getConnection();
+			 subConnection = DbManager.getConnection();
+			 
+			 pstmt = conn.prepareStatement("SELECT * FROM metrics WHERE policyId = ?;");
+			 pstmt.setInt(1, policyId);
+			 
+			 metricsResultSet = pstmt.executeQuery();
+			 
+			 while (metricsResultSet.next()){
+				 
+				 if (metricsList == null){
+					 metricsList = new ArrayList<Metrics>();
+				 }
+				 
+				 thisMetricId = metricsResultSet.getInt("metricId");
+				 thisMetricTypeId = metricsResultSet.getInt("metricTypeId");
+				 
+				// Check metricsTypeId for this metrics entity
+				 // Based on metricsTypeId, retrieve related Classes or Attributes row as needed
+				 
+				 try {
+					 
+					 switch (thisMetricTypeId){
+					 
+					 case ATTRIBUTES_TYPE:				// Retrieve the attributes record
+						 
+						Attributes attribute = new Attributes();
+					 	innerPreparedStatement = subConnection.prepareStatement(attributesSelectStatement);
+					 	innerPreparedStatement.setInt(1, policyId);
+					 	
+					 	innerResultSet = innerPreparedStatement.executeQuery();
+					 	
+					 	while (innerResultSet.next()){
+					 		
+					 		attribute.setMetricId(metricsResultSet.getInt("metricId"));
+					 		attribute.setPolicyId(metricsResultSet.getInt("policyId"));
+					 		attribute.setMetricsWeight(metricsResultSet.getInt("metricsWeight"));
+					 		attribute.setMetricTypeId(metricsResultSet.getInt("metricTypeId"));
+					 		attribute.setAveragePointOver(innerResultSet.getInt("averagePointOver"));
+					 		attribute.setIdealNoOfAttributes(innerResultSet.getInt("idealNoOfAttributes"));
+					 		attribute.setMaxNoOfAttributes(innerResultSet.getInt("maxNoOfAttributes"));
+					 		attribute.setMetricsType(MetricsType.ATTRIBUTES);
+					 		
+					 		metricsList.add(attribute);
+					 	}
+					 	
+					 	
+					 case CLASSES_TYPE:					// Retrieve the classes record
+						 
+						 Classes classes = new Classes();
+						 innerPreparedStatement = subConnection.prepareStatement(classesSelectStatement);
+						 innerPreparedStatement.setInt(1, policyId);
+						
+						 innerResultSet = innerPreparedStatement.executeQuery();
+						 
+						 while (innerResultSet.next()){
+							 
+							 classes.setMetricId(metricsResultSet.getInt("metricId"));
+							 classes.setPolicyId(metricsResultSet.getInt("policyId"));
+							 classes.setMetricsWeight(metricsResultSet.getInt("metricsWeight"));
+							 classes.setMetricTypeId(metricsResultSet.getInt("metricTypeId"));
+							 classes.setIdealNoOfClasses(innerResultSet.getInt("idealNoOfClasses"));
+							 classes.setMaxNoOfClasses(innerResultSet.getInt("maxNoOfClasses"));
+							 classes.setMinNoOfClasses(innerResultSet.getInt("minNoOfClasses"));
+							 classes.setMetricsType(MetricsType.CLASSES);
+							 
+							 metricsList.add(classes);
+						 }
+						 
+					 case ASSOCIATIONS_TYPE:			// No add'l record to retrieve
+						 
+						 Associations associations = new Associations();
+						 associations.setMetricId(metricsResultSet.getInt("metricId"));
+						 associations.setPolicyId(metricsResultSet.getInt("policyId"));
+						 associations.setMetricsWeight(metricsResultSet.getInt("metricsWeight"));
+						 associations.setMetricTypeId(metricsResultSet.getInt("metricTypeId"));
+						 associations.setMetricsType(MetricsType.ASSOCIATIONS);
+						 
+						 metricsList.add(associations);
+						 
+					 case MULTIPLICITIES_TYPE:			// No add'l record to retrieve
+						 
+						 Multiplicities multiplicities = new Multiplicities();
+						 multiplicities.setMetricId(metricsResultSet.getInt("metricId"));
+						 multiplicities.setMetricTypeId(metricsResultSet.getInt("metricTypeId"));
+						 multiplicities.setMetricsWeight(metricsResultSet.getInt("metricsWeight"));
+						 multiplicities.setPolicyId(metricsResultSet.getInt("policyId"));
+						 multiplicities.setMetricsType(MetricsType.MULTIPLICITIES);
+						
+						 metricsList.add(multiplicities);
+						 
+					 }
+					 
+				 }
+				 catch (SQLException innerSqlE){
+					 innerSqlE.printStackTrace();
+				 }
+				
+				 
+			 }
+			 
 			 
 			 
 		 }
@@ -375,6 +495,10 @@ public class MetricsDAO {
 			  if( pstmt != null) {pstmt.close();}
 
 		      if( conn != null) {conn.close();}
+		      
+		      if ( innerPreparedStatement != null) {innerPreparedStatement.close();}
+		      
+		      if ( subConnection != null) {subConnection.close();}
 
 		 }
 		 
