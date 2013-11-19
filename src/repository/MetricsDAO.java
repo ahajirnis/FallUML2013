@@ -653,6 +653,233 @@ public class MetricsDAO {
 	     return metrics;
 
 	    }   
+	 /**
+	  * 
+	  * @param metrics	@see Classes Metrics to be updated
+	  * @return			<code>boolean</code> True if updated successfully, false if not
+	  */
 	 
+	 public static boolean updateMetrics(Classes metrics) throws SQLException{
+		 
+		 boolean updated = false;
+		 
+		 Connection conn = null;
+		 		 
+		 PreparedStatement pstmt = null;
+		 
+		 String updateMetricsStatement = "UPDATE Metrics SET metricsWeight = ? WHERE metricId = ?;";
+		 
+		 String updateClassesStatement = "UPDATE Classes SET idealNoOfClasses = ? , maxNoOfClasses = ? , minNoOfClasses = ? WHERE metricId = ?;";
+		 
+		 try {
+			 
+			 conn = DbManager.getConnection();
+			 
+			 pstmt = conn.prepareStatement(updateMetricsStatement);
+			 pstmt.setInt(1, metrics.getMetricsWeight());
+			 pstmt.setInt(2, metrics.getMetricId());
+			 			 
+			 if (pstmt.executeUpdate() == 0){
+				 	updated = true;
+			 }
+			 
+			 pstmt = conn.prepareStatement(updateClassesStatement);
+			 pstmt.setInt(1, metrics.getIdealNoOfClasses());
+			 pstmt.setInt(2, metrics.getMaxNoOfClasses());
+			 pstmt.setInt(3, metrics.getMinNoOfClasses());
+			 pstmt.setInt(4, metrics.getMetricId());
+			
+			 if (pstmt.executeUpdate() == 0){
+				 updated = true;
+			 }
+			 
+		 }
+		 catch (SQLException sqlE){
+			 sqlE.printStackTrace();
+		 }
+		 finally {
+			 
+			 if (pstmt != null) {pstmt.close();}
+			 			 
+			 if (conn != null) {conn.close();}
+			 			 
+			 
+		 }
+		 
+		 return updated;
+	 }
+	 /**
+	  * 
+	  * @param metrics	@see Attributes Metrics to be updated
+	  * @return			<code>boolean</code> True if updated successfully, false if not
+	  */
+	 
+	 public static boolean updateMetrics(Attributes metrics) throws SQLException {
+		 
+		 boolean updated = false;
+		 
+		 Connection conn = null;
+ 		 
+		 PreparedStatement pstmt = null;
+		 
+		 String updateMetricsStatement = "UPDATE Metrics SET metricsWeight = ? WHERE metricId = ?;";
+		 
+		 String updateAttributesStatement = "UPDATE Attributes SET idealNoOfAttributes = ? , maxNoOfAttributes = ? , minNoOfAttributes = ? WHERE metricId = ?;";
+		 
+		 try {
+			 
+			 conn = DbManager.getConnection();
+			 
+			 pstmt = conn.prepareStatement(updateMetricsStatement);
+			 pstmt.setInt(1, metrics.getMetricsWeight());
+			 pstmt.setInt(2, metrics.getMetricId());
+			 			 
+			 if (pstmt.executeUpdate() == 0){
+				 	updated = true;
+			 }
+			 
+			 pstmt = conn.prepareStatement(updateAttributesStatement);
+			 pstmt.setInt(1, metrics.getIdealNoOfAttributes());
+			 pstmt.setInt(2, metrics.getMaxNoOfAttributes());
+			 pstmt.setInt(3, metrics.getMinNoOfAttributes());
+			 pstmt.setInt(4, metrics.getMetricId());
+			
+			 if (pstmt.executeUpdate() == 0){
+				 updated = true;
+			 }
+			 
+		 }
+		 catch (SQLException sqlE){
+			 sqlE.printStackTrace();
+		 }
+		 finally {
+			 
+			 if (pstmt != null) {pstmt.close();}
+			 			 
+			 if (conn != null) {conn.close();}
+			 			 
+			 
+		 }
+		 
+		 return updated;
+	 }
+	 /**
+	  * 
+	  * @param metricId	The metricId of the @see Metric to be deleted
+	  * @return 		<code>boolean</code> True if deleted successfully, false if not
+	  */
+	 
+	 public static boolean deleteMetrics(int metricId) throws SQLException {
+		 
+		 boolean deleted = false;
+		 
+		 Connection conn = null;
+		 
+		 Connection subConnection = null;
+		 
+		 PreparedStatement pstmt = null;
+		 
+		 ResultSet metricsResultSet = null;
+		 
+		 int thisMetricId = 0;
+		 
+		 int thisMetricTypeId = 0;
+		 
+		 String deleteMetricsStatement = "DELETE FROM metrics WHERE metricId = ?;";
+		 
+		 String deleteAttributesStatement = "DELETE FROM attributes WHERE metricId = ?;";
+		 
+		 String deleteClassesStatement = "DELETE FROM classes WHERE metricId = ?;";
+		 
+		 
+		 try {
+			 
+			 conn = DbManager.getConnection();
+			 
+			 pstmt = conn.prepareStatement("SELECT * FROM metrics WHERE metricId = ?;");
+			 
+			 pstmt.setInt(1, metricId);
+			 
+			 metricsResultSet = pstmt.executeQuery();
+			 
+			 while (metricsResultSet.next()) {
+				 
+				 thisMetricId = metricsResultSet.getInt("metricId");
+				 thisMetricTypeId = metricsResultSet.getInt("metricTypeId");
+				 
+			 }
+			 
+			 // Check the metricTypeId from the retrieved metrics record
+			 // Based on the metricTypeId, determine if add'l records in Classes or Attributes also need to be deleted
+			 
+			 switch(thisMetricTypeId){
+			 
+			 case ASSOCIATIONS_TYPE:			// No add'l record to delete, only metrics
+				 
+				 pstmt = conn.prepareStatement(deleteMetricsStatement);
+				 pstmt.setInt(1, metricId);
+				 
+				 if (pstmt.executeUpdate() == 0){
+					 deleted = true;
+				 }
+				 
+				 
+			 case MULTIPLICITIES_TYPE:			// No add'l record to delete, only metrics
+				 
+				 pstmt = conn.prepareStatement(deleteMetricsStatement);
+				 pstmt.setInt(1, metricId);
+				 
+				 if (pstmt.executeUpdate() == 0){
+					 deleted = true;
+				 }
+				 	
+			 case ATTRIBUTES_TYPE:			// First delete attributes record, then metrics
+				 
+				 pstmt = conn.prepareStatement(deleteAttributesStatement);
+				 pstmt.setInt(1, metricId);
+				 
+				 if (pstmt.executeUpdate() == 0){
+					 deleted = true;
+				 }
+				 
+				 pstmt = conn.prepareStatement(deleteMetricsStatement);
+				 pstmt.setInt(1, metricId);
+				 
+				 if (pstmt.executeUpdate() == 0){
+					 deleted = true;
+				 }
+				 
+			 case CLASSES_TYPE:				// First delete classes record, then metrics
+				 
+				 pstmt = conn.prepareStatement(deleteClassesStatement);
+				 pstmt.setInt(1, metricId);
+				 
+				 if (pstmt.executeUpdate() == 0){
+					 deleted = true;
+				 }
+				 
+				 pstmt = conn.prepareStatement(deleteMetricsStatement);
+				 pstmt.setInt(1, metricId);
+				 
+				 if (pstmt.executeUpdate() == 0){
+					 deleted = true;
+				 }
+				 
+			 }
+		 }
+		 
+		 catch (SQLException sqlE){
+			 sqlE.printStackTrace();
+		 }
+		 
+		 finally {
+			 if (pstmt != null) {pstmt.close();}
+			 
+			 if (conn != null ) {conn.close();}
+		 }
+		 
+		 
+		 return deleted;
+	 }
 	 
 }
