@@ -15,7 +15,7 @@ CREATE TABLE project
   projectName Varchar(45) NOT NULL UNIQUE,
   startDate Varchar(45),
   description Varchar(255),
-  enabled char(1) DEFAULT 'Y',
+  enabled BOOLEAN NOT NULL DEFAULT true,
   disabledDate Timestamp,
   PRIMARY KEY (projectId)
 )
@@ -112,7 +112,7 @@ CREATE TABLE diagramContext
     name VARCHAR(45) NOT NULL,
     policyId INT(11) NOT NULL,
     projectId INT(11) NOT NULL,
-    enabled char(1) NOT NULL DEFAULT 'Y',
+    enabled BOOLEAN NOT NULL DEFAULT true,
     disabledDate timestamp
 );
 
@@ -137,6 +137,47 @@ CREATE TABLE compare
 	promoteCountA int(11) DEFAULT 0,
     promoteCountB int(11) DEFAULT 0,
 	PRIMARY KEY (compareId)
+);
+
+CREATE TABLE metric
+(
+  metricId int(11) NOT NULL AUTO_INCREMENT,
+  policyId int(11),
+  metricTypeId int(2) NOT NULL,
+  metricsWeight int(11) NOT NULL,
+  PRIMARY KEY (metricId)
+);
+
+CREATE TABLE metricType
+(
+  metricTypeId int(11) NOT NULL,
+  description varchar(255),
+  metricTypeName varchar(30) NOT NULL,
+  PRIMARY KEY (metricTypeId)
+);
+
+CREATE TABLE DiagramMetricsScore
+(
+  diagramId int(11) NOT NULL,
+  metricId int(11) NOT NULL,
+  score int(11) NOT NULL,
+  PRIMARY KEY (diagramId,metricId)
+);
+
+
+CREATE TABLE attributes
+(
+  metricId int(11) NOT NULL,
+  averagePointOver int(11),
+  idealNoOfAttributes int(11),
+  maxNoOfAttributes int(11)
+);
+
+CREATE TABLE classes
+(
+  metricId int(11) NOT NULL,
+  idealNoOfClasses int(11),
+  maxNoOfClasses int(11),
 );
 
 -- Create relationships section ------------------------------------------------- 
@@ -174,6 +215,13 @@ ALTER TABLE DiagramPolicyScore ADD CONSTRAINT DiagramPolicyScoreHaveDiagramId FO
 ALTER TABLE diagramContext ADD CONSTRAINT DiagramContextHavePolicyId FOREIGN KEY (policyId) REFERENCES policy (policyId) ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE diagramContext ADD CONSTRAINT diagramContextHaveProjectId FOREIGN KEY (projectId) REFERENCES project (projectId) ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE diagram ADD CONSTRAINT diagramHaveDiagramContextId FOREIGN KEY (contextId) REFERENCES diagramContext (diagramcontextId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE metric ADD CONSTRAINT metricHavePolicyId FOREIGN KEY (policyId) REFERENCES policy (policyId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE metric ADD CONSTRAINT metricHaveMetricTypeId FOREIGN KEY (metricTypeId) REFERENCES metricType (metricTypeId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE DiagramMetricsScore ADD CONSTRAINT DiagramMetricsScoreHaveDiagramId FOREIGN KEY (diagramId) REFERENCES diagram (diagramId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE DiagramMetricsScore ADD CONSTRAINT DiagramMetricsScoreHaveMetricId FOREIGN KEY (metricId) REFERENCES metric (metricId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE attributes ADD CONSTRAINT attributesHaveMetricId FOREIGN KEY (metricId) REFERENCES metric (metricId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE classes ADD CONSTRAINT classesHaveMetricId FOREIGN KEY (metricId) REFERENCES metric (metricId) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- insert sample data--------------------------------------
 insert into project value (1,'clubuml1',now(),'des1','Y','');
