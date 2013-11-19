@@ -12,6 +12,7 @@
 <TR><TD>Spring 2013</TD><TD>1.0</TD><TD>Initial draft</TD><TD>Spring 2013 Team</TD></TR>
 <TR><TD>10.14.2013</TD><TD>1.1</TD><TD>Updated for Context functionality.</TD><TD>Seth Lee</TD></TR>
 <TR><TD>10.23.2013</TD><TD>1.2</TD><TD>Updated for soft delete functionality.</TD><TD>Seth Lee</TD></TR>
+<TR><TD>11.5.2013</TD><TD>1.3</TD><TD>Updated for disabled context functionality.</TD><TD>Seth Lee</TD></TR>
 </TABLE>
 
 ##Brief Description##
@@ -30,13 +31,15 @@ model
 1. The user is logged in to ClubUML.
 2. The user has a UML diagram encoded in Ecore or Papyrus to upload.
 3. The user has selected a project from the welcome page that is enabled.
+4. At least one enabled Context has been defined for the Project in which the user is working.
  
 ##The Basic Flow of Events##
 
 1. The use case begins when the user selects “Upload” button
 2. ClubUML displays a dialog box for the user to browse for a file.
 3. The user browses and selects a file.
-4. The user selects a Context from the Context drop-down box for the diagram.  
+4. The user selects a Context from the Context drop-down box for the diagram.  Only enabled
+   contexts will be displayed in the drop-down list.
 
 5. ClubUML uploads the file to the File System on Server from the user’s computer and renames the
 file by using “userId_timeStamp_originalFileName”.
