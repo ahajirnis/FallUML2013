@@ -67,7 +67,7 @@ public class Promote extends HttpServlet {
 		EditingHistoryDAO.addHistory(editObj);
     	 */
 	
-    	RequestDispatcher dispatcher = request.getRequestDispatcher("Display");
+    	RequestDispatcher dispatcher = request.getRequestDispatcher("Compare");
     	dispatcher.forward(request, response);
 
     }
@@ -108,8 +108,8 @@ public class Promote extends HttpServlet {
      * @param request
      */
     private void updatePromoteCount(HttpServletRequest request) {
-    	int AId = Integer.parseInt(request.getParameter("A"));
-    	int BId = Integer.parseInt(request.getParameter("B"));
+    	int AId = Integer.parseInt(request.getParameter("file1"));
+    	int BId = Integer.parseInt(request.getParameter("file2"));
     	int diagramId = Integer.parseInt(request.getParameter("diagramId"));
     	int compareId = Integer.parseInt(request.getParameter("compareId"));
     	
