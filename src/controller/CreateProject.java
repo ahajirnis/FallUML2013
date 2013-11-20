@@ -42,7 +42,8 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		// TODO Auto-generated method stub
 		
 		System.out.println("***********");
-
+		String s = request.getParameter("selectstatus");
+		System.out.println(s);
 		String projectname = request.getParameter("ProjectName");
 		String description = request.getParameter("Description");
 		
