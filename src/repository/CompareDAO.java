@@ -30,7 +30,8 @@ import domain.Project;
 		try {
 			Connection conn = DbManager.getConnection();		
 		    PreparedStatement pstmt = conn.prepareStatement(
-			    "insert into compare(diagramAId, diagramBId, reportId, promoteCountA,promoteCountB) values (?,?,?,?,?);");
+			    "insert into compare(diagramAId, diagramBId, reportId, promoteCountA,promoteCountB) values (?,?,?,?,?);"
+		    		,Statement.RETURN_GENERATED_KEYS);
 		    pstmt.setInt(1, compare.getDiagramAId());
 			pstmt.setInt(2, compare.getDiagramBId());
 			pstmt.setInt(3, compare.getReportId());

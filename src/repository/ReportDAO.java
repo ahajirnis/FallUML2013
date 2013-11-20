@@ -22,7 +22,7 @@ public class ReportDAO {
      * 			diagramA_Id, diagramB_Id, reportFilePath
      * @return true if success; false if fail
      */
-    public static boolean addReport(Report report) {
+    public static Report addReport(Report report) {
 	ResultSet rs;
 	try {
 	    Connection conn = DbManager.getConnection();
@@ -47,12 +47,12 @@ public class ReportDAO {
 	    }
 	    rs.close();
 	    pstmt.close();
-	    conn.close();
-	    return true;
+	    conn.close();	    
 	} catch (SQLException ex) {
 	    Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
+	    return null;
 	}
-	return false;
+	return report;
     }
 
     /**
