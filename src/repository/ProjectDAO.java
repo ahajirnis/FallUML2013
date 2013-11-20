@@ -121,15 +121,16 @@ public class ProjectDAO {
      * @param projectName
      * @return true - successful. false - failed.
      * @throws SQLException
+     * @author Indrajit Kulkarni
      */
-    public static boolean disableProject(String projectName) throws SQLException {
+    public static boolean disableProject(int projectId) throws SQLException {
     	Connection conn = null;
     	PreparedStatement pstmt = null;
     	try {
     		conn = DbManager.getConnection();
     	    pstmt = conn.prepareStatement(
-    	    		"UPDATE project SET enabled = false ,disabledDate = NOW() WHERE projectName = ?;");
-    	    pstmt.setString(1, projectName);
+    	    		"UPDATE project SET enabled = false ,disabledDate = NOW() WHERE projectId = ?;");
+    	    pstmt.setInt(1, projectId);
     	    if(pstmt.executeUpdate() != 0) {
     	    	return true;
     	    } else {
@@ -149,15 +150,16 @@ public class ProjectDAO {
      * @param projectName
      * @return true - successful. false - failed.
      * @throws SQLException
+     * @author Indrajit Kulkarni
      */
-    public static boolean enableProject(String projectName) throws SQLException {
+    public static boolean enableProject(int projectId) throws SQLException {
     	Connection conn = null;
     	PreparedStatement pstmt = null;
     	try {
     		conn = DbManager.getConnection();
     	    pstmt = conn.prepareStatement(
-    	    		"UPDATE project SET enabled = true WHERE projectName = ?;");
-    	    pstmt.setString(1, projectName);
+    	    		"UPDATE project SET enabled = true WHERE projectId = ?;");
+    	    pstmt.setInt(1, projectId);
     	    if(pstmt.executeUpdate() != 0) {
     	    	return true;
     	    } else {
