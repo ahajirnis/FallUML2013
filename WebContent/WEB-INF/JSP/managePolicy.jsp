@@ -29,6 +29,63 @@
 	}); */
 	
  $(document).ready(function(){
+	 var metric=0;
+	 $("#Addattribute").click(function(){
+	       metric=1;
+		
+	  });
+	 $("#Addclass").click(function(){
+	       metric=1;
+		
+	  });
+	   $("#afteradd").click(function(event){
+	       if(metric==1){
+				
+		     }
+		   else {
+				alert("please insert metric first");
+	        	event.preventDefault();   
+		   }
+	  });
+	   
+	   var metric1=0;
+		 $("#Updateattribute").click(function(){
+		       metric1=1;
+			
+		  });
+		 $("#Updateclass").click(function(){
+		       metric1=1;
+			
+		  });
+		   $("#afterupdate").click(function(event){
+		       if(metric1==1){
+					
+			     }
+			   else {
+					alert("please insert metric first");
+		        	event.preventDefault();   
+			   }
+		  });
+	 
+	 $( "#accordion" ).accordion({
+		 heightStyle: "content"
+	    });
+	 $( "#dialogAddMetric" ).hide();
+		
+	  $("#btn3").click(function(even){
+	    $( "#dialogAddMetric" ).dialog();
+		event.preventDefault();
+	  });
+	  
+	  $( "#accordionUpdate" ).accordion({
+			 heightStyle: "content"
+		    });
+		 $( "#dialogUpdateMetric" ).hide();
+			
+		  $("#btn4").click(function(even){
+		    $( "#dialogUpdateMetric" ).dialog();
+			event.preventDefault();
+		  });
 		
 	$( "#dialogUpdatePolicy" ).hide();
 	
@@ -62,18 +119,43 @@ width:100%;
 }
 .btn-info {
 
-margin-left:40px;
+margin-left:20px;
 
 }
 .buttoninpopup{
 margin-top:30px;
-margin-left:30px;
+margin-left:-20px;
 
 }
 
 #enabledTab{
 	padding: 30px;
 }
+.matrics-items{
+margin-left: -10px;
+}
+#Addclass{width: 220px;
+margin-left:0px;
+}
+ #Addattribute{width: 220px;
+margin-left:0px;
+}
+#Updateattribute{width: 90px;
+margin-left:0px;
+}
+#Updateclass{width: 90px;
+margin-left:0px;
+}
+#Deleteclass 
+{width: 90px;
+margin-left:9px;
+
+}
+#Deleteattribute {width: 90px;
+margin-left:9px;
+
+}
+
 </style>
 </head>
 <body>
@@ -98,16 +180,66 @@ margin-left:30px;
   </div>
    <div class="form-group">
     <label class="col-lg-2 control-label">Policy Level</label>
-    <div class="col-lg-10">
+   
     
-      <input type="text" class="form-control" id="PolicyLevel" name="PolicyLevel" placeholder="Level"/>
+    <div class="col-lg-10">
+     <select class="form-control">
+     
+ 	    <option>Context</option>
+  		<option>Project</option>
+ 	    <option>User</option>
+ 
+	</select>
     </div>
   </div>
  
   
   
 <div class="buttoninpopup">
-			<input class="btn btn-info"  type="submit" value="Update" />
+			<input class="btn btn-info"  type="submit" value="Update" id="afterupdate" />
+			<%------------------------- update metric --%>
+			 <button class="btn btn-info " id="btn4">Update Metric</button>
+     <div id="dialogUpdateMetric" title="Update Metric">
+
+  <div id="accordionUpdate">
+	<h3>Attribute</h3>
+  <div>
+			<div class="matrics-items" ><input type="text" placeholder="IdealNo.of Attribute " class="form-control"   /></div>
+			<div class="matrics-items" ><input type="text" placeholder="MaxNo.of Attribute " class="form-control"  /></div>
+			<div class="matrics-items" ><input type="text" placeholder="MinNo.of Attribute " class="form-control"  /></div>
+			<div>
+			<input class="btn btn-info"  type="submit" value="Update" id="Updateattribute"/>
+			<input class="btn btn-info"  type="button" value="Delete" id="Deleteattribute"/></div>
+    </div>
+  <h3>Classes</h3>
+  <div>
+			<div class="matrics-items" ><input type="text" placeholder="IdealNo.Of Classes" class="form-control"   /></div>
+			<div class="matrics-items" ><input type="text" placeholder="MinNo.Of Classes " class="form-control"  /></div>
+			<div class="matrics-items" ><input type="text" placeholder="MaxNo.Of Classes " class="form-control"  /></div>
+            <div>
+            <input class="btn btn-info"  type="submit" value="Update" id="Updateclass"/>
+            <input class="btn btn-info"  type="button" value="Delete" id="Deleteclass"/></div>
+     </div>
+  <h3>Associations</h3>
+  <div>
+   
+  </div>
+  <h3>Multiplicities</h3>
+  <div>
+  </div>
+</div>
+ 
+  
+</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
 </div>
 </form>
 </div>
@@ -139,13 +271,53 @@ margin-left:30px;
   
   <div class="form-group">
     <label class="col-lg-2 control-label">Policy Level</label>
-     <div class="col-lg-10">
-      <input type="text" class="form-control" id="PolicyLevel" name="PolicyLevel" placeholder="Level"/>
+      <div class="col-lg-10">
+     <select class="form-control">
+ 	    <option>Context</option>
+  		<option>Project</option>
+ 	    <option>User</option>
+ 
+	</select>
     </div>
   </div>
   
 <div class="buttoninpopup">
-			<input class="btn btn-info"  type="submit" value="Create" />
+			<input class="btn btn-info"  type="submit" value="Create" id="afteradd" />
+
+
+
+	<%------------------------- Add metric --%>
+ <button class="btn btn-info " id="btn3">ADD Metric</button>
+     <div id="dialogAddMetric" title="ADD Metric">
+
+  <div id="accordion">
+	<h3>Attribute</h3>
+  <div>
+			<div class="matrics-items" ><input type="text" placeholder="IdealNo.of Attribute " class="form-control"   /></div>
+			<div class="matrics-items" ><input type="text" placeholder="MaxNo.of Attribute " class="form-control"  /></div>
+			<div class="matrics-items" ><input type="text" placeholder="MinNo.of Attribute " class="form-control"  /></div>
+			<div class="matrics-items" ><input class="btn btn-info"  type="submit" value="Add Attribute" id="Addattribute"/></div>
+    </div>
+  <h3>Classes</h3>
+  <div>
+			<div class="matrics-items" ><input type="text" placeholder="IdealNo.Of Classes" class="form-control"   /></div>
+			<div class="matrics-items" ><input type="text" placeholder="MinNo.Of Classes " class="form-control"  /></div>
+			<div class="matrics-items" ><input type="text" placeholder="MaxNo.Of Classes " class="form-control"  /></div>
+            <div class="matrics-items" ><input class="btn btn-info"  type="submit" value="Add Classes" id="Addclass"/></div>
+     </div>
+  <h3>Associations</h3>
+  <div>
+   
+  </div>
+  <h3>Multiplicities</h3>
+  <div>
+  </div>
+</div>
+ 
+  
+</div>
+			
+			
 			
 </div>
 </form>
