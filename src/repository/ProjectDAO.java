@@ -69,6 +69,7 @@ public class ProjectDAO {
     	    pstmt.setBoolean(3, project.getEnabled());
     	    if(pstmt.executeUpdate() != 0) {
 				project = ProjectDAO.getProject(project.getProjectName());
+				DiagramContext dc = new DiagramContext(project.getProjectName()+"_DefaultContext","Please enter description here",1,project.getProjectId());
     	    	ContextDAO.addContext(new DiagramContext(project.getProjectName()+"_DefaultContext","Please enter description here",1,project.getProjectId()));  // Add 1 in global policy   	    	
     	    	return true;
     	    } else {
