@@ -5,7 +5,9 @@
 package controller;
 
 import domain.Comment;
+
 import java.io.IOException;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,11 +15,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import repository.CommentDAO;
+import repository.CompareDAO;
 
 /**
  *
  * @author Pratham
+ * @author Ying
  */
 
 /**
@@ -45,31 +50,25 @@ public class Promote extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-	int imageId = Integer.parseInt(request.getParameter("imageId"));
-	String comment = request.getParameter("comment");
 
-	HttpSession session = request.getSession(true);
-	//String userId = session.getAttribute("userId").toString();
-	// TODO debug userId
-	String userId = "1";
+    	HttpSession session = request.getSession(true);
+    	int userId = Integer.parseInt(session.getAttribute("userId").toString());
+    	String userName = session.getAttribute("username").toString();
 	
-	//Save the comment
-	Comment commentObj = new Comment();
-	commentObj.setReportId(imageId);
-	commentObj.setUserId(Integer.parseInt(userId));
-	commentObj.setContent(comment);
-	CommentDAO.addComment(commentObj);
+    	updatePromoteCount(request);
+    	saveComment(request,userId,userName);
 
-	/* removed by Xuesong Meng
-	EditingHistory editObj = new EditingHistory();
-	editObj.setDiagramId(imageId);
-	editObj.setUserId(Integer.parseInt(userId));
-	//update edit history
-	EditingHistoryDAO.addHistory(editObj);
-	*/
-	request.setAttribute("comments", comment);
-	RequestDispatcher dispatcher = request.getRequestDispatcher("Display");
-	dispatcher.forward(request, response);
+
+    	/* removed by Xuesong Meng
+		EditingHistory editObj = new EditingHistory();
+		editObj.setDiagramId(imageId);
+		editObj.setUserId(Integer.parseInt(userId));
+		//update edit history
+		EditingHistoryDAO.addHistory(editObj);
+    	 */
+	
+    	RequestDispatcher dispatcher = request.getRequestDispatcher("Compare");
+    	dispatcher.forward(request, response);
 
     }
     /**
@@ -86,4 +85,40 @@ public class Promote extends HttpServlet {
 	    throws ServletException, IOException {
 	processRequest(request, response);
     }
+    
+    /**
+     * Save comment
+     * @param request
+     * @param userId
+     * @param userName
+     */
+    private void saveComment(HttpServletRequest request, int userId, String userName) {
+    	int compareId = Integer.parseInt(request.getParameter("compareId"));
+    	Comment comment = new Comment();
+    	comment.setPromotedDiagramId(Integer.parseInt(request.getParameter("diagramId")));
+    	comment.setCommentText(request.getParameter("comment"));
+    	comment.setCompareId(compareId);
+    	comment.setUserId(userId);
+    	comment.setUserName(userName);
+    	CommentDAO.addComment(comment);
+    }
+    
+    /**
+     * Check which diagram is promoted and update the count in compare object.
+     * @param request
+     */
+    private void updatePromoteCount(HttpServletRequest request) {
+    	int AId = Integer.parseInt(request.getParameter("file1"));
+    	int BId = Integer.parseInt(request.getParameter("file2"));
+    	int diagramId = Integer.parseInt(request.getParameter("diagramId"));
+    	int compareId = Integer.parseInt(request.getParameter("compareId"));
+    	
+    	if(diagramId == AId){
+    		CompareDAO.updateCount(compareId, "A");
+    	}
+    	else if(diagramId == BId) {
+    		CompareDAO.updateCount(compareId, "B");
+    	} 	
+    }
+    
 }

@@ -91,13 +91,13 @@ public class Display extends HttpServlet {
 		request.setAttribute("firstPath", diagrams.get(0).getFilePath() + ".png");
 		request.setAttribute("diagramId1", diagrams.get(0).getDiagramId());
 	    }
-	    ArrayList<Comment> commentListObj = CommentDAO.getComment(diagrams.get(0).getDiagramId());
+	    /*ArrayList<Comment> commentListObj = CommentDAO.getComment(diagrams.get(0).getDiagramId());
 	    if (commentListObj != null && !commentListObj.isEmpty()) {
 		for (int i = 0; i < commentListObj.size(); i++) {
 		    commentListObj.get(i).setUserName(UserDAO.getUser(commentListObj.get(i).getUserId()).getUserName());
 		}
 		request.setAttribute("comments", commentListObj);
-	    }	
+	    }	*/
     	} catch(Exception e){
     		System.out.println(e.getMessage());
     	}
