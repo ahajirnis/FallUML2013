@@ -140,8 +140,6 @@ margin-left:30px;
     </div>
   </div>
   
-
- 
   
    <div class="form-group">
     <label class="col-lg-2 control-label">Description</label>
@@ -154,9 +152,9 @@ margin-left:30px;
   <div class="form-group">
     <label class="col-lg-2 control-label">Porject Status</label>
     <div class="col-lg-10">
-     <select>
-     	<option>Active Project</option>
-     	<option>Disabled Project</option>
+     <select name="selectstatus">
+     	<option value="true">Active Project</option>
+     	<option value="false">Disabled Project</option>
      </select>
     </div>
   </div>

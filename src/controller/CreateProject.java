@@ -33,6 +33,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 	
 		
 		processRequest(request, response);
+
 		System.out.println("enters create project servlet");
 	}
 
@@ -40,7 +41,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		
-		
+		System.out.println("***********");
 
 		String projectname = request.getParameter("ProjectName");
 		String description = request.getParameter("Description");
