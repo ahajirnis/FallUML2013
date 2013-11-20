@@ -1,41 +1,79 @@
 package compareAlgorithm.smartPolicy;
 
+import controller.diagramparser.ClassDiagramParser;
 import controller.diagramparser.DiagramParser;
+import domain.Attributes;
+import domain.CD_Class;
+import domain.Classes;
 import domain.DiagramPolicyScore;
 import domain.MatricsObject;
+import domain.MatricsType;
 import domain.Policy;
 
 
 public class ClassDiagramScoreGenerator {
 
 	private Policy policy;
-	private DiagramParser diagramParser;
+	private ClassDiagramParser diagramParser;
 	private int classScore;
 	private int attributesScore;
 	private int assicoationScore;
 	private int multiplicityScore;
 	private int finalScore;
 	private DiagramPolicyScore policyScore;
+	private String justification;
 	
-	protected ClassDiagramScoreGenerator(Policy policyApplied, DiagramParser parser)
+	//Class weights/points
+	private int totalClassBetweenPoints;
+	private int totalClassMaxPoints;
+	private int totalClassOverMaxPoints;
+	private int totalClassUnderPoints;
+	private int totalClassMinPoints;
+	
+	//Attribute weights/points
+	private int avgAttributesBetweenPoints;
+	private int avgAttributesMaxPoints;
+	private int avgAttributesOverMaxPoints;
+	private int avgAttributesUnderMinPoints;
+	private int avgAttributesMinPoints;
+	
+	protected ClassDiagramScoreGenerator(Policy policyApplied, ClassDiagramParser parser)
 	{
 		policy = policyApplied;
 		diagramParser = parser;
 		policyScore.setDiagramID(diagramParser.getDiagram().getDiagramId());
 		policyScore.setPolicyID(policy.getPolicyID());
+		initPoints();
 					
 	}
 	
-	public DiagramPolicyScore generateScore(){
+	//initialize by reading from a properties file, the values of the various weights assoiated
+	private void initPoints()
+	{
+		totalClassBetweenPoints = 8;
+		totalClassMaxPoints = 8;
+		totalClassUnderPoints = 8;
+		totalClassOverMaxPoints = 8;
+		totalClassMinPoints = 8;
+		
+		avgAttributesBetweenPoints = 8;
+		avgAttributesMaxPoints = 8;
+		avgAttributesOverMaxPoints = 8;
+		avgAttributesUnderMinPoints = 8;
+		avgAttributesMinPoints = 8;
+	}
+	
+	public DiagramPolicyScore generateScore() throws Exception{
 		
 		for(MatricsObject mObj : policy.getMatricsObjects())
 		{
 			policyScore.setPolicyScore(GenerateMatricScore(diagramParser, mObj));
+			policyScore.setJustification(justification);
 		}
 		return policyScore;
 	}
 	
-	private int GenerateMatricScore(DiagramParser diagramParser, MatricsObject mObj){
+	private int GenerateMatricScore(DiagramParser diagramParser, MatricsObject mObj)throws Exception{
 		
 		switch (mObj.getMatricsType()){
 		
@@ -63,21 +101,91 @@ public class ClassDiagramScoreGenerator {
 		
 	}
 	
-	private int scoreClasses(MatricsObject mObj){
+	private int scoreClasses(MatricsObject mObj) throws Exception {
 		int score = 0;
-		//Code here
+		if(mObj.getMatricsType() != MatricsType.CLASSES)
+			throw new Exception("Wrong Matrics Type");
+		int totalNoOfClasses = diagramParser.getClasses().size();
+		int idealNoOfClasses = ((Classes)mObj).getIdealNoOfClasses();
+		int maxNoOfClasses = ((Classes)mObj).getMaxNoOfClasses();
+		int minNoOfClasses = ((Classes)mObj).getMinNoOfClasses();
+		
+//		 If the (A) total number of Classes > idealNoOfClasses < maxNoOfClasses 
+//	      OR (B) minNoOfClasses < total number of Classes < idealNoOfClasses, then 
+//	      totalClassesScore is 
+//	      Absolute Value (idealNoOfClasses - total number of Classes ) * totalClassBetweenPoints
+		
+		if((totalNoOfClasses > idealNoOfClasses && totalNoOfClasses < maxNoOfClasses) || 
+				(totalNoOfClasses < idealNoOfClasses && totalNoOfClasses > minNoOfClasses))
+		{
+			score = Math.abs((idealNoOfClasses - totalNoOfClasses)) * totalClassBetweenPoints;
+		}
+		else if(diagramParser.getClasses().size() == ((Classes)mObj).getIdealNoOfClasses())
+		{
+			score = 0;
+		}
+		else //overflow
+		{
+			if(totalNoOfClasses >= maxNoOfClasses){
+				score = (totalClassMaxPoints + ((totalNoOfClasses - maxNoOfClasses) * totalClassOverMaxPoints));
+			}
+			else if(totalNoOfClasses <= minNoOfClasses){
+				score = totalClassMinPoints + ((minNoOfClasses - totalNoOfClasses) * totalClassUnderPoints);
+			}
+			else
+				throw new Exception("The ideal value is not in between Max and min values");
+			
+		}
 		return score;
 	}
-	private int scoreAttributes(MatricsObject mObj){
+	
+	private int scoreAttributes(MatricsObject mObj) throws Exception{
 		int score = 0;
-		//Code here
+		int avgNoAttribute = 0;
+		int totalNoAttributes = 0;
+		int idealNoOfAttribuutes = ((Attributes)mObj).getIdealNoOfAttributes();
+		int maxNoAttributes = ((Attributes)mObj).getMaxNoOfAttributes();
+		int minNoAttributes = ((Attributes)mObj).getMinNoOfAttributes();
+		
+		int totalNoOfClasses = diagramParser.getClasses().size();
+		
+		for(CD_Class cdClass : diagramParser.getClasses()){
+			totalNoAttributes =+ cdClass.getAttributes().size();
+		}
+		
+		if(totalNoOfClasses > 0)
+			avgNoAttribute = totalNoAttributes/totalNoOfClasses;
+		
+		if(avgNoAttribute == idealNoOfAttribuutes){
+			score = 0;
+		}
+		else if(((avgNoAttribute > idealNoOfAttribuutes) && (avgNoAttribute < maxNoAttributes)) ||
+				((avgNoAttribute < idealNoOfAttribuutes) && (avgNoAttribute > minNoAttributes))){
+			score = Math.abs((idealNoOfAttribuutes - avgNoAttribute)) * avgAttributesBetweenPoints;
+		}
+		else //overflow
+		{
+			if(totalNoOfClasses >= maxNoAttributes){
+				score = (avgAttributesMaxPoints  + ((avgNoAttribute - maxNoAttributes) * avgAttributesOverMaxPoints ));
+			}
+			else if(totalNoOfClasses <= minNoAttributes){
+				score = (avgAttributesMinPoints + ((minNoAttributes - avgNoAttribute) * avgAttributesUnderMinPoints));
+				//score = ((minNoAttributes - totalNoOfClasses) * totalClassUnderPoints);
+			}
+			else
+				throw new Exception("The ideal value is not in between Max and min values");
+			
+		}	
+		
 		return score;
 	}
+	
 	private int scoreMultiplicity(MatricsObject mObj){
 		int score = 0;
 		//Code here
 		return score;
 	}
+	
 	private int scoreAssociations(MatricsObject mObj){
 		int score = 0;
 		//Code here

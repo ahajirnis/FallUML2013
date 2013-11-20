@@ -33,8 +33,5 @@ public abstract class DiagramParser {
 		//pick up the file from the location defined in the Diagram object
 	}
 	
-	public List<CD_Class> getClasses() {
-		return null;
-		
-	}
+	
 }
