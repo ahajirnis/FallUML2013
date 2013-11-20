@@ -1,7 +1,13 @@
 package controller;
 
-import java.io.IOException;
+/**
+* @author Siddhesh Jaiswal
+*/
 
+import java.io.IOException;
+import java.sql.SQLException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,16 +24,26 @@ public class ChangeProjectStatus extends HttpServlet{
 
 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		processRequest(request, response);
+		try {
+			processRequest(request, response);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-	processRequest(request, response);
+	try {
+		processRequest(request, response);
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 }
 
 private void processRequest(HttpServletRequest request,
-		HttpServletResponse response) {
+		HttpServletResponse response) throws SQLException, ServletException, IOException {
 	
 	
 	/*
@@ -36,16 +52,22 @@ private void processRequest(HttpServletRequest request,
 	 * enable-> project.setStatus("enable");
 	 * else disable
 	 */
-	String projectstatus = request.getParameter("statusChangeto");
 	
-	//if (projectstatus.equals("enable")){
-		
-		
-	//	ProjectDAO.enableProject(projectName);
-	//}else{
-		
-	//	ProjectDAO.disableProject(projectName);
-	}
+	Boolean projectstatus = Boolean.valueOf(request.getParameter("statusChangeTo"));
+	String projectName = request.getParameter("ProjectName");
 	
+	// if projectstatus true
+	if (projectstatus){		
+		ProjectDAO.enableProject(projectName);
 	
+	// if projectstatus false
+	}else{		
+		ProjectDAO.disableProject(projectName);
+}
+	
+	RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/JSP/home.jsp");
+    dispatcher.forward(request, response);
+	
+}
+
 }

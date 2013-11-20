@@ -127,7 +127,7 @@ public class ProjectDAO {
     	try {
     		conn = DbManager.getConnection();
     	    pstmt = conn.prepareStatement(
-    	    		"UPDATE project SET enabled = 'N',disabledDate = NOW() WHERE projectName = ?;");
+    	    		"UPDATE project SET enabled = false ,disabledDate = NOW() WHERE projectName = ?;");
     	    pstmt.setString(1, projectName);
     	    if(pstmt.executeUpdate() != 0) {
     	    	return true;
@@ -155,7 +155,7 @@ public class ProjectDAO {
     	try {
     		conn = DbManager.getConnection();
     	    pstmt = conn.prepareStatement(
-    	    		"UPDATE project SET enabled = 'Y' WHERE projectName = ?;");
+    	    		"UPDATE project SET enabled = true WHERE projectName = ?;");
     	    pstmt.setString(1, projectName);
     	    if(pstmt.executeUpdate() != 0) {
     	    	return true;

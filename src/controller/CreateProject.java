@@ -1,5 +1,9 @@
 package controller;
 
+/**
+* @author Siddhesh Jaiswal
+*/
+
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -25,29 +29,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 	
 }
 
-private void Success(HttpServletRequest request,
-		HttpServletResponse response,
-		Project projectObj) throws ServletException, IOException, SQLException {
-
-	
-	ProjectDAO.addProject(projectObj);
-	
-	System.out.println("Successfully added project");
-	//HttpSession session = request.getSession(true);
-	
-	RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/JSP/home.jsp");
-    dispatcher.forward(request, response);
-	//getServletConfig().getServletContext().getRequestDispatcher("/ManageProject").forward(request,response);
-    //dispatcher.forward(request, response);
-}
-
-private void Failed(HttpServletRequest request,
-		HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Project Already Exist");
-		response.getWriter().write("FAILED");
-}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		
 		processRequest(request, response);
@@ -61,9 +43,9 @@ private void Failed(HttpServletRequest request,
 		
 
 		String projectname = request.getParameter("ProjectName");
-		String projectid = request.getParameter("ProjectID");
-		String startdate = request.getParameter("StartDate");
 		String description = request.getParameter("Description");
+		
+		// statusChangesTo needs to be replaced with appropriate parameter (talk to Aish)
 		Boolean enabled = Boolean.valueOf(request.getParameter("statusChangeTo"));
 		
 		
@@ -73,9 +55,6 @@ private void Failed(HttpServletRequest request,
 					Failed(request, response);		//project already existed
 				} else {
 					
-					//dispatcher = request.getRequestDispatcher("ManageProject");
-					
-					//getServletConfig().getServletContext().getRequestDispatcher("/ManageProject").forward(request,response);
 					Project projectObj = new Project(projectname, description, enabled);
 					Success(request, response, projectObj);	//registration succeeded
 				}
@@ -90,6 +69,24 @@ private void Failed(HttpServletRequest request,
 				e.printStackTrace();
 			}
 		}
+
+private void Success(HttpServletRequest request,
+		HttpServletResponse response,
+		Project projectObj) throws ServletException, IOException, SQLException {
+
+	
+	ProjectDAO.addProject(projectObj);
+	
+	System.out.println("Successfully added project");
+	RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/JSP/home.jsp");
+    dispatcher.forward(request, response);
+}
+
+private void Failed(HttpServletRequest request,
+		HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("Project Already Exist");
+		response.getWriter().write("FAILED");
+}
 	}
 		
 
