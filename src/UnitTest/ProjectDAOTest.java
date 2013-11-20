@@ -43,9 +43,9 @@ public class ProjectDAOTest {
 	public void testAddProject() throws SQLException {
 		//add project clubuml3, make sure the clubuml3 is not existed before you run the test
 		Project project = new Project("0","clubuml3","des33",null);
-		Project result = ProjectDAO.addProject(project);
+		boolean result = ProjectDAO.addProject(project);
 		
-		/*Project p = null;
+		Project p = null;
     	Connection conn = null;
     	PreparedStatement pstmt = null;
     	ResultSet rs = null;
@@ -67,10 +67,11 @@ public class ProjectDAOTest {
     		if(rs != null) {rs.close();}
     		if(pstmt != null) {pstmt.close();}
     		if(conn != null) {conn.close();}
-    	} */
+    	} 
     	deleteProject("clubuml3");
-    	Assert.assertEquals(project.getProjectName(), result.getProjectName());
-		Assert.assertEquals(project.getDescription(), result.getDescription());
+    	Assert.assertEquals(true, result);
+    	Assert.assertEquals(project.getProjectName(), p.getProjectName());
+		Assert.assertEquals(project.getDescription(), p.getDescription());
 	}
 	
 	@Test
@@ -103,7 +104,7 @@ public class ProjectDAOTest {
 	
 	@Test
 	public void testUpdateProject() throws SQLException {
-		Project project = new Project("21","clubuml6-new","des6","","N","");
+		Project project = new Project("21","clubuml6-new","des6","",false,"");
 		boolean result = ProjectDAO.updateProject(project);
 		Assert.assertEquals(true, result);
 	}

@@ -38,15 +38,14 @@ private void processRequest(HttpServletRequest request,
 	 */
 	String projectstatus = request.getParameter("statusChangeto");
 	
-	if (projectstatus.equals("enable")){
+	//if (projectstatus.equals("enable")){
+		
 		
 	//	ProjectDAO.enableProject(projectName);
-	}else{
+	//}else{
 		
 	//	ProjectDAO.disableProject(projectName);
 	}
 	
 	
-}
-
 }
