@@ -2,6 +2,7 @@ package controller;
 
 /**
 * @author Siddhesh Jaiswal
+* @author Indrajit Kulkarni
 */
 
 import java.io.IOException;
@@ -54,15 +55,16 @@ private void processRequest(HttpServletRequest request,
 	 */
 	
 	Boolean projectstatus = Boolean.valueOf(request.getParameter("statusChangeTo"));
-	String projectName = request.getParameter("ProjectName");
+	int projectId = Integer.parseInt(request.getParameter("ProjectId"));
+	
 	
 	// if projectstatus true
 	if (projectstatus){		
-		ProjectDAO.enableProject(projectName);
+		ProjectDAO.enableProject(projectId);
 	
 	// if projectstatus false
 	}else{		
-		ProjectDAO.disableProject(projectName);
+		ProjectDAO.disableProject(projectId);
 }
 	
 	RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/JSP/home.jsp");
