@@ -2,12 +2,10 @@ package repository;
 
 /**
  * @author Xuesong Meng&Yidu Liang
-
+ * @author Aniket Hajirnis
  * @author Joanne Zhuo
  * @author Ying Gan
  * @author Siddhesh Jaiswal
- * 11/18 sid changed String enabled to boolean
- * 11/18 indrajit changed setString enabled to setBoolean to match the changes
  */
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,6 +15,7 @@ import java.util.ArrayList;
 
 import domain.Project;
 import domain.User;
+import domain.DiagramContext;
 
 public class ProjectDAO {
 	/**
@@ -69,6 +68,9 @@ public class ProjectDAO {
     	    pstmt.setString(2, project.getDescription());
     	    pstmt.setBoolean(3, project.getEnabled());
     	    if(pstmt.executeUpdate() != 0) {
+    	    	
+    	    	DiagramContext dc = new DiagramContext();
+    	    	
     	    	return true;
     	    } else {
     	    	return false;

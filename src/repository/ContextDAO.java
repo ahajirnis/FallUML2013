@@ -120,9 +120,9 @@ public class ContextDAO {
 
            "INSERT into diagramContext(diagramContextId, description ,name, policyId, projectId) VALUES(?,NOW(),?);");
 
-         pstmt.setString(1, context.getDiagramContextName());
+         pstmt.setString(1, context.getName());
 
-         pstmt.setString(2, context.getDiagramContextDescription());
+         pstmt.setString(2, context.getDescription());
 
          if(pstmt.executeUpdate() != 0) {
 
@@ -162,7 +162,7 @@ public class ContextDAO {
 
       conn = DbManager.getConnection();
 
-      if (context.getEnabled()) {
+      if (context.isEnabled()) {
 
        pstmt = conn.prepareStatement(
 
@@ -182,13 +182,13 @@ public class ContextDAO {
 
       }     
 
-         pstmt.setString(1, context.getDiagramContextName());
+         pstmt.setString(1, context.getName());
 
-         pstmt.setString(2, context.getDiagramContextDescription());
+         pstmt.setString(2, context.getDescription());
 
-         pstmt.setInt(3, context.getProjectID());
+         pstmt.setInt(3, context.getProjectId());
 
-         pstmt.setInt(4, context.getDiagramContextID());
+         pstmt.setInt(4, context.getDiagramContextId());
 
          if(pstmt.executeUpdate() != 0) {
 
@@ -502,7 +502,7 @@ try {
 
  
 
-    pstmt.setInt(1, context.getDiagramContextID());
+    pstmt.setInt(1, context.getDiagramContextId());
 
  
 
