@@ -16,7 +16,10 @@ import org.eclipse.emf.ecore.EReference;
 
 import controller.diagramparser.ClassDiagramParser;
 import controller.diagramparser.DiagramParser;
+import domain.CD_Attribute;
 import domain.CD_Class;
+import domain.CD_Operation;
+import domain.CD_Reference;
 
 /**
  * Algorithm class that compares all the features of a class diagram.
@@ -40,6 +43,7 @@ public class UnifiedAlgorithm {
 
 	private ArrayList<String> matchedClasses; // Records matched classes
 	private ArrayList<String> comparedClasses; // Records compared classes
+	private String reportText;
 	
 	
 	
@@ -83,30 +87,18 @@ public class UnifiedAlgorithm {
 	 */
 	public void compare() {
 		report.addToReport("Begin Comparison....");
-		if (comparePackage()) {
-			eClass1 = new ECoreClass(ePackage1);
-			eClass2 = new ECoreClass(ePackage2);
-
-			// Comparing classes entirely including the details
-			compareClasses(eClass1, eClass2);
-
-			// Reporting unmatch classes
-			reportUnmatchedClasses();
-
-		} else {
-			report.addToReport("Checking individual classes due to absence of packages");
-			for (int i = 0; i < firstModel.size(); i++) {
-				EClass firstClass = (EClass) firstModel.get(i);
-				for (int j = 0; j < secondModel.size(); j++) {
-					EClass secondClass = (EClass) secondModel.get(j);
-					compareUnPackedClasses(firstClass, secondClass);
-				}
+		reportText = "Comaprison Report:";
+		report.addToReport("Checking individual classes due to absence of packages");
+		List<CD_Class> classList1 = ((ClassDiagramParser) diagParser1).getClasses();
+		List<CD_Class> classList2 = ((ClassDiagramParser) diagParser2).getClasses();
+		for(CD_Class cdClass1 : classList1) {
+			for(CD_Class cdClass2 : classList2) {
+				compareUnPackedClasses(cdClass1, cdClass2);
 			}
-
-			// Reporting unmatch classes
-			reportUnmatchedClasses();
 		}
-
+		// Reporting unmatch classes
+		reportUnmatchedClasses();
+		
 		//********************************For testing matchedClasses, plz keep, Dong Guo
 		for(int i = 0; i < matchedClasses.size(); i++){
 			report.addToReport(i + ": " + matchedClasses.get(i));
@@ -115,6 +107,38 @@ public class UnifiedAlgorithm {
 		
 		// Close the report
 		report.finalize();
+//		if (comparePackage()) {
+//			eClass1 = new ECoreClass(ePackage1);
+//			eClass2 = new ECoreClass(ePackage2);
+//
+//			// Comparing classes entirely including the details
+//			compareClasses(eClass1, eClass2);
+//
+//			// Reporting unmatch classes
+//			reportUnmatchedClasses();
+//
+//		} else {
+//			report.addToReport("Checking individual classes due to absence of packages");
+//			for (int i = 0; i < firstModel.size(); i++) {
+//				EClass firstClass = (EClass) firstModel.get(i);
+//				for (int j = 0; j < secondModel.size(); j++) {
+//					EClass secondClass = (EClass) secondModel.get(j);
+//					compareUnPackedClasses(firstClass, secondClass);
+//				}
+//			}
+//
+//			// Reporting unmatch classes
+//			reportUnmatchedClasses();
+//		}
+//
+//		//********************************For testing matchedClasses, plz keep, Dong Guo
+//		for(int i = 0; i < matchedClasses.size(); i++){
+//			report.addToReport(i + ": " + matchedClasses.get(i));
+//		}
+//		//**********************************************************
+//		
+//		// Close the report
+//		report.finalize();
 
 	}
 
@@ -219,33 +243,33 @@ public class UnifiedAlgorithm {
 	 * details. If package are not the same, compare structure details. Adds
 	 * comments to report.
 	 * 
-	 * @param class1
+	 * @param cdClass1
 	 *            first class to compare
-	 * @param class2
+	 * @param cdClass2
 	 *            second class to compare
 	 */
-	private void compareUnPackedClasses(EClass class1, EClass class2) {
+	private void compareUnPackedClasses(CD_Class cdClass1, CD_Class cdClass2) {
 		// report.startRoutine("classes");
 		try {
 
 			// compare class names by soundex
-			int comparedValue = compareNames(class1.getName(), class2.getName());
+			int comparedValue = compareNames(cdClass1.getClassName(), cdClass2.getClassName());
 
 			if (comparedValue == Constants.PERFECT_MATCH) {
 				// add classes to the list of matched classes
-				matchedClasses.add(class1.getName());
-				matchedClasses.add(class2.getName());
+				matchedClasses.add(cdClass1.getClassName());
+				matchedClasses.add(cdClass2.getClassName());
 
 				// add to the report
-				report.addToReport("Perfect Match : " + class1.getName()
-						+ " : " + class2.getName());
+				report.addToReport("Perfect Match : " + cdClass1.getClassName()
+						+ " : " + cdClass2.getClassName());
 
 				// send the classes for comparing details
-				compareClassDetails(class1, class2);
+				compareClassDetails(cdClass1, cdClass2);
 
 			} else {
 				// Pass the two classes for structural class comparison
-				this.structuralComparison(class1, class2);
+				this.structuralComparison(cdClass1, cdClass2);
 			}
 
 		} catch (Exception ex) {
@@ -264,7 +288,7 @@ public class UnifiedAlgorithm {
 	 * @param secondEClass
 	 *            second class to compare
 	 */
-	private void compareClasses(ECoreClass firstEClass, ECoreClass secondEClass) {
+	/*private void compareClasses(ECoreClass firstEClass, ECoreClass secondEClass) {
 		// report.startRoutine("classes");
 		try {
 			for (int x = 0; x < firstEClass.size(); x++) {
@@ -308,21 +332,21 @@ public class UnifiedAlgorithm {
 		} finally {
 			// report.terminateRoutine("Classes");
 		}
-	}
+	}*/
 
 	/**
 	 * Compare classes details after classes match.
 	 * 
-	 * @param cls1
+	 * @param cdClass1
 	 *            first class to compare
-	 * @param cls2
+	 * @param cdClass2
 	 *            second class to compare
 	 */
-	private void compareClassDetails(EClass cls1, EClass cls2) {
-		compareSuperClass(cls1, cls2);
-		compareAttributes(cls1, cls2);
-		compareMethods(cls1, cls2);
-		compareReferences(cls1, cls2);
+	private void compareClassDetails(CD_Class cdClass1, CD_Class cdClass2) {
+		compareSuperClass(cdClass1, cdClass2);
+		compareAttributes(cdClass1, cdClass2);
+		compareMethods(cdClass1, cdClass2);
+		compareReferences(cdClass1, cdClass2);
 		
 		/*
 		 * If the classes match each other,
@@ -339,27 +363,27 @@ public class UnifiedAlgorithm {
 	 * Compares super classes of designated classes and adds comments to report
 	 * object.
 	 * 
-	 * @param cls1
+	 * @param cdClass1
 	 *            first class to compare super class
-	 * @param cls2
+	 * @param cdClass2
 	 *            second class to compare super class
 	 */
-	private void compareSuperClass(EClass cls1, EClass cls2) {
+	private void compareSuperClass(CD_Class cdClass1, CD_Class cdClass2) {
 		// report.startRoutine("super classes");
 		try {
 			// Get super class list from classes
-			EList<EClass> superClassList1 = cls1.getESuperTypes();
-			EList<EClass> superClassList2 = cls2.getESuperTypes();
+			List<CD_Class> superClassList1 = cdClass1.getSuperClasses();
+			List<CD_Class> superClassList2 = cdClass2.getSuperClasses();
 
 			// Select classes one by one and compare
-			for (int i = 0; i < superClassList1.size(); i++) {
-				for (int j = 0; j < superClassList2.size(); j++) {
-					if (compareNames(superClassList1.get(i).getName(),
-							superClassList2.get(j).getName()) > 0) {
+			for (CD_Class superClass1 : superClassList1) {
+				for (CD_Class superClass2 : superClassList2) {
+					if (compareNames(superClass1.getClassName(),
+							superClass2.getClassName()) > 0) {
 						report.addToReport("Super Classes matched : "
-								+ "first " + superClassList1.get(i).getName()
+								+ "first " + superClass1.getClassName()
 								+ " with " + "second "
-								+ superClassList2.get(i).getName());
+								+ superClass2.getClassName());
 					}
 				}
 			}
@@ -373,46 +397,46 @@ public class UnifiedAlgorithm {
 	/**
 	 * Compare class attributes and adds comments to report object.
 	 * 
-	 * @param cls1
+	 * @param cdClass1
 	 *            first class containing attribute to compare
-	 * @param cls2
+	 * @param cdClass2
 	 *            second class containing attributes to compare
 	 */
-	private void compareAttributes(EClass cls1, EClass cls2) {
+	private void compareAttributes(CD_Class cdClass1, CD_Class cdClass2) {
 		// report.startRoutine("attributes");
 		try {
-			EList<EAttribute> attrList1 = cls1.getEAttributes();
-			EList<EAttribute> attrList2 = cls2.getEAttributes();
+			List<CD_Attribute> attrList1 = cdClass1.getAttributes();
+			List<CD_Attribute> attrList2 = cdClass2.getAttributes();
 
 			for (int i = 0; i < attrList1.size(); i++) {
 				// flag set if attribute found
 				boolean attrFound = false;
 
 				for (int j = 0; j < attrList2.size(); j++) {
-					if (compareNames(attrList1.get(i).getName(),
-							attrList2.get(j).getName()) > 1) {
+					if (compareNames(attrList1.get(i).getAttrName(),
+							attrList2.get(j).getAttrName()) > 1) {
 						// set the flag
 						attrFound = true;
 						report.addToReport("  Attributes name matches : "
-								+ "first " + attrList1.get(i).getName()
+								+ "first " + attrList1.get(i).getAttrName()
 								+ " with " + "second "
-								+ attrList2.get(i).getName());
+								+ attrList2.get(i).getAttrName());
 
 						// compare attribute type
-						if (compareETypes(attrList1.get(i).getEType(),
-								attrList2.get(j).getEType())) {
+						if (compareETypes(attrList1.get(i).getAttrType(),
+								attrList2.get(j).getAttrType())) {
 							report.addToReport("  Attributes type matches : "
 									+ "first "
-									+ attrList1.get(j).getEType().getName()
+									+ attrList1.get(j).getAttrType()
 									+ " with " + "second "
-									+ attrList2.get(j).getEType().getName());
+									+ attrList2.get(j).getAttrType());
 						}
 					}
 				}
 				// add to report the unmatched attribute
 				if (!attrFound) {
 					report.addToReport("Attributes from first that don't match : "
-							+ attrList1.get(i).getName());
+							+ attrList1.get(i).getAttrName());
 				}
 			}
 		} catch (Exception ex) {
@@ -426,32 +450,33 @@ public class UnifiedAlgorithm {
 	 * Compare methods by method name and type and adds comments to report
 	 * object.
 	 * 
-	 * @param cls1
+	 * @param cdClass1
 	 *            first class containing operations to compare
-	 * @param cls2
+	 * @param cdClass2
 	 *            second class containing operations to compare
 	 */
-	private void compareMethods(EClass cls1, EClass cls2) {
+	private void compareMethods(CD_Class cdClass1, CD_Class cdClass2) {
 		// report.startRoutine("methods");
 		try {
-			EList<EOperation> methodList1 = cls1.getEAllOperations();
-			EList<EOperation> methodList2 = cls2.getEAllOperations();
+//			EList<EOperation> methodList1 = cdClass1.getEAllOperations();
+//			EList<EOperation> methodList2 = cdClass2.getEAllOperations();
+			List<CD_Operation> methodList1 = cdClass1.getOperations();
+			List<CD_Operation> methodList2 = cdClass2.getOperations();
 
-			for (int i = 0; i < methodList1.size(); i++) {
-				for (int j = 0; j < methodList2.size(); j++) {
-					if (compareNames(methodList1.get(i).getName(), methodList2
-							.get(j).getName()) > 0) {
+			for(CD_Operation operation1 : methodList1) {
+				for (CD_Operation operation2 : methodList2) {
+					if (compareNames(operation1.getOperationName(), operation2.getOperationName()) > 0) {
 						report.addToReport("Methods name matches : " + "first "
-								+ methodList1.get(i).getName() + " with "
-								+ "second " + methodList2.get(i).getName());
+								+ operation1.getOperationName() + " with "
+								+ "second " +operation2.getOperationName());
 
-						if (this.compareETypes(methodList1.get(i).getEType(),
-								methodList2.get(j).getEType())) {
+						if (this.compareETypes(operation1.getReturnType(),
+								operation2.getReturnType())) {
 							report.addToReport("Methods return type matches : "
 									+ "first "
-									+ methodList1.get(i).getEType().getName()
+									+ operation1.getReturnType()
 									+ " with " + "second "
-									+ methodList2.get(i).getEType().getName());
+									+ operation2.getReturnType());
 						}
 					}
 				}
@@ -467,32 +492,31 @@ public class UnifiedAlgorithm {
 	 * Compare references of a class. Adds comments to report object if
 	 * references match or not.
 	 * 
-	 * @param cls1
+	 * @param cdClass1
 	 *            first class containing references to compare
-	 * @param cls2
+	 * @param cdClass2
 	 *            second class containing references to compare
 	 */
-	private void compareReferences(EClass cls1, EClass cls2) {
+	private void compareReferences(CD_Class cdClass1, CD_Class cdClass2) {
 		// report.addToReport("references");
 		try {
-			EList<EReference> refList1 = cls1.getEAllReferences();
-			EList<EReference> refList2 = cls2.getEAllReferences();
+			List<CD_Reference> refList1 = cdClass1.getReferences();
+			List<CD_Reference> refList2 = cdClass2.getReferences();
 
-			for (int i = 0; i < refList1.size(); i++) {
+			for (CD_Reference reference1 : refList1) {
 				// flag set if references match
 				boolean refFound = false;
 
-				for (int j = 0; j < refList2.size(); j++) {
-					if (this.compareNames(refList1.get(i).getEType().getName(),
-							refList2.get(j).getEType().getName()) > 0) {
+				for (CD_Reference reference2 : refList2) {
+					if (this.compareNames(reference1.getReferenceTypeName(),
+							reference2.getReferenceTypeName()) > 0) {
 						// add to report
 						report.addToReport("Reference Name match : "
-								+ refList1.get(i).getName());
+								+ reference1.getReferenceName());
 
-						String refName1 = refList1.get(i).getEType().getName()
-								.toString();
-						String refName2 = refList2.get(j).getEType().getName()
-								.toString();
+						String refName1 = reference1.getReferenceTypeName().toString();
+						String refName2 = reference2.getReferenceTypeName().toString();
+								
 
 						// compare opposite reference
 						if (compareNames(refName1, refName2) == 2) {
@@ -504,8 +528,8 @@ public class UnifiedAlgorithm {
 				}
 				if (!refFound) {
 					report.addToReport("Reference from first diagram "
-							+ refList1.get(i).getName() + " -->"
-							+ refList1.get(i).getEType().getName()
+							+ reference1.getReferenceName() + " -->"
+							+ reference1.getReferenceTypeName()
 							+ " not found in second diagram");
 				}
 			}
@@ -525,33 +549,33 @@ public class UnifiedAlgorithm {
 	 *            second classifier to compare
 	 * @return true if equals else false
 	 */
-	private boolean compareETypes(EClassifier etype1, EClassifier etype2) {
+	private boolean compareETypes(String etype1, String etype2) {
 		return etype1.equals(etype2);
 	}
 
 	/**
 	 * Structurally compare the two classes ie reference attribute n methods
 	 * 
-	 * @param cls1
+	 * @param cdClass1
 	 *            first class to compare
-	 * @param cls2
+	 * @param cdClass2
 	 *            second class to compare
 	 */
-	private void structuralComparison(EClass cls1, EClass cls2) {
+	private void structuralComparison(CD_Class cdClass1, CD_Class cdClass2) {
 		// report.startRoutine("structural class");
 		try {
 			// check if any of the class already in list of matched classes
-			if (!(this.matchedClasses.contains(cls1.getName()) || this.matchedClasses
-					.contains(cls2.getName()))) {
-				report.addToReport("Comparing classes.." + cls1.getName()
-						+ " : " + cls2.getName());
+			if (!(this.matchedClasses.contains(cdClass1.getClassName()) || this.matchedClasses
+					.contains(cdClass2.getClassName()))) {
+				report.addToReport("Comparing classes.." + cdClass1.getClassName()
+						+ " : " + cdClass2.getClassName());
 
 				// Check if structurally the similarity is greater than 50 %
-				if (this.structAttrCompare(cls1, cls2) >= 0.5
-						&& structMethodCompare(cls1, cls2) >= 0.5
-						&& structRefCompare(cls1, cls2) >= 0.5) {
-					report.addToReport("Structural Match " + cls1.getName()
-							+ " : " + cls2.getName());
+				if (this.structAttrCompare(cdClass1, cdClass2) >= 0.5
+						&& structMethodCompare(cdClass1, cdClass2) >= 0.5
+						&& structRefCompare(cdClass1, cdClass2) >= 0.5) {
+					report.addToReport("Structural Match " + cdClass1.getClassName()
+							+ " : " + cdClass2.getClassName());
 					
 					/*
 					 * set list of classes with different names but might be same 
@@ -561,10 +585,10 @@ public class UnifiedAlgorithm {
 					 * similarClasses.add(cls2.getName());
 					 */
 					
-					this.compareClassDetails(cls1, cls2);
+					this.compareClassDetails(cdClass1, cdClass2);
 				} else {
 					// Add the unmatched classes to the list of classes compared
-					listComparedClasses(cls1, cls2);
+					listComparedClasses(cdClass1, cdClass2);
 				}
 			}
 		} catch (Exception ex) {
@@ -583,11 +607,11 @@ public class UnifiedAlgorithm {
 	 *            second class containing attributes to compare
 	 * @return float between 0 and 1. Percentage of attributes matching.
 	 */
-	private float structAttrCompare(EClass cls1, EClass cls2) {
+	private float structAttrCompare(CD_Class cls1, CD_Class cls2) {
 		// report.startRoutine("structural attributes");
 		try {
-			EList<EAttribute> attrList1 = cls1.getEAttributes();
-			EList<EAttribute> attrList2 = cls2.getEAttributes();
+			List<CD_Attribute> attrList1 = cls1.getAttributes();
+			List<CD_Attribute> attrList2 = cls2.getAttributes();
 
 			// If attribute list of both classes is empty then return 1
 			// This allows comparison based on method and reference similarities
@@ -596,13 +620,13 @@ public class UnifiedAlgorithm {
 
 			float attrScore = 0;
 
-			for (int i = 0; i < attrList1.size(); i++) {
-				for (int j = 0; j < attrList2.size(); j++) {
-					if (compareNames(attrList1.get(i).getName(),
-							attrList2.get(j).getName()) == 2) {
+			for (CD_Attribute attribute1 : attrList1) {
+				for (CD_Attribute attribute2 : attrList2) {
+					if (compareNames(attribute1.getAttrName(),
+							attribute2.getAttrName()) == 2) {
 						// debug code
 						report.addToReport("Attribute match "
-								+ attrList1.get(i).getName());
+								+ attribute1.getAttrName());
 						attrScore += 1;
 					}
 				}
@@ -632,28 +656,28 @@ public class UnifiedAlgorithm {
 	 *            second class containing operations to compare
 	 * @return float between 0 to 1. Percentage of operations matching.
 	 */
-	private float structMethodCompare(EClass cls1, EClass cls2) {
+	private float structMethodCompare(CD_Class cls1, CD_Class cls2) {
 		// report.startRoutine("structural methods");
 		try {
-			EList<EOperation> methodList1 = cls1.getEAllOperations();
-			EList<EOperation> methodList2 = cls2.getEAllOperations();
+			List<CD_Operation> methodList1 = cls1.getOperations();
+			List<CD_Operation> methodList2 = cls2.getOperations();
 
 			if (methodList1.size() == 0 && methodList2.size() == 0)
 				return 1;
 
 			float methodScore = 0;
 
-			for (int i = 0; i < methodList1.size(); i++) {
-				for (int j = 0; j < methodList2.size(); j++) {
+			for (CD_Operation operation1 : methodList1) {
+				for (CD_Operation operation2 : methodList2) {
 					// Compare method name
-					if (this.compareNames(methodList1.get(i).getName(),
-							methodList2.get(j).getName()) > 0) {
+					if (this.compareNames(operation1.getOperationName(),
+							operation2.getOperationName()) > 0) {
 						// Compare method return type
-						if (this.compareETypes(methodList1.get(i).getEType(),
-								methodList2.get(j).getEType())) {
+						if (this.compareETypes(operation1.getReturnType(),
+								operation2.getReturnType())) {
 							// method params not compared
 							report.addToReport("Method match "
-									+ methodList1.get(i).getName());
+									+ operation1.getOperationName());
 							methodScore += 1;
 						}
 					}
@@ -686,11 +710,11 @@ public class UnifiedAlgorithm {
 	 *         completely different
 	 * 
 	 */
-	private float structRefCompare(EClass cls1, EClass cls2) {
+	private float structRefCompare(CD_Class cls1, CD_Class cls2) {
 		// report.startRoutine("structural references");
 		try {
-			EList<EReference> refList1 = cls1.getEAllReferences();
-			EList<EReference> refList2 = cls2.getEAllReferences();
+			List<CD_Reference> refList1 = cls1.getReferences();
+			List<CD_Reference> refList2 = cls2.getReferences();
 
 			// If both classes do not hav any references return 1
 			// This allows comparison to be continued on the basis of matched
@@ -700,20 +724,18 @@ public class UnifiedAlgorithm {
 
 			float refScore = 0;
 
-			for (int i = 0; i < refList1.size(); i++) {
-				for (int j = 0; j < refList2.size(); j++) {
+			for (CD_Reference reference1 : refList1) {
+				for (CD_Reference reference2 : refList2) {
 					// Compare if the referenced class is same
-					if (this.compareNames(refList1.get(i).getEType().getName(),
-							refList2.get(j).getEType().getName()) > 0) {
-						String refName1 = refList1.get(i).getEType().getName()
-								.toString();
-						String refName2 = refList2.get(j).getEType().getName()
-								.toString();
+					if (this.compareNames(reference1.getReferenceTypeName(),
+							reference2.getReferenceTypeName()) > 0) {
+						String refName1 = reference1.getReferenceTypeName().toString();
+						String refName2 = reference1.getReferenceTypeName().toString();
 
 						// Check if the relationship name is same
 						if (this.compareNames(refName1, refName2) == 2) {
 							report.addToReport("Reference match "
-									+ refList1.get(i).getName());
+									+ reference1.getReferenceName());
 							refScore += 1;
 						}
 					}
@@ -739,11 +761,11 @@ public class UnifiedAlgorithm {
 	 * @param cls2
 	 *            second class that was compared
 	 */
-	private void listComparedClasses(EClass cls1, EClass cls2) {
-		if (!comparedClasses.contains(cls1.getName()))
-			comparedClasses.add(cls1.getName());
-		if (!comparedClasses.contains(cls2.getName()))
-			comparedClasses.add(cls2.getName());
+	private void listComparedClasses(CD_Class cls1, CD_Class cls2) {
+		if (!comparedClasses.contains(cls1.getClassName()))
+			comparedClasses.add(cls1.getClassName());
+		if (!comparedClasses.contains(cls2.getClassName()))
+			comparedClasses.add(cls2.getClassName());
 	}
 
 	/**

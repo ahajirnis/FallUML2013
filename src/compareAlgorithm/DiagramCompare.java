@@ -56,7 +56,8 @@ public class DiagramCompare {
 			UnifiedAlgorithm algoObj = new UnifiedAlgorithm(diag1Parser, diag2Parser, pathToReport);
 
 			// Begin comparison
-			algoObj.testClasses();
+			//algoObj.testClasses();
+			algoObj.compare();
 
 		} catch (IOException e) {
 			throw new Exception(e);

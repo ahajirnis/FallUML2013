@@ -14,4 +14,20 @@ public class CD_Operation {
 		this.returnType = e_operation.getEType().getName();
 	}
 
+	public String getOperationName() {
+		return operationName;
+	}
+
+	public void setOperationName(String operationName) {
+		this.operationName = operationName;
+	}
+
+	public String getReturnType() {
+		return returnType;
+	}
+
+	public void setReturnType(String returnType) {
+		this.returnType = returnType;
+	}
+
 }

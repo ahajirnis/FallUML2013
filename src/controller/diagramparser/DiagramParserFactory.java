@@ -12,7 +12,7 @@ import domain.DiagramType;
  */
 public class DiagramParserFactory {
 
-	private final static String ENCORE = "encore";
+	private final static String ENCORE = "ECORE";
 	private final static String XMI = "XMI";
 
 	
