@@ -38,8 +38,6 @@ public class UnifiedAlgorithm {
 	private ECorePackage ePackage1; // Packages
 	private ECorePackage ePackage2;
 
-	private ECoreClass eClass1; // Classes
-	private ECoreClass eClass2;
 
 	private ArrayList<String> matchedClasses; // Records matched classes
 	private ArrayList<String> comparedClasses; // Records compared classes

@@ -2,8 +2,6 @@ package compareAlgorithm.smartPolicy;
 
 import controller.diagramparser.ClassDiagramParser;
 import controller.diagramparser.DiagramParser;
-import controller.diagramparser.ENClassDiagramParser;
-import controller.diagramparser.XMIClassDiagramParser;
 import domain.Diagram;
 import domain.DiagramPolicyScore;
 import domain.Policy;
