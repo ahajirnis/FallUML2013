@@ -33,7 +33,7 @@ public class XMIClassDiagramParser extends ClassDiagramParser{
 		{
 			CD_Class tmpClass = new CD_Class(xmiClass);
 			
-			String genName = xmiClass.getGeneralization().get(0).getName();
+//			String genName = xmiClass.getGeneralization().get(0).getName();
 			finalClassList.add(tmpClass);
 			
 		}

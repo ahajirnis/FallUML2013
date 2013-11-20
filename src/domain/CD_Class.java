@@ -9,6 +9,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EReference;
 
+import controller.comparer.xmi.XmiAttributeElement;
 import controller.comparer.xmi.XmiClassElement;
 
 public class CD_Class {
@@ -17,11 +18,21 @@ public class CD_Class {
 	private List<CD_Attribute> attributes;
 	private List<CD_Operation> operations;
 	private List<CD_Reference> references;
+	private List<CD_Class> superClasses;
 	
 
 	public CD_Class(XmiClassElement xmiClass){
 		
+		attributes = new ArrayList<CD_Attribute>();
+		operations = new ArrayList<CD_Operation>();
+		references = new ArrayList<CD_Reference>();
+		
 		className = xmiClass.getName();
+		for(XmiAttributeElement eAttribute : xmiClass.getAttributes())
+		{
+			CD_Attribute attr = new CD_Attribute(eAttribute);
+			attributes.add(attr);
+		}
 		
 	}
 	
@@ -30,7 +41,9 @@ public class CD_Class {
 		attributes = new ArrayList<CD_Attribute>();
 		operations = new ArrayList<CD_Operation>();
 		references = new ArrayList<CD_Reference>();
+		superClasses = new ArrayList<CD_Class>();
 		className = ecoreClass.getName();
+		
 		for(EAttribute eAttribute : ecoreClass.getEAttributes())
 		{
 			CD_Attribute attr = new CD_Attribute(eAttribute);
@@ -47,6 +60,11 @@ public class CD_Class {
 		{
 			CD_Reference ref = new CD_Reference(eReference);
 			references.add(ref);
+		}
+		
+		for(EClass superClass : ecoreClass.getESuperTypes())
+		{
+			superClasses.add(new CD_Class(superClass));
 		}
 		
 	}
@@ -66,9 +84,32 @@ public class CD_Class {
 		return attributes;
 	}
 
-
 	public void setAttributes(List<CD_Attribute> attributes) {
 		this.attributes = attributes;
+	}
+
+	public List<CD_Class> getSuperClasses() {
+		return superClasses;
+	}
+
+	public void setSuperClasses(List<CD_Class> superClasses) {
+		this.superClasses = superClasses;
+	}
+
+	public List<CD_Operation> getOperations() {
+		return operations;
+	}
+
+	public void setOperations(List<CD_Operation> operations) {
+		this.operations = operations;
+	}
+
+	public List<CD_Reference> getReferences() {
+		return references;
+	}
+
+	public void setReferences(List<CD_Reference> references) {
+		this.references = references;
 	}
 	
 	

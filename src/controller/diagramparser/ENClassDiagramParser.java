@@ -88,7 +88,7 @@ public class ENClassDiagramParser extends ClassDiagramParser{
 		List<CD_Class> finalClassList = new ArrayList<CD_Class>();
 		for (int i = 0; i < ecoreModel.size(); i++) {
 			EClass ecoreClass = (EClass) ecoreModel.get(i);
-			System.out.println("super Class:" + ecoreClass.getESuperTypes());
+//			System.out.println("super Class:" + ecoreClass.getESuperTypes());
 			CD_Class tmpClass = new CD_Class(ecoreClass);
 			finalClassList.add(tmpClass);
 		}
