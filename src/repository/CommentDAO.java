@@ -145,7 +145,7 @@ public class CommentDAO {
 			comt.setUserId(rs.getInt("userId"));
 			comt.setCommentText(rs.getString("commentText"));
 			comt.setCommentTime(rs.getString("commentTime"));
-			comt.setReportId(rs.getInt("reportId"));
+			//comt.setReportId(rs.getInt("reportId"));
 			comt.setPromotedDiagramId(rs.getInt("promotedDiagramId"));
 			comt.setUserName(rs.getString("userName"));
 			searchResult.add(comt);
