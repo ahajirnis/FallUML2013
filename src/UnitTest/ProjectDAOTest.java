@@ -33,7 +33,7 @@ public class ProjectDAOTest {
 	public void testGetProjectByProjectName() throws SQLException {
 		//You have a project clubuml2 in your db
 		Project project = ProjectDAO.getProject("clubuml2");
-		Project expected = new Project("2","clubuml2","des2","2013-09-22 23:50:31");
+		Project expected = new Project(2,"clubuml2","des2","2013-09-22 23:50:31");
 		Assert.assertEquals(expected.getProjectId(), project.getProjectId());
 		Assert.assertEquals(expected.getDescription(), project.getDescription());
 		Assert.assertEquals(expected.getStartDate(), project.getStartDate());
@@ -42,7 +42,7 @@ public class ProjectDAOTest {
 	@Test
 	public void testAddProject() throws SQLException {
 		//add project clubuml3, make sure the clubuml3 is not existed before you run the test
-		Project project = new Project("0","clubuml3","des33",null);
+		Project project = new Project(0,"clubuml3","des33",null);
 		boolean result = ProjectDAO.addProject(project);
 		
 		Project p = null;
@@ -57,7 +57,7 @@ public class ProjectDAOTest {
     		pstmt.setString(1, project.getProjectName());
     		rs = pstmt.executeQuery();
     		if (rs.next()) {
-    			p = new Project(rs.getString("projectId"),rs.getString("projectName"),
+    			p = new Project(rs.getInt("projectId"),rs.getString("projectName"),
     					rs.getString("description"), rs.getString("startDate"));
     		}
     		
@@ -104,7 +104,7 @@ public class ProjectDAOTest {
 	
 	@Test
 	public void testUpdateProject() throws SQLException {
-		Project project = new Project("21","clubuml6-new","des6","",false,"");
+		Project project = new Project(21,"clubuml6-new","des6","",false,"");
 		boolean result = ProjectDAO.updateProject(project);
 		Assert.assertEquals(true, result);
 	}

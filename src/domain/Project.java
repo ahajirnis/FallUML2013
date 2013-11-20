@@ -3,12 +3,14 @@ package domain;
 /**
  * Information class that contains all the features of one project
  * @ doc author	Dong Guo
- * 11/18 Sid changed String enabled to boolean enabled
+ * @author Siddhesh
+ * @author Aniket Hajirnis
+ * @author Indrajit Kulkarni
  */
 
 public class Project {
 
-	private String projectId;
+	private int projectId;
 	private String projectName;
 	private String description;
 	private byte achived = 0;// Default
@@ -52,7 +54,7 @@ public class Project {
 	 * @param achived
 	 * 			This value indicates whether the project is achived or not
 	 */
-	public Project(String projectId, String projectName, String description,
+	public Project(int projectId, String projectName, String description,
 			byte achived) { 
 		this.projectId = projectId;
 		this.projectName = projectName;
@@ -71,7 +73,7 @@ public class Project {
 	 * @param enabled
 	 * @param disabledDate
 	 */
-	public Project(String projectId, String projectName, String description, String startDate,
+	public Project(int projectId, String projectName, String description, String startDate,
 			boolean enabled, String disabledDate) {
 		this.projectId = projectId;
 		this.projectName = projectName;
@@ -94,7 +96,7 @@ public class Project {
 	 * @param startDate
 	 * 			The startDate of this project
 	 */
-	public Project(String projectId, String projectName, String description,
+	public Project(int projectId, String projectName, String description,
 			String startDate) {
 		
 		this.projectId = projectId;
@@ -128,7 +130,7 @@ public class Project {
 	 * 
 	 * @return projectId int
 	 */
-	public String getProjectId() {
+	public int getProjectId() {
 		return projectId;
 	}
 	
@@ -138,12 +140,12 @@ public class Project {
 	 * @param projectId
 	 * 			The ID of the project
 	 */
-	public void setProjectId(String projectId) {
+	public void setProjectId(int projectId) {
 		this.projectId = projectId;
 	}
 
 	/**
-	 * Gete the projectName
+	 * Get the projectName
 	 * 
 	 * @return projectName String
 	 */

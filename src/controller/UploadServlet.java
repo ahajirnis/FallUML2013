@@ -6,6 +6,7 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.List;
@@ -24,10 +25,12 @@ import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
 
+import repository.ContextDAO;
 import repository.DiagramDAO;
 import controller.upload.UploadProcessor;
 import controller.upload.UploadProcessorFactory;
 import domain.Diagram;
+import domain.DiagramContext;
 import logging.Log;
 
 import java.util.ArrayList;
@@ -42,6 +45,8 @@ import controller.upload.FileInfo;
 /**
  * Information class that contains all the features of one UploadServlet @ doc
  * author Rui Hou
+ * @author Aniket Hajirnis
+ * @author Indrajit Kulkarni
  */
 
 public class UploadServlet extends HttpServlet {
@@ -219,12 +224,15 @@ public class UploadServlet extends HttpServlet {
 	 */
 	private void storeDatabase(String path, String fileName, int userID) {
 		try {
+			int projectId = 5; // Please get project Id from GUI onClick.
 			Diagram diagramObj = new Diagram();
 			diagramObj.setDiagramName(fileName);
 			diagramObj.setFilePath(path);
 			diagramObj.setMerged(0);
 			diagramObj.setUserId(userID);
-			diagramObj.setProjectId(2);
+			diagramObj.setProjectId(projectId);
+			DiagramContext cd = ContextDAO.getContext(projectId);
+			diagramObj.setContextId(ContextDAO.getContext(projectId).getDiagramContextId());
 			//Use of ENCORE in diagramType is wrong, we should use .setFileType instead
 			//diagramObj.setDiagramType("Ecore");
 			diagramObj.setFileType("Ecore");
@@ -245,6 +253,9 @@ public class UploadServlet extends HttpServlet {
 			*/
 		} catch (IllegalArgumentException e) {
 			System.out.println("error" + e.getMessage());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

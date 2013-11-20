@@ -40,6 +40,19 @@ public class DiagramContext
 
 	}
 
+	
+	public DiagramContext (String name, String description, int policyId, int projectId)
+
+	{		
+		this.name = name;
+		
+		this.description = description;
+		
+		this.policyId = policyId;
+		
+		this.projectId = projectId;	
+	}
+
 	 
 
 	public DiagramContext()

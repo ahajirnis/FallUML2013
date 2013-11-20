@@ -24,6 +24,7 @@ import java.util.logging.Logger;
 
 
 
+
 import domain.Diagram;
 import domain.DiagramContext;
 import domain.DiagramType;
@@ -66,9 +67,9 @@ public class ContextDAO {
 
          rs = pstmt.executeQuery();
 
-         if (rs.next()) {
-
-      context = new DiagramContext();
+         if (rs.next()) 
+         {
+        	 context = new DiagramContext(rs.getInt("diagramContextId"),rs.getString("name"),rs.getString("description"),rs.getInt("policyId"),rs.getInt("projectId"));
 
          }
 
@@ -118,11 +119,15 @@ public class ContextDAO {
 
          pstmt = conn.prepareStatement(
 
-           "INSERT into diagramContext(diagramContextId, description ,name, policyId, projectId) VALUES(?,NOW(),?);");
+           "INSERT into diagramContext(name, description , policyId, projectId) VALUES(?,?,?,?);");
 
          pstmt.setString(1, context.getName());
 
          pstmt.setString(2, context.getDescription());
+         
+         pstmt.setInt(3, context.getPolicyId());
+         
+         pstmt.setInt(4, context.getProjectId());
 
          if(pstmt.executeUpdate() != 0) {
 
