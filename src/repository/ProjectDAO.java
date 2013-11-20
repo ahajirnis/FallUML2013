@@ -228,17 +228,6 @@ public class ProjectDAO {
     	//To be implemented
     	return null;
     }
-	
-    /**
-     * Get the users list in the specfic project
-     * 
-     * @author Ying Gan
-     * 
-     * @param projectId
-     * 			The projectId of a project
-     * @return ArrayList<User>
-     * 			A user ArrayList contains the users in the project
-     */
     public static ArrayList<User> getUsers(int projectId) throws SQLException {
     	ArrayList<User> users = new ArrayList<User>();
     	
