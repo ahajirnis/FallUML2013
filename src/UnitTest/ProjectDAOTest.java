@@ -92,8 +92,8 @@ public class ProjectDAOTest {
 	
 	@Test
 	public void testIsExisted() throws SQLException {
-		Assert.assertEquals(false, ProjectDAO.isExisted("clubuml7"));
-		Assert.assertEquals(true, ProjectDAO.isExisted("clubuml1"));
+		Assert.assertEquals(false, ProjectDAO.exists("clubuml7"));
+		Assert.assertEquals(true, ProjectDAO.exists("clubuml1"));
 	}
 	
 	@Test
