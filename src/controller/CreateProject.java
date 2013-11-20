@@ -63,7 +63,7 @@ private void Failed(HttpServletRequest request,
 		
 	
 			try {
-				if (ProjectDAO.isExisted(projectname)) {
+				if (ProjectDAO.exists(projectname)) {
 					Failed(request, response, dispatcher);		//project already existed
 				} else {
 					

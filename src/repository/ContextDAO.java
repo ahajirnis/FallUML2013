@@ -13,22 +13,20 @@ package repository;
 */
 
 import java.sql.Connection;
-
 import java.sql.PreparedStatement;
-
 import java.sql.ResultSet;
-
 import java.sql.SQLException;
-
 import java.util.ArrayList;
-
 import java.util.logging.Level;
-
 import java.util.logging.Logger;
 
  
 
+
+
+import domain.Diagram;
 import domain.DiagramContext;
+import domain.DiagramType;
 
  
 
@@ -46,7 +44,7 @@ public class ContextDAO {
 
      */
 
-    public static DiagramContext getContextByProject(int projectId) throws SQLException {
+    public static DiagramContext getContext(int projectId) throws SQLException {
 
     DiagramContext context = null;
 
@@ -424,6 +422,60 @@ public class ContextDAO {
 
     }
 
+    
+    public static ArrayList <Diagram> getDiagramList (int contextId) throws SQLException
+    {
+    	ArrayList<Diagram> diagramList= new ArrayList <Diagram>();
+
+         Connection conn = null;
+
+         PreparedStatement pstmt = null;
+
+         ResultSet rs = null;
+
+         try {
+
+          conn = DbManager.getConnection();
+
+             pstmt = conn.prepareStatement(
+
+              "SELECT * FROM diagram where contextId = ?;");         
+             pstmt.setInt(1,contextId);
+             rs = pstmt.executeQuery();
+
+             while (rs.next()) {
+         		Diagram diagram = new Diagram();
+        		diagram.setDiagramId(rs.getInt("diagramId"));
+        		diagram.setProjectId(rs.getInt("projectId"));
+        		diagram.setUserId(rs.getInt("userId"));
+        		//support for enum type
+        		diagram.setDiagramType(DiagramType.fromString(rs.getString("diagramType")));
+        		
+        		diagram.setDiagramName(rs.getString("diagramName"));
+        		diagram.setFilePath(rs.getString("filePath"));
+        		diagram.setFileType(rs.getString("fileType"));
+        		diagram.setNotationFileName(rs.getString("notationFileName"));
+        		diagram.setNotationFilePath(rs.getString("notationFilePath"));
+        		diagram.setDiFilepath(rs.getString("diFilePath"));
+        		diagram.setCreatedTime(rs.getString("createTime"));        		
+        		diagramList.add(diagram);
+             }    	
+         }
+         catch (SQLException e) {
+
+             e.printStackTrace();
+
+            } finally {
+
+             if( rs != null) {rs.close();}
+
+             if( pstmt != null) {pstmt.close();}
+
+             if( conn != null) {conn.close();}
+
+            }
+    	return diagramList;
+    }
    
 
     /**
@@ -443,10 +495,6 @@ public class ContextDAO {
 try {
 
     Connection conn = DbManager.getConnection();
-
-    // Modified by Aindra Misra
-
-    //String sql = "DELETE FROM diagramContext WHERE diagramContextId = ?;";
 
     String sql = "DELETE FROM diagramContext WHERE diagramContextId = ?;";
 
@@ -537,6 +585,57 @@ return false;
      return context;
 
     }   
+    
+    
+    
+    public static DiagramContext getContext(int projectid, String contextName) throws SQLException {
+
+        DiagramContext context = null;
+
+        Connection conn = null;
+
+        PreparedStatement pstmt = null;
+
+        ResultSet rs = null;
+
+        try {
+
+         conn = DbManager.getConnection();
+
+            pstmt = conn.prepareStatement(
+
+             "SELECT * FROM diagramContext where contextName = ? AND projectId = ?;");
+
+            pstmt.setString(1, contextName);
+            pstmt.setInt(2, projectid);
+
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+
+         context = new DiagramContext();
+
+            }
+
+            return context;
+
+        } catch (SQLException e) {
+
+            System.out.println("Using default model.");
+
+        } finally {
+
+         if( rs != null) {rs.close();}
+
+         if( pstmt != null) {pstmt.close();}
+
+         if( conn != null) {conn.close();}
+
+        }
+
+        return context;
+
+       }   
 
 }
 
