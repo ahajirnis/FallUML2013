@@ -119,7 +119,7 @@ width:100%;
 }
 .btn-info {
 
-margin-left:20px;
+margin-left:40px;
 
 }
 .buttoninpopup{
@@ -155,6 +155,12 @@ margin-left:9px;
 margin-left:9px;
 
 }
+#btn3{
+margin-left:20px;}
+#btn4{
+margin-left:20px;}
+#afteradd{margin-left:20px;}
+#afterupdate{margin-left:20px;}
 
 </style>
 </head>
