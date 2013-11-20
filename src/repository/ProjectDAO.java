@@ -5,6 +5,7 @@ package repository;
 
  * @author Joanne Zhuo
  * @author Ying Gan
+ * @author Aniket Hajirnis
  * @author Siddhesh Jaiswal
  * 11/18 sid changed String enabled to boolean
  * 11/18 indrajit changed setString enabled to setBoolean to match the changes
@@ -14,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import domain.Diagram;
 
 import domain.Project;
 import domain.User;
@@ -52,13 +54,47 @@ public class ProjectDAO {
     	return project;
     }
     
+	/**
+     * Get Project by projectID
+     * @param projectName
+     * @return project
+     * @throws SQLException
+     */
+    public static Project getProject(int projectId) throws SQLException {
+    	Project project = null;
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	ResultSet rs = null;
+    	try {
+    		conn = DbManager.getConnection();
+    	    pstmt = conn.prepareStatement(
+    		    "SELECT * FROM project where projectId = ? ;");
+    	    pstmt.setInt(1, projectId);
+    	    rs = pstmt.executeQuery();
+    	    if (rs.next()) {
+    		project = new Project(rs.getString("projectId"), rs.getString("projectName"),
+    				rs.getString("description"), rs.getString("startDate"),
+    				rs.getString("enabled"),rs.getString("disabledDate"));
+    	    }
+    	    return project;
+    	} catch (SQLException e) {
+    	    System.out.println("Using default model.");
+    	} finally {
+    		if( rs != null) {rs.close();}
+    		if( pstmt != null) {pstmt.close();}
+    		if( conn != null) {conn.close();}
+    	}
+    	return project;
+    }
+    
+    
     /**
      * Add a new project
      * @param project
      * @return true - successfully added. false - failed
      * @throws SQLException
      */
-    public static boolean addProject(Project project) throws SQLException {
+    public static Project addProject(Project project) throws SQLException {
     	Connection conn = null;
     	PreparedStatement pstmt = null;
     	try {
@@ -69,9 +105,9 @@ public class ProjectDAO {
     	    pstmt.setString(2, project.getDescription());
     	    pstmt.setBoolean(3, project.getEnabled());
     	    if(pstmt.executeUpdate() != 0) {
-    	    	return true;
+    	    	return getProject(project.getProjectName());
     	    } else {
-    	    	return false;
+    	    	return null;
     	    }
     	} catch (SQLException e) {
     	    e.printStackTrace();
@@ -79,7 +115,7 @@ public class ProjectDAO {
     		if( pstmt != null) {pstmt.close();}
     		if( conn != null) {conn.close();}
     	}
-    	return false;
+    	return null;
     }
     
     public static boolean updateProject(Project project) throws SQLException {
@@ -177,7 +213,7 @@ public class ProjectDAO {
      * @return true - existed. false - not existed.
      * @throws SQLException
      */
-    public static boolean isExisted(String projectName) throws SQLException {
+    public static boolean exists(String projectName) throws SQLException {
     	if(getProject(projectName) == null) {
     		return false;
     	}
@@ -185,6 +221,23 @@ public class ProjectDAO {
     		return true;
     	}
     }
+    
+    /**
+     * Check if the project which has the same project name is existed.
+     * @param projectName
+     * @return true - existed. false - not existed.
+     * @throws SQLException
+     */
+    public static boolean exists(int projectID) throws SQLException {
+    	if(getProject(projectID) == null) {
+    		return false;
+    	}
+    	else {
+    		return true;
+    	}
+    }
+    
+    
     
     /**
      * Get all projects (enabled and disabled)
@@ -232,7 +285,7 @@ public class ProjectDAO {
     /**
      * Get the users list in the specfic project
      * 
-     * @author Ying Gan
+     * @author Ying Gan, Aniket Hajirnis
      * 
      * @param projectId
      * 			The projectId of a project
@@ -272,4 +325,13 @@ public class ProjectDAO {
 		}
 		return null;
     }
+    
+    
+    public static ArrayList <Diagram> getDiagramList (int projectID)
+    {
+    	
+    	new DiagramDAO();
+		return DiagramDAO.getDiagramList(projectID);
+    }
+    
 }
