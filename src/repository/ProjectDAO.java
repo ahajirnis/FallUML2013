@@ -2,12 +2,10 @@ package repository;
 
 /**
  * @author Xuesong Meng&Yidu Liang
-
+ * @author Aniket Hajirnis
  * @author Joanne Zhuo
  * @author Ying Gan
  * @author Siddhesh Jaiswal
- * 11/18 sid changed String enabled to boolean
- * 11/18 indrajit changed setString enabled to setBoolean to match the changes
  */
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,6 +15,7 @@ import java.util.ArrayList;
 
 import domain.Project;
 import domain.User;
+import domain.DiagramContext;
 
 public class ProjectDAO {
 	/**
@@ -37,7 +36,7 @@ public class ProjectDAO {
     	    pstmt.setString(1, projectName);
     	    rs = pstmt.executeQuery();
     	    if (rs.next()) {
-    		project = new Project(rs.getString("projectId"), rs.getString("projectName"),
+    		project = new Project(rs.getInt("projectId"), rs.getString("projectName"),
     				rs.getString("description"), rs.getString("startDate"),
     				rs.getBoolean("enabled"),rs.getString("disabledDate"));
     	    }
@@ -69,6 +68,8 @@ public class ProjectDAO {
     	    pstmt.setString(2, project.getDescription());
     	    pstmt.setBoolean(3, project.getEnabled());
     	    if(pstmt.executeUpdate() != 0) {
+				project = ProjectDAO.getProject(project.getProjectName());
+    	    	ContextDAO.addContext(new DiagramContext(project.getProjectName()+"_DefaultContext","Please enter description here",1,project.getProjectId()));  // Add 1 in global policy   	    	
     	    	return true;
     	    } else {
     	    	return false;
@@ -100,7 +101,7 @@ public class ProjectDAO {
     	    pstmt.setString(1, project.getProjectName());
     	    pstmt.setString(2, project.getDescription());
     	    pstmt.setBoolean(3, project.getEnabled());
-    	    pstmt.setString(4, project.getProjectId());
+    	    pstmt.setInt(4, project.getProjectId());
     	    if(pstmt.executeUpdate() != 0) {
     	    	return true;
     	    } else {
@@ -202,7 +203,7 @@ public class ProjectDAO {
     		    "SELECT * FROM project;");
     	    rs = pstmt.executeQuery();
     	    while (rs.next()) {
-    		Project project = new Project(rs.getString("projectId"), rs.getString("projectName"),
+    		Project project = new Project(rs.getInt("projectId"), rs.getString("projectName"),
     				rs.getString("description"), rs.getString("startDate"),
     				rs.getBoolean("enabled"),rs.getString("disabledDate"));
     		projects.add(project);

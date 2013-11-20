@@ -30,7 +30,7 @@ public class ManageContext extends HttpServlet{
 		allContexts = ContextDAO.getAllContexts();
 		
 		for(DiagramContext c: allContexts){
-			if(c.getEnabled() == true){
+			if(c.isEnabled() == true){
 				activeContexts.add(c);
 				
 			}else{
