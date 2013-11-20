@@ -84,9 +84,9 @@ public class Compare extends HttpServlet {
 				context.getRealPath("/reports/"));
 		try {
 			String path = compareObj.process();
-			int reportId = this.saveReport(path);
+			//int reportId = this.saveReport(path);
 			// this.showPdf(path, request, response);
-			int compareId = searchAndLoadCompare(request,diagram1.getDiagramId(), diagram2.getDiagramId(), reportId);
+			int compareId = searchAndLoadCompare(request,diagram1.getDiagramId(), diagram2.getDiagramId(), path);
 			loadComments(request, compareId);
 			
 			String reportText = PDFToText(path);
@@ -232,7 +232,7 @@ public class Compare extends HttpServlet {
 		return bos;
 	}
 	
-	private int searchAndLoadCompare(HttpServletRequest request, int diagramAId, int diagramBId, int reportId) {
+	private int searchAndLoadCompare(HttpServletRequest request, int diagramAId, int diagramBId, String path) {
 		domain.Compare compare = null;
 		domain.Compare c = CompareDAO.searchCompare(diagramAId, diagramBId);
 		if(c != null) {
@@ -240,6 +240,7 @@ public class Compare extends HttpServlet {
 			
 		}
 		else {
+			int reportId = saveReport(path);
 			domain.Compare newCompare = new domain.Compare();
 			newCompare.setDiagramAId(diagramAId);
 			newCompare.setDiagramBId(diagramBId);
