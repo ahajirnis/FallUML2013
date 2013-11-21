@@ -3,6 +3,9 @@ package repository;
 /**
  * @author Xuesong Meng&Yidu Liang
  * @author Joanne Zhuo
+ * @author Siddhesh Jaiswal
+ * @author Indrajit Kulkarni
+ * @author Aniket Hajirnis
  */
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -324,7 +327,7 @@ public class UserDAO {
     	    while (rs.next()) {
     		User user = new User(rs.getInt("userId"), rs.getString("userName"),
     				rs.getString("email"), rs.getString("password"),
-    				rs.getString("securityQ"),rs.getString("securityA"),rs.getString("userTpe"));
+    				rs.getString("securityQ"),rs.getString("securityA"),rs.getString("userType"));
     		users.add(user);
     	    }
     	    return users;
