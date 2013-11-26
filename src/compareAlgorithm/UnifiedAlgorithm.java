@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.codec.EncoderException;
+import org.apache.commons.codec.language.RefinedSoundex;
 import org.apache.commons.codec.language.Soundex;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
@@ -41,7 +42,9 @@ public class UnifiedAlgorithm {
 
 	private ArrayList<String> matchedClasses; // Records matched classes
 	private ArrayList<String> comparedClasses; // Records compared classes
+	private ArrayList<String> partialMatchedClasses;	//Record Partially matched classes
 	private String reportText;
+	private int noOfComparison;
 	
 	
 	
@@ -68,6 +71,8 @@ public class UnifiedAlgorithm {
 		report = new Report(reportFile);
 		matchedClasses = new ArrayList<String>();
 		comparedClasses = new ArrayList<String>();
+		partialMatchedClasses = new ArrayList<String>();
+		noOfComparison = 0;
 	}
 	
 	public void testClasses() {
@@ -75,18 +80,17 @@ public class UnifiedAlgorithm {
 		List<CD_Class> classList = ((ClassDiagramParser) diagParser1).getClasses();
 		for(CD_Class cdClass : classList) {
 			System.out.println("Class Name: " + cdClass.getClassName());
-//			System.out.println("Super Class: " + );
 		}
-		
 	}
 
 	/**
 	 * Main dispatch function for comparing the features of a class.
 	 */
-	public void compare() {
-		report.addToReport("Begin Comparison....");
-		reportText = "Comaprison Report:";
-		report.addToReport("Checking individual classes due to absence of packages");
+	public String compare() {
+//		report.addToReport("Comparison Report\n");
+		reportText = "\nReport \n\n";
+		report.addToReport("\nChecking individual classes due to absence of packages:");
+		reportText += "Checking individual classes due to absence of packages:\n\n";
 		List<CD_Class> classList1 = ((ClassDiagramParser) diagParser1).getClasses();
 		List<CD_Class> classList2 = ((ClassDiagramParser) diagParser2).getClasses();
 		for(CD_Class cdClass1 : classList1) {
@@ -96,12 +100,11 @@ public class UnifiedAlgorithm {
 		}
 		// Reporting unmatch classes
 		reportUnmatchedClasses();
+		reportPartialMatchedClasses();
 		
-		//********************************For testing matchedClasses, plz keep, Dong Guo
-		for(int i = 0; i < matchedClasses.size(); i++){
-			report.addToReport(i + ": " + matchedClasses.get(i));
-		}
-		//**********************************************************
+		//********************************For testing matchedClasses, plz keep
+		
+		reportMatchedClasses();
 		
 		// Close the report
 		report.finalize();
@@ -137,8 +140,10 @@ public class UnifiedAlgorithm {
 //		
 //		// Close the report
 //		report.finalize();
+		return reportText;
 
 	}
+
 
 	/**
 	 * Checks packages and returns if the packages are similar or not.
@@ -157,6 +162,9 @@ public class UnifiedAlgorithm {
 					report.addToReport("Packages match : "
 							+ ePackage1.getName() + " and "
 							+ ePackage2.getName());
+					reportText += "Packages match : "
+							+ ePackage1.getName() + " and "
+							+ ePackage2.getName() + "\n\n";
 					return true;
 				} else {
 					report.addToReport("Packages don't match\n"
@@ -164,6 +172,11 @@ public class UnifiedAlgorithm {
 							+ ePackage1.getName()
 							+ "\n Name of second Package : "
 							+ ePackage1.getName());
+					reportText += "Packages don't match\n\n"
+							+ "\nName of first Package : "
+							+ ePackage1.getName()
+							+ "\n Name of second Package : "
+							+ ePackage1.getName() + "\n\n";
 
 					return false;
 				}
@@ -189,10 +202,12 @@ public class UnifiedAlgorithm {
 
 			} else {
 				report.addToReport("Could not find packages in second model");
+				reportText += "Could not find packages in second model\n\n";
 				return false;
 			}
 		} else {
 			report.addToReport("Could not find packages in first model");
+			reportText += "Could not find packages in first model\n\n";
 			return false;
 		}
 		return true;
@@ -224,12 +239,31 @@ public class UnifiedAlgorithm {
 	 */
 	private int compareNames(String name1, String name2) {
 		try {
-			if (new Soundex().difference(name1, name2) == 4) {
-				return Constants.PERFECT_MATCH;
+//			boolean firstStringLonger = name1.length() > name2.length();
+//			int maxCount = 0;
+//			if(firstStringLonger)
+//				maxCount = name2.length();
+//			else
+//			
+			Soundex soundex = new Soundex();
+//			new RefinedSoundex().difference(name1, name2) == 
+			if (soundex.difference(name1.toString(), name2.toString()) == 4) {
+				
+				if(name1.equalsIgnoreCase(name2)) {
+					return Constants.PERFECT_MATCH;
+				}
 			}
-			if (new Soundex().difference(name1, name2) > 2) {
-				return Constants.PARTIAL_MATCH;
+			if (soundex.difference(name1.toString(), name2.toString()) > 2) {
+				if(name1.toLowerCase().contains(name2.toLowerCase()) || name2.toLowerCase().contains(name1.toLowerCase())) {
+					return Constants.PARTIAL_MATCH;
+				}
 			}
+//			if (new Soundex().difference(name1.toString(), name2.toString()) == 4) {
+//				return Constants.PERFECT_MATCH;
+//			}
+//			if (new Soundex().difference(name1, name2) > 2) {
+//				return Constants.PARTIAL_MATCH;
+//			}
 		} catch (EncoderException e) {
 			return Constants.NOT_MATCH;
 		}
@@ -250,25 +284,45 @@ public class UnifiedAlgorithm {
 		// report.startRoutine("classes");
 		try {
 
+			report.addToReport("\n" + ++noOfComparison + ". Comparing classes:       " +  cdClass1.getClassName()
+					+ " : " + cdClass2.getClassName());
+			reportText += noOfComparison + ". Comparing classes: \t" + cdClass1.getClassName()
+					+ " : " + cdClass2.getClassName() + "\n\n";
 			// compare class names by soundex
 			int comparedValue = compareNames(cdClass1.getClassName(), cdClass2.getClassName());
 
 			if (comparedValue == Constants.PERFECT_MATCH) {
 				// add classes to the list of matched classes
 				matchedClasses.add(cdClass1.getClassName());
-				matchedClasses.add(cdClass2.getClassName());
+				//matchedClasses.add(cdClass2.getClassName());
 
 				// add to the report
-				report.addToReport("Perfect Match : " + cdClass1.getClassName()
-						+ " : " + cdClass2.getClassName());
+				report.addToReport("        Class Name Match:    Perfect");
+				reportText += "\tPerfect Name Match: \t" + cdClass1.getClassName()
+						+ " : " + cdClass2.getClassName() + "\n\n";
 
 				// send the classes for comparing details
 				compareClassDetails(cdClass1, cdClass2);
 
 			} else {
-				// Pass the two classes for structural class comparison
-				this.structuralComparison(cdClass1, cdClass2);
+				
+				if(comparedValue == Constants.PARTIAL_MATCH)
+				{
+					partialMatchedClasses.add(cdClass1.getClassName());
+					partialMatchedClasses.add(cdClass2.getClassName());
+					report.addToReport("        Class Name Match:    Partial");
+					
+					// Pass the two classes for structural class comparison
+					this.structuralComparison(cdClass1, cdClass2);
+				}
+				else {
+					report.addToReport("        Class Name Match :   No Match");
+				}
+				
+				
 			}
+			
+			listComparedClasses(cdClass1, cdClass2);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -378,10 +432,12 @@ public class UnifiedAlgorithm {
 				for (CD_Class superClass2 : superClassList2) {
 					if (compareNames(superClass1.getClassName(),
 							superClass2.getClassName()) > 0) {
-						report.addToReport("Super Classes matched : "
-								+ "first " + superClass1.getClassName()
-								+ " with " + "second "
+						report.addToReport("        Super Classes matched: "
+								+ "First: " + superClass1.getClassName()
+								+ " with " + "Second: "
 								+ superClass2.getClassName());
+						reportText += "\tSuper Classes matched: " + "First Diagram Super Class: " + superClass1.getClassName()
+										+ " with " + "Second Diagram Super Class: " + superClass2.getClassName() + "\n\n";
 					}
 				}
 			}
@@ -415,26 +471,32 @@ public class UnifiedAlgorithm {
 							attrList2.get(j).getAttrName()) > 1) {
 						// set the flag
 						attrFound = true;
-						report.addToReport("  Attributes name matches : "
+						report.addToReport("        Attributes name matches: "
 								+ "first " + attrList1.get(i).getAttrName()
 								+ " with " + "second "
 								+ attrList2.get(i).getAttrName());
+						reportText += "\tAttributes name matches: " + "first: " + attrList1.get(i).getAttrName()
+								+ " with " + "second: " + attrList2.get(i).getAttrName() + "\n\n";
 
 						// compare attribute type
 						if (compareETypes(attrList1.get(i).getAttrType(),
 								attrList2.get(j).getAttrType())) {
-							report.addToReport("  Attributes type matches : "
+							report.addToReport("    Attributes type matches: "
 									+ "first "
 									+ attrList1.get(j).getAttrType()
 									+ " with " + "second "
 									+ attrList2.get(j).getAttrType());
+							reportText += "\tAttributes type matches : " + "first: " + attrList1.get(j).getAttrType()
+									+ " with " + "second: " + attrList2.get(j).getAttrType() + "\n\n";
 						}
 					}
 				}
 				// add to report the unmatched attribute
 				if (!attrFound) {
-					report.addToReport("Attributes from first that don't match : "
+					report.addToReport("        Attributes from first that don't match : "
 							+ attrList1.get(i).getAttrName());
+					reportText += "Attributes from first that don't match : "
+							+ attrList1.get(i).getAttrName() + "\n\n";
 				}
 			}
 		} catch (Exception ex) {
@@ -464,17 +526,21 @@ public class UnifiedAlgorithm {
 			for(CD_Operation operation1 : methodList1) {
 				for (CD_Operation operation2 : methodList2) {
 					if (compareNames(operation1.getOperationName(), operation2.getOperationName()) > 0) {
-						report.addToReport("Methods name matches : " + "first "
+						report.addToReport("        Methods name matches : " + "first "
 								+ operation1.getOperationName() + " with "
 								+ "second " +operation2.getOperationName());
+						reportText += "Methods name matches : " + "first " + operation1.getOperationName() + " with "
+								+ "second " +operation2.getOperationName() + "\n\n";
 
 						if (this.compareETypes(operation1.getReturnType(),
 								operation2.getReturnType())) {
-							report.addToReport("Methods return type matches : "
+							report.addToReport("        Methods return type matches : "
 									+ "first "
 									+ operation1.getReturnType()
 									+ " with " + "second "
 									+ operation2.getReturnType());
+							reportText += "Methods return type matches : " + "first " + operation1.getReturnType()
+									+ " with " + "second " + operation2.getReturnType() + "\n\n";
 						}
 					}
 				}
@@ -509,8 +575,9 @@ public class UnifiedAlgorithm {
 					if (this.compareNames(reference1.getReferenceTypeName(),
 							reference2.getReferenceTypeName()) > 0) {
 						// add to report
-						report.addToReport("Reference Name match : "
+						report.addToReport("        Reference Name match : "
 								+ reference1.getReferenceName());
+						reportText += "Reference Name match : " + reference1.getReferenceName() + "\n\n";
 
 						String refName1 = reference1.getReferenceTypeName().toString();
 						String refName2 = reference2.getReferenceTypeName().toString();
@@ -518,17 +585,22 @@ public class UnifiedAlgorithm {
 
 						// compare opposite reference
 						if (compareNames(refName1, refName2) == 2) {
-							report.addToReport("Opposite Reference match : "
+							report.addToReport("        Opposite Reference match : "
 									+ refName1);
+							reportText += "Opposite Reference match : "	+ refName1 + "\n\n";
 							refFound = true;
 						}
 					}
 				}
 				if (!refFound) {
-					report.addToReport("Reference from first diagram "
+					report.addToReport("        Reference from first diagram "
 							+ reference1.getReferenceName() + " -->"
 							+ reference1.getReferenceTypeName()
 							+ " not found in second diagram");
+					reportText += "Reference from first diagram "
+							+ reference1.getReferenceName() + " -->"
+							+ reference1.getReferenceTypeName()
+							+ " not found in second diagram\n\n"; 
 				}
 			}
 		} catch (Exception ex) {
@@ -565,15 +637,14 @@ public class UnifiedAlgorithm {
 			// check if any of the class already in list of matched classes
 			if (!(this.matchedClasses.contains(cdClass1.getClassName()) || this.matchedClasses
 					.contains(cdClass2.getClassName()))) {
-				report.addToReport("Comparing classes.." + cdClass1.getClassName()
-						+ " : " + cdClass2.getClassName());
+				
 
 				// Check if structurally the similarity is greater than 50 %
 				if (this.structAttrCompare(cdClass1, cdClass2) >= 0.5
 						&& structMethodCompare(cdClass1, cdClass2) >= 0.5
 						&& structRefCompare(cdClass1, cdClass2) >= 0.5) {
-					report.addToReport("Structural Match " + cdClass1.getClassName()
-							+ " : " + cdClass2.getClassName());
+					report.addToReport("        Structural Match:       Yes");
+					reportText += "\tStructural Match: \tYes\n\n";
 					
 					/*
 					 * set list of classes with different names but might be same 
@@ -625,6 +696,8 @@ public class UnifiedAlgorithm {
 						// debug code
 						report.addToReport("Attribute match "
 								+ attribute1.getAttrName());
+						reportText += "Attribute match "
+								+ attribute1.getAttrName() + "\n\n";
 						attrScore += 1;
 					}
 				}
@@ -676,6 +749,7 @@ public class UnifiedAlgorithm {
 							// method params not compared
 							report.addToReport("Method match "
 									+ operation1.getOperationName());
+							reportText += "Method match " + operation1.getOperationName() + "\n\n";
 							methodScore += 1;
 						}
 					}
@@ -734,6 +808,8 @@ public class UnifiedAlgorithm {
 						if (this.compareNames(refName1, refName2) == 2) {
 							report.addToReport("Reference match "
 									+ reference1.getReferenceName());
+							reportText += "Reference match "
+									+ reference1.getReferenceName() + "\n\n";
 							refScore += 1;
 						}
 					}
@@ -771,12 +847,39 @@ public class UnifiedAlgorithm {
 	 * already present in matched classes
 	 */
 	private void reportUnmatchedClasses() {
+		
+		report.addToReport("\nUnmatched Classes: ");
+		reportText += "Unmatched Classes: \n\n";
 		for (int i = 0; i < comparedClasses.size(); i++) {
-			if (!matchedClasses.contains(comparedClasses.get(i))) {
-				report.addToReport("Unmatched Classes : "
-						+ comparedClasses.get(i));
+			if (!matchedClasses.contains(comparedClasses.get(i)) && 
+					!partialMatchedClasses.contains(comparedClasses.get(i))) {
+				report.addToReport("  " + (i+1) + ". " + comparedClasses.get(i));
+				reportText += " \t" + (i+1) + ". " +comparedClasses.get(i) + "\n\n";
 			}
 		}
+	}
+	
+	private void reportPartialMatchedClasses() {
+		
+		report.addToReport("\nPartial Matched Classes: ");
+		reportText += "Partial Matched Classes: \n\n";
+		for(int i = 0; i < partialMatchedClasses.size(); i=i+2){
+			report.addToReport("  " + (i+1) + ". " + partialMatchedClasses.get(i)
+								+ " and " + partialMatchedClasses.get(i+1)) ;
+			reportText += "\t" + (i+1) + ". " + partialMatchedClasses.get(i) 
+							+ " and " + partialMatchedClasses.get(i+1) + "\n\n";
+		}		
+	}
+	
+	private void reportMatchedClasses() {
+
+		report.addToReport("\nMatched Classes: ");
+		reportText += "Matched Classes: \n\n";
+		for(int i = 0; i < matchedClasses.size(); i++){
+			report.addToReport("  " + (i+1) + ". " + matchedClasses.get(i));
+			reportText += "\t" + (i+1) + ". " + matchedClasses.get(i) + "\n\n";
+		}
+		
 	}
 	
 	/*

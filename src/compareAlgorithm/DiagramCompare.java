@@ -14,6 +14,7 @@ public class DiagramCompare {
 	private Diagram diagram2; // Path to the second diagram (E-Core file)
 	private String pathToReport; // Path to the directory where the report is
 									// generated
+	private String reportText;
 	private String DIRECTORY = "~/tmp/clubuml/reports/"; // Default directory
 															// for report
 															// generation
@@ -57,11 +58,19 @@ public class DiagramCompare {
 
 			// Begin comparison
 			//algoObj.testClasses();
-			algoObj.compare();
+			reportText = algoObj.compare();
 
 		} catch (IOException e) {
 			throw new Exception(e);
 		}
 		return pathToReport;
+	}
+	
+	public String getReportText() {
+		return reportText;
+	}
+	
+	public void setReportText(String reportText) {
+		this.reportText = reportText;
 	}
 }
