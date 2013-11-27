@@ -15,6 +15,21 @@
 <title>Project Diagrams</title>
 <link href="css/display.css" rel="stylesheet" type="text/css" />
 <link href="style.css" rel="stylesheet" type="text/css" />
+
+<!-- BOOTSTRAP -->
+<link href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css"
+	rel="stylesheet">
+<link
+	href="http://twitter.github.io/bootstrap/assets/css/bootstrap-responsive.css"
+	rel="stylesheet">
+
+<style type="text/css">
+.diagramBox{
+	float: left;
+	
+}
+
+</style>
 <script type="text/javascript">
 	var type = "";
 	$(document).ready(function() {
@@ -186,11 +201,16 @@
 	
 	<div id="mainContainer">
 	
+	<div>
+		<h2><a href="ManageProject">Click Here</a> to go back </h2>
+	</div>
+	
 	<div id="diagramBox">
 		<c:if test="${requestScope.diagramId1 != null}">
 			<img src="${requestScope.firstPath}"/>
 		</c:if>
-		<br><b>Comments : </b>
+		<!-- 
+			<br><b>Comments : </b>
 		<c:if test="${requestScope.comments != null}">
 			<div id="commentBox">
 				<table id="myTable">
@@ -203,6 +223,8 @@
 				</table>
 			</div>
 		</c:if>
+		 -->
+		
 	</div>
     
     <div id="rightContainer">

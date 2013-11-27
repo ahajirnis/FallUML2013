@@ -1,12 +1,19 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import domain.Project;
+import domain.User;
+import repository.ProjectDAO;
+import repository.UserDAO;
 
 
 /*
@@ -31,18 +38,56 @@ public class ManageProject extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 	//Renders manageProject.jsp
+		System.out.println("enters manage project servlet");
 	RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/JSP/manageProject.jsp");
 	//dispatcher.forward(request, response);
+	ArrayList<Project> allProjects;
+	ArrayList<Project> activeProjects;
+	ArrayList<Project> inactiveProjects;
+	try {
+		allProjects = ProjectDAO.getAllProjects();
+		
+		 activeProjects = new ArrayList<>();
+		inactiveProjects = new ArrayList<>();
+		
+		for(Project p: allProjects){
+			if(p.getEnabled()){
+				activeProjects.add(p);
+			}else{
+				inactiveProjects.add(p);
+			}
+			request.setAttribute("activeprojects", activeProjects);
+			request.setAttribute("inactiveprojects", inactiveProjects);
+		}
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	// sends list of users to manage project.jsp
+	ArrayList<User> allUser;
+	
+	try {
+		allUser = UserDAO.getAllUser();
+		
+		 ArrayList<Object> activeUsers = new ArrayList<>();
+
+		
+		for(User u: allUser){
+			
+				activeUsers.add(u);
+	
+			}
+			request.setAttribute("activeusers", activeUsers);
+		
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	
 	dispatcher.forward(request, response);
 	}
 	
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/JSP/manageProject.jsp");
-		//dispatcher.forward(request, response);
-		dispatcher.forward(request, response);
-	}
 
 }

@@ -10,6 +10,7 @@ public class Diagram {
     private int diagramId;
     private int merged;
     private int userId;
+    private int contextId;
     private int projectId = 2; // default;
     private String diagramName;
     //private String diagramType;
@@ -258,6 +259,28 @@ public class Diagram {
 	public void setConPath(String conPath) {
 		this.conPath = conPath;
 	}
+	/**
+	 * @return the diagramContextId
+	 */
+	public int getDiagramContextId() {
+		return diagramContextId;
+	}
+
+	/**
+	 * @param diagramContextId the diagramContextId to set
+	 */
+	public void setDiagramContextId(int diagramContextId) {
+		this.diagramContextId = diagramContextId;
+	}
+
+	public int getContextId() {
+		return contextId;
+	}
+
+	public void setContextId(int contextId) {
+		this.contextId = contextId;
+	}
+
 	
 	
     

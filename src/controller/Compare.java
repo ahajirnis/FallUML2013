@@ -14,6 +14,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,6 +28,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.parser.PdfReaderContentParser;
+import com.itextpdf.text.pdf.parser.SimpleTextExtractionStrategy;
+import com.itextpdf.text.pdf.parser.TextExtractionStrategy;
+
+import repository.CommentDAO;
+import repository.CompareDAO;
 import repository.DiagramDAO;
 import repository.ReportDAO;
 
@@ -86,13 +95,18 @@ public class Compare extends HttpServlet {
 		DiagramCompare compareObj = new DiagramCompare(diagram1, diagram2, context.getRealPath("/reports/"));
 		try {
 			String path = compareObj.process();
-			this.saveReport(path);
+			//int reportId = this.saveReport(path);
 			// this.showPdf(path, request, response);
+			int compareId = searchAndLoadCompare(request,diagram1.getDiagramId(), diagram2.getDiagramId(), path);
+			loadComments(request, compareId);
+			
+			String reportText = PDFToText(path);
+			request.setAttribute("reportText", reportText);
 			request.setAttribute("reportPath", path);
 			request.setAttribute("path1", diagram1.getFilePath() + ".png");
 			request.setAttribute("path2", diagram2.getFilePath() + ".png");
-			request.setAttribute("val1", diagram1.getDiagramId());
-			request.setAttribute("val2", diagram2.getDiagramId());
+			request.setAttribute("diagramAId", diagram1.getDiagramId());
+			request.setAttribute("diagramBId", diagram2.getDiagramId());
 			request.setAttribute("reportText", compareObj.getReportText());
 			RequestDispatcher dispatcher = request
 					.getRequestDispatcher("WEB-INF/JSP/promote.jsp");
@@ -157,15 +171,37 @@ public class Compare extends HttpServlet {
 	 * @param path 
 	 * the path which the report file was set
 	 */
-	private void saveReport(String path) {
+	private int saveReport(String path) {
 		Report reportObj = new Report();
 		reportObj.setDiagramA(this.diagramID1);
 		reportObj.setDiagramB(this.diagramID2);
 		reportObj.setReportFilePath(path);
-		ReportDAO.addReport(reportObj);
+		int reportId = ReportDAO.addReport(reportObj).getReportId();
+		return reportId;
 	}
 
+	private String PDFToText(String filePath) throws IOException {
+		PdfReader reader = new PdfReader(filePath);
 
+		PdfReaderContentParser parser = new
+
+		   PdfReaderContentParser(reader);
+
+		TextExtractionStrategy strategy = null;
+		StringBuffer text = new StringBuffer();
+
+		for(int i = 1; i <= reader.getNumberOfPages(); i++) {
+
+		       strategy = parser.processContent(i,
+
+		          new SimpleTextExtractionStrategy());
+		       
+		       text.append(strategy.getResultantText());
+		       //System.out.println(strategy.getResultantText());
+
+		}
+		return text.toString();
+	}
 	 /**
 	 * @throws IOException
 	 *             if an I/O error occurs
@@ -208,11 +244,44 @@ public class Compare extends HttpServlet {
 		return bos;
 	}
 	
-//	public String getRealPath(Diagram diagram) {
-//		
-//		ServletContext context = this.getServletContext();
-//		
-//		return context.getRealPath(diagram.getFilePath());
-//		
-//	}
+	private int searchAndLoadCompare(HttpServletRequest request, int diagramAId, int diagramBId, String path) {
+		domain.Compare compare = null;
+		domain.Compare c = CompareDAO.searchCompare(diagramAId, diagramBId);
+		if(c != null) {
+			compare = c;
+			
+		}
+		else {
+			int reportId = saveReport(path);
+			domain.Compare newCompare = new domain.Compare();
+			newCompare.setDiagramAId(diagramAId);
+			newCompare.setDiagramBId(diagramBId);
+			newCompare.setReportId(reportId);
+			newCompare = CompareDAO.addCompare(newCompare);
+			if(newCompare != null) {
+				compare = newCompare;
+			}
+			
+		}
+		request.setAttribute("compareId", compare.getCompareId());
+		request.setAttribute("A", compare.getDiagramAId());
+		request.setAttribute("B", compare.getDiagramBId());
+		return compare.getCompareId();
+	}
+	
+	private void loadComments(HttpServletRequest request, int compareId) {
+		ArrayList<domain.Comment> comments = CommentDAO.getComments(compareId);
+		ArrayList<domain.Comment> diagram1Comments = new ArrayList<domain.Comment>();
+		ArrayList<domain.Comment> diagram2Comments = new ArrayList<domain.Comment>();
+		for(domain.Comment comment: comments) {
+			if(comment.getPromotedDiagramId() == diagramID1) {
+				diagram1Comments.add(comment);
+			}
+			else if(comment.getPromotedDiagramId() == diagramID2) {
+				diagram2Comments.add(comment);
+			}
+		}
+		request.setAttribute("diagram1comments", diagram1Comments);
+		request.setAttribute("diagram2comments", diagram2Comments);
+	}
 }

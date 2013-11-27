@@ -32,35 +32,25 @@ public class DiagramDAO {
 	    //String sql = "INSERT INTO diagram (diagramName , createdTime , inEdition , owner_Id , filePath) VALUES (?,NOW(),?,?,?);";
 		//add by Yidu Liang Mar 20 2013
 		
-		String sql = "insert into diagram (projectId, userId, diagramType, diagramName ,filePath, fileType, merged, notationFileName, notationFilePath, diFlieName, diFilePath)"+
-		"VALUES (?, ?, ?, ?, ? ,?, ?, ?, ?, ?,? )";
+		String sql = "insert into diagram (projectId, userId, contextId, diagramType, diagramName ,filePath, fileType, merged, notationFileName, notationFilePath, diFlieName, diFilePath)"+
+		"VALUES (?, ?, ?, ?, ? ,?, ?, ?, ?, ?,?,? )";
 		
 		
 	    PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-	    //pstmt.setString(1, diagram.getDiagramName());
-	    //pstmt.setBoolean(2, diagram.isInEdition());
-	    //pstmt.setInt(3, diagram.getOwnerId());
-	    //pstmt.setString(4, diagram.getEcoreFilePath());
-	    
-	    //System.out.println("diagram upload SQL test");
-	    //System.out.println(diagram.getProjectId());
-	    //System.out.println(diagram.getUserId());
-	    //System.out.println(diagram.getDiagramType());
-	    //System.out.println(diagram.getMerged());
-		
-		pstmt.setInt(1,diagram.getProjectId()); // this need to be implementing 
+		pstmt.setInt(1,diagram.getProjectId());
 		pstmt.setInt(2,diagram.getUserId());
-		pstmt.setString(3,Integer.toString(1)); //Temporary hack to get code to work. Please replace when 
+		pstmt.setInt(3, diagram.getContextId());
+		pstmt.setString(4,Integer.toString(1)); //Temporary hack to get code to work. Please replace when 
 												//diagramType comes into effect @AniketHajirnis
-		pstmt.setString(4,diagram.getDiagramName());    // this need to be implementing 
-		pstmt.setString(5,diagram.getFilePath());    // this need to be implementing 
-		pstmt.setString(6,diagram.getFileType());    // this need to be implementing 
-		pstmt.setInt(7,diagram.getMerged());
-		pstmt.setString(8,diagram.getNotationFileName());   // this need to be implementing 
-		pstmt.setString(9,diagram.getNotationFilePath());   // this need to be implementing 
-		pstmt.setString(10,diagram.getDiFileName());   // this need to be implementing 
-		pstmt.setString(11,diagram.getDiFilepath());     // this need to be implementing 
+		pstmt.setString(5,diagram.getDiagramName());    // this need to be implementing 
+		pstmt.setString(6,diagram.getFilePath());    // this need to be implementing 
+		pstmt.setString(7,diagram.getFileType());    // this need to be implementing 
+		pstmt.setInt(8,diagram.getMerged());
+		pstmt.setString(9,diagram.getNotationFileName());   // this need to be implementing 
+		pstmt.setString(10,diagram.getNotationFilePath());   // this need to be implementing 
+		pstmt.setString(11,diagram.getDiFileName());   // this need to be implementing 
+		pstmt.setString(12,diagram.getDiFilepath());     // this need to be implementing 
 		
 	    pstmt.executeUpdate();
 

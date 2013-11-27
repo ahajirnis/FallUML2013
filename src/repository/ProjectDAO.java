@@ -2,8 +2,10 @@ package repository;
 
 /**
  * @author Xuesong Meng&Yidu Liang
+ * @author Aniket Hajirnis
  * @author Joanne Zhuo
  * @author Ying Gan
+ * @author Siddhesh Jaiswal
  */
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 
 import domain.Project;
 import domain.User;
+import domain.DiagramContext;
 
 public class ProjectDAO {
 	/**
@@ -35,7 +38,7 @@ public class ProjectDAO {
     	    if (rs.next()) {
     		project = new Project(rs.getInt("projectId"), rs.getString("projectName"),
     				rs.getString("description"), rs.getString("startDate"),
-    				rs.getString("enabled"),rs.getString("disabledDate"));
+    				rs.getBoolean("enabled"),rs.getString("disabledDate"));
     	    }
     	    return project;
     	} catch (SQLException e) {
@@ -60,10 +63,14 @@ public class ProjectDAO {
     	try {
     		conn = DbManager.getConnection();
     	    pstmt = conn.prepareStatement(
-    	    		"INSERT into project(projectName, startDate ,description) VALUES(?,NOW(),?);");
+    	    		"INSERT into project(projectName, startDate, description, enabled) VALUES(?,NOW(),?,?);");
     	    pstmt.setString(1, project.getProjectName());
     	    pstmt.setString(2, project.getDescription());
+    	    pstmt.setBoolean(3, project.getEnabled());
     	    if(pstmt.executeUpdate() != 0) {
+				project = ProjectDAO.getProject(project.getProjectName());
+				DiagramContext dc = new DiagramContext(project.getProjectName()+"_DefaultContext","Please enter description here",1,project.getProjectId());
+    	    	ContextDAO.addContext(new DiagramContext(project.getProjectName()+"_DefaultContext","Please enter description here",1,project.getProjectId()));  // Add 1 in global policy   	    	
     	    	return true;
     	    } else {
     	    	return false;
@@ -82,7 +89,7 @@ public class ProjectDAO {
     	PreparedStatement pstmt = null;
     	try {
     		conn = DbManager.getConnection();
-    		if (project.getEnabled() == "N") {
+    		if (!project.getEnabled()) {
     			pstmt = conn.prepareStatement(
         	    		"UPDATE project SET projectName = ?, description = ?, enabled = ?, "
         	    		+ "disabledDate = NOW() WHERE projectId = ?;");
@@ -94,7 +101,7 @@ public class ProjectDAO {
     		} 	    
     	    pstmt.setString(1, project.getProjectName());
     	    pstmt.setString(2, project.getDescription());
-    	    pstmt.setString(3, project.getEnabled());
+    	    pstmt.setBoolean(3, project.getEnabled());
     	    pstmt.setInt(4, project.getProjectId());
     	    if(pstmt.executeUpdate() != 0) {
     	    	return true;
@@ -115,15 +122,16 @@ public class ProjectDAO {
      * @param projectName
      * @return true - successful. false - failed.
      * @throws SQLException
+     * @author Indrajit Kulkarni
      */
-    public static boolean disableProject(String projectName) throws SQLException {
+    public static boolean disableProject(int projectId) throws SQLException {
     	Connection conn = null;
     	PreparedStatement pstmt = null;
     	try {
     		conn = DbManager.getConnection();
     	    pstmt = conn.prepareStatement(
-    	    		"UPDATE project SET enabled = 'N',disabledDate = NOW() WHERE projectName = ?;");
-    	    pstmt.setString(1, projectName);
+    	    		"UPDATE project SET enabled = false ,disabledDate = NOW() WHERE projectId = ?;");
+    	    pstmt.setInt(1, projectId);
     	    if(pstmt.executeUpdate() != 0) {
     	    	return true;
     	    } else {
@@ -143,15 +151,16 @@ public class ProjectDAO {
      * @param projectName
      * @return true - successful. false - failed.
      * @throws SQLException
+     * @author Indrajit Kulkarni
      */
-    public static boolean enableProject(String projectName) throws SQLException {
+    public static boolean enableProject(int projectId) throws SQLException {
     	Connection conn = null;
     	PreparedStatement pstmt = null;
     	try {
     		conn = DbManager.getConnection();
     	    pstmt = conn.prepareStatement(
-    	    		"UPDATE project SET enabled = 'Y' WHERE projectName = ?;");
-    	    pstmt.setString(1, projectName);
+    	    		"UPDATE project SET enabled = true WHERE projectId = ?;");
+    	    pstmt.setInt(1, projectId);
     	    if(pstmt.executeUpdate() != 0) {
     	    	return true;
     	    } else {
@@ -172,7 +181,7 @@ public class ProjectDAO {
      * @return true - existed. false - not existed.
      * @throws SQLException
      */
-    public static boolean isExisted(String projectName) throws SQLException {
+    public static boolean exists(String projectName) throws SQLException {
     	if(getProject(projectName) == null) {
     		return false;
     	}
@@ -199,7 +208,7 @@ public class ProjectDAO {
     	    while (rs.next()) {
     		Project project = new Project(rs.getInt("projectId"), rs.getString("projectName"),
     				rs.getString("description"), rs.getString("startDate"),
-    				rs.getString("enabled"),rs.getString("disabledDate"));
+    				rs.getBoolean("enabled"),rs.getString("disabledDate"));
     		projects.add(project);
     	    }
     	    return projects;
@@ -223,17 +232,6 @@ public class ProjectDAO {
     	//To be implemented
     	return null;
     }
-	
-    /**
-     * Get the users list in the specfic project
-     * 
-     * @author Ying Gan
-     * 
-     * @param projectId
-     * 			The projectId of a project
-     * @return ArrayList<User>
-     * 			A user ArrayList contains the users in the project
-     */
     public static ArrayList<User> getUsers(int projectId) throws SQLException {
     	ArrayList<User> users = new ArrayList<User>();
     	

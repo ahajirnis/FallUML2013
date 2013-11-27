@@ -62,7 +62,7 @@
 	    <h1 id="banner">Compare Diagrams</h1>
 	</div>
 	<div id="myContainer">
-	    <div class="file1" style="float:left;">
+	    <div class="compare-file1" style="float:left;">
 		<img  src="${requestScope.path1}"/>
 	    </div>
 	    <div class="compare" style="padding-left: 60px; padding-top: 100px;">
@@ -72,7 +72,7 @@
 		    <input  name="submit" type="submit" value="Compare" />
 		</form>
 	    </div>
-	    <div class="file2">
+	    <div class="compare-file2">
 		<img src="${requestScope.path2}" />
 	    </div>
 	</div>
