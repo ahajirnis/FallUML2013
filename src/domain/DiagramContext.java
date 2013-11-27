@@ -1,51 +1,152 @@
 package domain;
 
-public class DiagramContext {
+import org.joda.time.DateTime;
+
+
+/**
+ * 
+ * @author Aniket Hajirnis
+ *
+ */
+public class DiagramContext 
+{
+	private int diagramContextId;
+	private String description;
+	private String name;
+	private int policyId;
+	private int projectId;
+	private boolean enabled;
+	private DateTime disabledDate;
 	
-	private int diagramContextID;
-	private String diagramContextName;
-	private String diagramContextDescripttion;
-	private int policyID;
-	private int projectID;
-	
-	public int getDiagramContextID() {
-		return diagramContextID;
+	 
+
+	public DiagramContext (int diagramContextId, String name, String description, int policyId,
+
+	                int projectId)
+
+	{
+
+	this.diagramContextId = diagramContextId;
+
+	this.name = name;
+
+	this.description = description;
+
+	this.policyId = policyId;
+
+	this.projectId = projectId;
+
+	 
+
 	}
+
 	
-	public void setDiagramContextID(int diagramContextID) {
-		this.diagramContextID = diagramContextID;
+	public DiagramContext (String name, String description, int policyId, int projectId)
+
+	{		
+		this.name = name;
+		
+		this.description = description;
+		
+		this.policyId = policyId;
+		
+		this.projectId = projectId;	
 	}
-	
-	public String getDiagramContextName() {
-		return diagramContextName;
+
+	 
+
+	public DiagramContext()
+
+	{
+
 	}
+
 	
-	public void setDiagramContextName(String diagramContextName) {
-		this.diagramContextName = diagramContextName;
+	
+	
+	/**
+	 * @return the diagramContextId
+	 */
+	public int getDiagramContextId() {
+		return diagramContextId;
 	}
-	
-	public String getDiagramContextDescripttion() {
-		return diagramContextDescripttion;
+	/**
+	 * @param diagramContextId the diagramContextId to set
+	 */
+	public void setDiagramContextId(int diagramContextId) {
+		this.diagramContextId = diagramContextId;
 	}
-	
-	public void setDiagramContextDescripttion(String diagramContextDescripttion) {
-		this.diagramContextDescripttion = diagramContextDescripttion;
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
 	}
-	
-	public int getPolicyID() {
-		return policyID;
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
 	}
-	
-	public void setPolicyID(int policyID) {
-		this.policyID = policyID;
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
 	}
-	
-	public int getProjectID() {
-		return projectID;
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
-	
-	public void setProjectID(int projectID) {
-		this.projectID = projectID;
-	}	
+	/**
+	 * @return the policyId
+	 */
+	public int getPolicyId() {
+		return policyId;
+	}
+	/**
+	 * @param policyId the policyId to set
+	 */
+	public void setPolicyId(int policyId) {
+		this.policyId = policyId;
+	}
+	/**
+	 * @return the projectId
+	 */
+	public int getProjectId() {
+		return projectId;
+	}
+	/**
+	 * @param projectId the projectId to set
+	 */
+	public void setProjectId(int projectId) {
+		this.projectId = projectId;
+	}
+	/**
+	 * @return the enabled
+	 */
+	public boolean isEnabled() {
+		return enabled;
+	}
+	/**
+	 * @param enabled the enabled to set
+	 */
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+	/**
+	 * @return the disabledDate
+	 */
+	public DateTime getDisabledDate() {
+		return disabledDate;
+	}
+	/**
+	 * @param disabledDate the disabledDate to set
+	 */
+	public void setDisabledDate(String disabledDate) {		
+		this.disabledDate = new DateTime(disabledDate);
+	}
 
 }
