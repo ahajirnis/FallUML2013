@@ -7,9 +7,20 @@ package domain;
  */
 public class MatricsObject {
 	private int matricsId;
-	private int matricsTypeId;
+	private MatricsType matricsType;
 	private int matricsWeight;
 	private int policyId;
+	
+	
+	
+	
+	public MatricsType getMatricsType() {
+		return matricsType == null? MatricsType.NOTDEFINED: matricsType;
+	}
+	public void setMatricsType(MatricsType matricsType) {
+		
+		this.matricsType = matricsType;
+	}
 	/**
 	 * @return the matricsId
 	 */
@@ -22,18 +33,7 @@ public class MatricsObject {
 	public void setMatricsId(int matricsId) {
 		this.matricsId = matricsId;
 	}
-	/**
-	 * @return the matricsTypeId
-	 */
-	public int getMatricsTypeId() {
-		return matricsTypeId;
-	}
-	/**
-	 * @param matricsTypeId the matricsTypeId to set
-	 */
-	public void setMatricsTypeId(int matricsTypeId) {
-		this.matricsTypeId = matricsTypeId;
-	}
+	
 	/**
 	 * @return the matricsWeight
 	 */

@@ -10,6 +10,14 @@ public class Attributes extends MatricsObject {
 	private int averagePointOver;
 	private int idealNoOfAttributes;
 	private int maxNoOfAttributes;
+	private int minNoOfAttributes;
+	
+	public int getMinNoOfAttributes() {
+		return minNoOfAttributes;
+	}
+	public void setMinNoOfAttributes(int minNoOfAttributes) {
+		this.minNoOfAttributes = minNoOfAttributes;
+	}
 	/**
 	 * @return the matricsId
 	 */

@@ -79,7 +79,7 @@ public class XmiClassDiagramParser {
 	private ArrayList<XmiAssociationElement> associationElements = new ArrayList<XmiAssociationElement>();
 	private ArrayList<XmiGeneralizationElement> generalizationElements = new ArrayList<XmiGeneralizationElement>();
 	
-	XmiClassDiagramParser(String umlFile, String notationFile) {
+	public XmiClassDiagramParser(String umlFile, String notationFile) {
 		umlFileName = umlFile;
 		notationFileName = notationFile;
 		activeIdList = new ArrayList<String>();

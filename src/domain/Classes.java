@@ -10,6 +10,16 @@ public class Classes extends MatricsObject {
 	private int idealNoOfClasses;
 	private int maxNoOfClasses;
 	private int totalClassMaxPoints;
+	private int minNoOfClasses;
+	
+	
+	
+	public int getMinNoOfClasses() {
+		return minNoOfClasses;
+	}
+	public void setMinNoOfClasses(int minNoOfClasses) {
+		this.minNoOfClasses = minNoOfClasses;
+	}
 	/**
 	 * @return the matricsId
 	 */

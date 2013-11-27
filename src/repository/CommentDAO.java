@@ -4,7 +4,10 @@ package repository;
  * @author Yidu Liang
  * @author Xuesong Meng
  * @author yangchen
+<<<<<<< HEAD
+=======
  * @author Weiqi Kong
+>>>>>>> master
  * 
  */
 import domain.Comment;
@@ -26,7 +29,11 @@ public class CommentDAO {
      * 			userId, content, diagramId
      * @return true if success; false if fail
      */
+<<<<<<< HEAD
+    public static boolean addComment(Comment comment) {
+=======
     /*public static boolean addComment(Comment comment) {
+>>>>>>> master
 	ResultSet rs;
 	try {
 	    Connection conn = DbManager.getConnection();
@@ -52,6 +59,9 @@ public class CommentDAO {
 	    Logger.getLogger(CommentDAO.class.getName()).log(Level.SEVERE, null, ex);
 	}
 	return true;
+<<<<<<< HEAD
+    }
+=======
     }*/
 	
 	public static Comment addComment(Comment comment) {
@@ -87,6 +97,7 @@ public class CommentDAO {
 	    }
 	
 	
+>>>>>>> master
 
     /**
      * Get Comment ArrayList from DB
@@ -95,7 +106,11 @@ public class CommentDAO {
      * 		  reportID : the merge result of 2 diagrams  
      * @return Comment ArrayList
      */
+<<<<<<< HEAD
+    public static ArrayList<Comment> getComment(int reportId) {
+=======
     /*public static ArrayList<Comment> getComment(int reportId) {
+>>>>>>> master
 	ArrayList<Comment> searchResult = new ArrayList<>();
 	try {
 	    Connection conn = DbManager.getConnection();
@@ -124,6 +139,9 @@ public class CommentDAO {
 	    Logger.getLogger(CommentDAO.class.getName()).log(Level.SEVERE, null, ex);
 	}
 	return null;
+<<<<<<< HEAD
+    }
+=======
     }*/
 	
 	
@@ -160,6 +178,7 @@ public class CommentDAO {
 		}
 		return null;
 	    }
+>>>>>>> master
 
     /**
      * Update Comment from DB
@@ -168,7 +187,11 @@ public class CommentDAO {
      * 			content, commentTime, commentId 
      * @return true if success; false if fail
      */
+<<<<<<< HEAD
+    public static boolean updateComment(Comment comment) {
+=======
    /* public static boolean updateComment(Comment comment) {
+>>>>>>> master
 	try {
 	    Connection conn = DbManager.getConnection();
 	    String sql = "UPDATE comment SET content = ? , writenTime = ? WHERE commentId = ?;";
@@ -186,7 +209,11 @@ public class CommentDAO {
 	    Logger.getLogger(CommentDAO.class.getName()).log(Level.SEVERE, null, ex);
 	}
 	return false;
+<<<<<<< HEAD
+    }
+=======
     }*/
+>>>>>>> master
 
     
     /**
@@ -195,7 +222,11 @@ public class CommentDAO {
      * @param Comment object
      * @return true if success; false if fail
      */  
+<<<<<<< HEAD
+    public static boolean deleteComment(Comment comment) {
+=======
   /* public static boolean deleteComment(Comment comment) {
+>>>>>>> master
 	try {
 	    Connection conn = DbManager.getConnection();
 	    String sql = "DELETE FROM comment WHERE commentId = ? ;";
@@ -211,5 +242,10 @@ public class CommentDAO {
 	    Logger.getLogger(CommentDAO.class.getName()).log(Level.SEVERE, null, ex);
 	}
 	return false;
+<<<<<<< HEAD
+    }
+}
+=======
     }*/
 }
+>>>>>>> master
