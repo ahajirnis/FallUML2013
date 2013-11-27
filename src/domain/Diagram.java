@@ -23,9 +23,12 @@ public class Diagram {
     private String diFilepath;
     private DiagramType diagramType;
     private int diagramContextId;
+    private String diagramRealPath;
+    private String conPath;
     
 	public DiagramType getDiagramType() {
-		return diagramType;
+		//TO DO if null make it return NOTDEFINED and still work!
+		return diagramType == null? DiagramType.CLASS: diagramType;
 	}
 
 	public void setDiagramType(DiagramType diagramType) {
@@ -264,6 +267,21 @@ public class Diagram {
 		this.contextId = contextId;
 	}
 
+	public String getDiagramRealPath() {
+		return diagramRealPath;
+	}
+
+	public void setDiagramRealPath(String diagramRealPath) {
+		this.diagramRealPath = diagramRealPath;
+	}
+
+	public String getConPath() {
+		return this.conPath;
+	}
+
+	public void setConPath(String conPath) {
+		this.conPath = conPath;
+	}
 	
     
 	/**

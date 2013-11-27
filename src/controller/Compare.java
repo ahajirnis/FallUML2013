@@ -7,6 +7,7 @@ package controller;
 import domain.Diagram;
 import domain.Report;
 import compareAlgorithm.CompareDiagrams;
+import compareAlgorithm.DiagramCompare;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -52,7 +53,8 @@ public class Compare extends HttpServlet {
 
 	private int diagramID1;
 	private int diagramID2;
-
+	private String diagram1RealPath;
+	private String diagram2RealPath;
 	/**
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
 	 * methods.
@@ -76,12 +78,14 @@ public class Compare extends HttpServlet {
 		Diagram diagram1 = DiagramDAO.getDiagram(this.diagramID1);
 		Diagram diagram2 = DiagramDAO.getDiagram(this.diagramID2);
 		
-		
+		diagram1.setDiagramRealPath(context.getRealPath(diagram1.getFilePath()));
+		diagram2.setDiagramRealPath(context.getRealPath(diagram2.getFilePath()));
+		// setting context Paths for Diagrams
+		diagram1.setConPath(context.getRealPath("/").toString());
 
-		CompareDiagrams compareObj = new CompareDiagrams(
-				context.getRealPath(diagram1.getFilePath()),
-				context.getRealPath(diagram2.getFilePath()),
-				context.getRealPath("/reports/"));
+		diagram2.setConPath(context.getRealPath("/").toString());
+
+		DiagramCompare compareObj = new DiagramCompare(diagram1, diagram2, context.getRealPath("/reports/"));
 		try {
 			String path = compareObj.process();
 			//int reportId = this.saveReport(path);
@@ -96,6 +100,7 @@ public class Compare extends HttpServlet {
 			request.setAttribute("path2", diagram2.getFilePath() + ".png");
 			request.setAttribute("diagramAId", diagram1.getDiagramId());
 			request.setAttribute("diagramBId", diagram2.getDiagramId());
+			request.setAttribute("reportText", compareObj.getReportText());
 			RequestDispatcher dispatcher = request
 					.getRequestDispatcher("WEB-INF/JSP/promote.jsp");
 			dispatcher.forward(request, response);

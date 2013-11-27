@@ -1,5 +1,7 @@
 package controller.diagramparser;
 
+import java.io.IOException;
+
 import domain.Diagram;
 import domain.DiagramType;
 
@@ -10,9 +12,9 @@ import domain.DiagramType;
  */
 public class DiagramParserFactory {
 
-	private final String ENCORE = "encore";
-	private final String XMI = "xmi";
-	private final String CLASS = "class";
+	private final static String ENCORE = "ECORE";
+	private final static String XMI = "XMI";
+
 	
 	//Use this method to create appropriate DiagramParser by supplying the Diagram object. The diagram object should have the diagramType and fileType properties
 	// defined  in order for this factory method to be able to return the appropriate varient of the DiagramParser Object
@@ -22,8 +24,9 @@ public class DiagramParserFactory {
 	 * @return
 	 * Use this method to create appropriate DiagramParser by supplying the Diagram object. The diagram object should have the diagramType and fileType properties
 	 * defined  in order for this factory method to be able to return the appropriate variant of the DiagramParser Object
+	 * @throws IOException 
 	 */
-	public DiagramParser getDiagramParser(Diagram diagram){
+	public static DiagramParser getDiagramParser(Diagram diagram) throws IOException{
 		
 		switch (diagram.getDiagramType())
 		{
@@ -35,7 +38,7 @@ public class DiagramParserFactory {
 					
 					//ENCORE
 					default :
-						return new ENClassDiagramParser(diagram);
+						return new ENClassDiagramParser(diagram, diagram.getFilePath()); //Eliminate use of filepath
 				}
 			default:
 				return new DiagramParser(diagram){}; //Diagram Parser is an abstract class. So cannot directly instantiate it. 
