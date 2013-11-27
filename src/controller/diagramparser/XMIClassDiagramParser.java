@@ -12,6 +12,14 @@ import controller.upload.FileInfo;
 import controller.upload.UploadProcessorFactory;
 import controller.util.FileUtil;
 
+
+/**
+ * Parser class which implement DiagramParser for parsing XMI diagram
+ * 
+ * @author Gautam Ch, Prasanna Shrestha
+ * 
+ * 
+ */
 public class XMIClassDiagramParser extends ClassDiagramParser{
 	
 	XmiClassDiagramParser oldParser;

@@ -22,6 +22,13 @@ import domain.CD_Operation;
 import domain.CD_Relationship;
 import domain.Diagram;
 
+/**
+ * Parser class which implement DiagramParser for parsing ECORE diagram
+ * 
+ * @author Gautam Ch, Prasanna Shrestha
+ * 
+ * 
+ */
 public class ENClassDiagramParser extends ClassDiagramParser{
 	
 	private EList<EObject> ecoreModel;

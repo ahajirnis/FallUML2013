@@ -266,12 +266,15 @@ public class Compare extends HttpServlet {
 		ArrayList<domain.Comment> comments = CommentDAO.getComments(compareId);
 		ArrayList<domain.Comment> diagram1Comments = new ArrayList<domain.Comment>();
 		ArrayList<domain.Comment> diagram2Comments = new ArrayList<domain.Comment>();
-		for(domain.Comment comment: comments) {
-			if(comment.getPromotedDiagramId() == diagramID1) {
-				diagram1Comments.add(comment);
-			}
-			else if(comment.getPromotedDiagramId() == diagramID2) {
-				diagram2Comments.add(comment);
+		if(comments != null)
+		{
+			for(domain.Comment comment: comments) {
+				if(comment.getPromotedDiagramId() == diagramID1) {
+					diagram1Comments.add(comment);
+				}
+				else if(comment.getPromotedDiagramId() == diagramID2) {
+					diagram2Comments.add(comment);
+				}
 			}
 		}
 		request.setAttribute("diagram1comments", diagram1Comments);

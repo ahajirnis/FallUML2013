@@ -25,7 +25,7 @@ import domain.CD_Reference;
 /**
  * Algorithm class that compares all the features of a class diagram.
  * 
- * @author Gautam Ch
+ * @author Gautam Ch, Prasanna Shrestha
  * 
  * 
  */
@@ -45,12 +45,6 @@ public class UnifiedAlgorithm {
 	private ArrayList<String> partialMatchedClasses;	//Record Partially matched classes
 	private String reportText;
 	private int noOfComparison;
-	
-	
-	
-	//private ArrayList<String> similarClasses;
-	//private ArrayList<String> aloneClasses;
-	
 
 	Report report; // for writing report to the pdf file
 
