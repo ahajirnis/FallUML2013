@@ -100,7 +100,7 @@ public class Compare extends HttpServlet {
 			request.setAttribute("path2", diagram2.getFilePath() + ".png");
 			request.setAttribute("diagramAId", diagram1.getDiagramId());
 			request.setAttribute("diagramBId", diagram2.getDiagramId());
-			request.setAttribute("reportText", compareObj.getReportText());
+			//request.setAttribute("reportText", compareObj.getReportText());
 			RequestDispatcher dispatcher = request
 					.getRequestDispatcher("WEB-INF/JSP/promote.jsp");
 			dispatcher.forward(request, response);

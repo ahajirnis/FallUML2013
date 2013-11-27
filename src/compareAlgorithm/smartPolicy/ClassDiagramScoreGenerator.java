@@ -125,6 +125,10 @@ public class ClassDiagramScoreGenerator {
 				(totalNoOfClasses < idealNoOfClasses && totalNoOfClasses > minNoOfClasses))
 		{
 			score = Math.abs((idealNoOfClasses - totalNoOfClasses)) * totalClassBetweenPoints;
+			if(totalNoOfClasses > idealNoOfClasses) 
+				justification += "<b/> The number of classes is above the ideal amount set for this Context. But it is less then the Maxinum allowed. ";
+			else
+				justification += "<b/> The number of classes is below the ideal amount set for this Context. But it is greater then the minimum allowed. ";
 		}
 		else if(diagramParser.getClasses().size() == ((Classes)mObj).getIdealNoOfClasses())
 		{
@@ -134,9 +138,11 @@ public class ClassDiagramScoreGenerator {
 		{
 			if(totalNoOfClasses >= maxNoOfClasses){
 				score = (totalClassMaxPoints + ((totalNoOfClasses - maxNoOfClasses) * totalClassOverMaxPoints));
+				justification += "<b/> The number of classes is above the Maxinum allowed for this Context.";
 			}
 			else if(totalNoOfClasses <= minNoOfClasses){
 				score = totalClassMinPoints + ((minNoOfClasses - totalNoOfClasses) * totalClassUnderPoints);
+				justification += "<b/> The number of classes less then or equal to the minimm allowed for this context ";
 			}
 			else
 				throw new Exception("The ideal value is not in between Max and min values");
@@ -168,15 +174,20 @@ public class ClassDiagramScoreGenerator {
 		else if(((avgNoAttribute > idealNoOfAttribuutes) && (avgNoAttribute < maxNoAttributes)) ||
 				((avgNoAttribute < idealNoOfAttribuutes) && (avgNoAttribute > minNoAttributes))){
 			score = Math.abs((idealNoOfAttribuutes - avgNoAttribute)) * avgAttributesBetweenPoints;
+			if(avgNoAttribute > idealNoOfAttribuutes)
+				justification += "<b/> The average number of attributes is above the ideal amount set for this Context. But it is less then the Maxinum allowed. ";
+			else
+				justification += "<b/> The average number of attributes is below the ideal amount set for this Context. But it is greater then the minimum allowed. ";
 		}
 		else //overflow
 		{
 			if(totalNoOfClasses >= maxNoAttributes){
 				score = (avgAttributesMaxPoints  + ((avgNoAttribute - maxNoAttributes) * avgAttributesOverMaxPoints ));
+				justification += "<b/> The average number of attributes is above the Maxinum allowed for this Context.";
 			}
 			else if(totalNoOfClasses <= minNoAttributes){
 				score = (avgAttributesMinPoints + ((minNoAttributes - avgNoAttribute) * avgAttributesUnderMinPoints));
-				//score = ((minNoAttributes - totalNoOfClasses) * totalClassUnderPoints);
+				justification += "<b/> The number of classes less then or equal to the minimm allowed for this context ";
 			}
 			else
 				throw new Exception("The ideal value is not in between Max and min values");
