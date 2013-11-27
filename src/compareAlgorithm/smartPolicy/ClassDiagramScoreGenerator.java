@@ -1,5 +1,8 @@
 package compareAlgorithm.smartPolicy;
 
+import java.io.IOException;
+import java.util.Properties;
+
 import controller.diagramparser.ClassDiagramParser;
 import controller.diagramparser.DiagramParser;
 import domain.Attributes;
@@ -37,7 +40,7 @@ public class ClassDiagramScoreGenerator {
 	private int avgAttributesUnderMinPoints;
 	private int avgAttributesMinPoints;
 	
-	protected ClassDiagramScoreGenerator(Policy policyApplied, ClassDiagramParser parser)
+	protected ClassDiagramScoreGenerator(Policy policyApplied, ClassDiagramParser parser) throws IOException
 	{
 		policy = policyApplied;
 		diagramParser = parser;
@@ -48,19 +51,22 @@ public class ClassDiagramScoreGenerator {
 	}
 	
 	//initialize by reading from a properties file, the values of the various weights assoiated
-	private void initPoints()
+	private void initPoints() throws IOException
 	{
-		totalClassBetweenPoints = 8;
-		totalClassMaxPoints = 8;
-		totalClassUnderPoints = 8;
-		totalClassOverMaxPoints = 8;
-		totalClassMinPoints = 8;
+		Properties prop = new Properties();
+		prop.load(ClassDiagramScoreGenerator.class.getClassLoader().getResourceAsStream("clubUMLProperties.properties"));	 
 		
-		avgAttributesBetweenPoints = 8;
-		avgAttributesMaxPoints = 8;
-		avgAttributesOverMaxPoints = 8;
-		avgAttributesUnderMinPoints = 8;
-		avgAttributesMinPoints = 8;
+		totalClassBetweenPoints = Integer.parseInt(prop.getProperty("CLASSBETWEENPOINTS")); 
+		totalClassMaxPoints = Integer.parseInt(prop.getProperty("CLASSMAXPOINTS"));
+		totalClassUnderPoints = Integer.parseInt(prop.getProperty("CLASSUNDERPOINTS"));
+		totalClassOverMaxPoints = Integer.parseInt(prop.getProperty("CLASSOVERMAXPOINTS"));
+		totalClassMinPoints = Integer.parseInt(prop.getProperty("CLASSMINPOINTS"));
+		
+		avgAttributesBetweenPoints = Integer.parseInt(prop.getProperty("ATTRIBUTEBETWEENPOINTS"));
+		avgAttributesMaxPoints = Integer.parseInt(prop.getProperty("ATTRIBUTEMAXPOINTS"));
+		avgAttributesOverMaxPoints = Integer.parseInt(prop.getProperty("ATTRIBUTEUNDERPOINTS"));
+		avgAttributesUnderMinPoints = Integer.parseInt(prop.getProperty("ATTRIBUTEOVERMAXPOINTS"));
+		avgAttributesMinPoints = Integer.parseInt(prop.getProperty("ATTRIBUTEMINPOINTS"));
 	}
 	
 	public DiagramPolicyScore generateScore() throws Exception{
