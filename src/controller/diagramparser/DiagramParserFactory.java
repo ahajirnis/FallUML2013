@@ -35,7 +35,7 @@ public class DiagramParserFactory {
 				{
 					case XMI:
 						return new XMIClassDiagramParser(diagram);
-					
+						
 					//ENCORE
 					default :
 						return new ENClassDiagramParser(diagram, diagram.getFilePath()); //Eliminate use of filepath

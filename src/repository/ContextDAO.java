@@ -28,6 +28,7 @@ import java.util.logging.Logger;
 import domain.Diagram;
 import domain.DiagramContext;
 import domain.DiagramType;
+import domain.Policy;
 
  
 
@@ -581,8 +582,6 @@ return false;
      return context;
 
     }   
-    
-    
     
     public static DiagramContext getContext(int projectid, String contextName) throws SQLException {
 

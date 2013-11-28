@@ -6,11 +6,16 @@ package domain;
  *
  */
 public class Attributes extends MatricsObject {
-	private int matricsId;
+	
 	private int averagePointOver;
 	private int idealNoOfAttributes;
 	private int maxNoOfAttributes;
 	private int minNoOfAttributes;
+	
+	public Attributes()
+	{
+		super();
+	}
 	
 	public int getMinNoOfAttributes() {
 		return minNoOfAttributes;
@@ -18,18 +23,7 @@ public class Attributes extends MatricsObject {
 	public void setMinNoOfAttributes(int minNoOfAttributes) {
 		this.minNoOfAttributes = minNoOfAttributes;
 	}
-	/**
-	 * @return the matricsId
-	 */
-	public int getMatricsId() {
-		return matricsId;
-	}
-	/**
-	 * @param matricsId the matricsId to set
-	 */
-	public void setMatricsId(int matricsId) {
-		this.matricsId = matricsId;
-	}
+	
 	/**
 	 * @return the averagePointOver
 	 */

@@ -6,13 +6,15 @@ package domain;
  *
  */
 public class Classes extends MatricsObject {
-	private int matricsId;
+	
 	private int idealNoOfClasses;
 	private int maxNoOfClasses;
 	private int totalClassMaxPoints;
 	private int minNoOfClasses;
 	
-	
+	public Classes(){
+		super();
+	}
 	
 	public int getMinNoOfClasses() {
 		return minNoOfClasses;
@@ -20,18 +22,8 @@ public class Classes extends MatricsObject {
 	public void setMinNoOfClasses(int minNoOfClasses) {
 		this.minNoOfClasses = minNoOfClasses;
 	}
-	/**
-	 * @return the matricsId
-	 */
-	public int getMatricsId() {
-		return matricsId;
-	}
-	/**
-	 * @param matricsId the matricsId to set
-	 */
-	public void setMatricsId(int matricsId) {
-		this.matricsId = matricsId;
-	}
+	
+	
 	/**
 	 * @return the idealNoOfClasses
 	 */

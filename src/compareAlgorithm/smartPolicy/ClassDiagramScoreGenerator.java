@@ -44,6 +44,7 @@ public class ClassDiagramScoreGenerator {
 	{
 		policy = policyApplied;
 		diagramParser = parser;
+		policyScore = new DiagramPolicyScore();
 		policyScore.setDiagramID(diagramParser.getDiagram().getDiagramId());
 		policyScore.setPolicyID(policy.getPolicyID());
 		initPoints();
@@ -85,12 +86,16 @@ public class ClassDiagramScoreGenerator {
 		
 			case CLASSES:
 				classScore = scoreClasses(mObj);
+				break;
 			case ATTRIBUTES:
 				attributesScore = scoreAttributes(mObj);
+				break;
 			case MULTIPLICITIES:
 				multiplicityScore = scoreMultiplicity(mObj);
+				break;
 			case ASSOCIATIONS:
 				assicoationScore = scoreAssociations(mObj);
+				break;
 			case NOTDEFINED:
 		
 		}
@@ -162,7 +167,7 @@ public class ClassDiagramScoreGenerator {
 		int totalNoOfClasses = diagramParser.getClasses().size();
 		
 		for(CD_Class cdClass : diagramParser.getClasses()){
-			totalNoAttributes =+ cdClass.getAttributes().size();
+			totalNoAttributes += cdClass.getAttributes().size();
 		}
 		
 		if(totalNoOfClasses > 0)
@@ -181,13 +186,18 @@ public class ClassDiagramScoreGenerator {
 		}
 		else //overflow
 		{
-			if(totalNoOfClasses >= maxNoAttributes){
+			if(avgNoAttribute >= maxNoAttributes){
 				score = (avgAttributesMaxPoints  + ((avgNoAttribute - maxNoAttributes) * avgAttributesOverMaxPoints ));
 				justification += "<b/> The average number of attributes is above the Maxinum allowed for this Context.";
 			}
-			else if(totalNoOfClasses <= minNoAttributes){
+			else if(avgNoAttribute <= minNoAttributes){
 				score = (avgAttributesMinPoints + ((minNoAttributes - avgNoAttribute) * avgAttributesUnderMinPoints));
-				justification += "<b/> The number of classes less then or equal to the minimm allowed for this context ";
+				justification += "<b/> The average number of Attrubutes less then or equal to the minimum allowed for this context ";
+			}
+			else if(avgNoAttribute == 0)
+			{
+				score = (avgAttributesMinPoints + ((minNoAttributes - avgNoAttribute) * avgAttributesUnderMinPoints));
+				justification += "<b/> The average number of attributes is zero";
 			}
 			else
 				throw new Exception("The ideal value is not in between Max and min values");
