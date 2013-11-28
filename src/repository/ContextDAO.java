@@ -28,6 +28,7 @@ import java.util.logging.Logger;
 import domain.Diagram;
 import domain.DiagramContext;
 import domain.DiagramType;
+import domain.Policy;
 
  
 
@@ -47,19 +48,14 @@ public class ContextDAO {
 
     public static DiagramContext getContext(int projectId) throws SQLException {
 
-    DiagramContext context = null;
-
-     Connection conn = null;
-
-     PreparedStatement pstmt = null;
-
-     ResultSet rs = null;
+	    DiagramContext context = null;
+	    ResultSet rs = null;
 
      try {
 
-      conn = DbManager.getConnection();
+    	 Connection conn = DbManager.getConnection();
 
-         pstmt = conn.prepareStatement(
+    	 PreparedStatement pstmt = conn.prepareStatement(
 
           "SELECT * FROM diagramContext where projectId = ? ;");
 
@@ -81,11 +77,7 @@ public class ContextDAO {
 
      } finally {
 
-      if( rs != null) {rs.close();}
-
-      if( pstmt != null) {pstmt.close();}
-
-      if( conn != null) {conn.close();}
+     
 
      }
 
@@ -590,8 +582,6 @@ return false;
      return context;
 
     }   
-    
-    
     
     public static DiagramContext getContext(int projectid, String contextName) throws SQLException {
 

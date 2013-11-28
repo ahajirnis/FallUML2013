@@ -224,7 +224,7 @@ public class UploadServlet extends HttpServlet {
 	 */
 	private void storeDatabase(String path, String fileName, int userID) {
 		try {
-			int projectId = 5; // Please get project Id from GUI onClick.
+			int projectId = 2; // Please get project Id from GUI onClick.
 			Diagram diagramObj = new Diagram();
 			diagramObj.setDiagramName(fileName);
 			diagramObj.setFilePath(path);
