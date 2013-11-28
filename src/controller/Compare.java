@@ -71,6 +71,7 @@ public class Compare extends HttpServlet {
 	protected void processRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		ServletContext context = this.getServletContext();
+		
 
 		this.diagramID1 = Integer.parseInt(request.getParameter("file1"));
 		this.diagramID2 = Integer.parseInt(request.getParameter("file2"));
@@ -78,36 +79,53 @@ public class Compare extends HttpServlet {
 		Diagram diagram1 = DiagramDAO.getDiagram(this.diagramID1);
 		Diagram diagram2 = DiagramDAO.getDiagram(this.diagramID2);
 		
-		diagram1.setDiagramRealPath(context.getRealPath(diagram1.getFilePath()));
-		diagram2.setDiagramRealPath(context.getRealPath(diagram2.getFilePath()));
-		// setting context Paths for Diagrams
-		diagram1.setConPath(context.getRealPath("/").toString());
-
-		diagram2.setConPath(context.getRealPath("/").toString());
-
-		DiagramCompare compareObj = new DiagramCompare(diagram1, diagram2, context.getRealPath("/reports/"));
-		try {
-			String path = compareObj.process();
-			//int reportId = this.saveReport(path);
-			// this.showPdf(path, request, response);
-			int compareId = searchAndLoadCompare(request,diagram1.getDiagramId(), diagram2.getDiagramId(), path);
-			loadComments(request, compareId);
-			
-			String reportText = PDFToText(path);
-			request.setAttribute("reportText", reportText);
-			request.setAttribute("reportPath", path);
-			request.setAttribute("path1", diagram1.getFilePath() + ".png");
-			request.setAttribute("path2", diagram2.getFilePath() + ".png");
-			request.setAttribute("diagramAId", diagram1.getDiagramId());
-			request.setAttribute("diagramBId", diagram2.getDiagramId());
-			request.setAttribute("reportText", compareObj.getReportText());
-			RequestDispatcher dispatcher = request
-					.getRequestDispatcher("WEB-INF/JSP/promote.jsp");
-			dispatcher.forward(request, response);
-		} catch (Exception ex) {
-			Logger.getLogger(Compare.class.getName()).log(Level.SEVERE, null,
-					ex);
+		String path = "";
+		String reportText = "";
+		
+		// Check if Suggest Promote button is click
+		if(request.getParameter("smartsuggest") != null && 
+				request.getParameter("smartsuggest").equals("Suggest Promote"))
+		{
+			// your code here
+			String test = "Adding Suggestion Remarks";
+			reportText = (String) request.getParameter("reportText");
+			reportText = test + "\n\n" + reportText;
 		}
+		
+		else 
+		{
+			diagram1.setDiagramRealPath(context.getRealPath(diagram1.getFilePath()));
+			diagram2.setDiagramRealPath(context.getRealPath(diagram2.getFilePath()));
+			// setting context Paths for Diagrams
+			diagram1.setConPath(context.getRealPath("/").toString());	
+			diagram2.setConPath(context.getRealPath("/").toString());
+	
+			DiagramCompare compareObj = new DiagramCompare(diagram1, diagram2, context.getRealPath("/reports/"));
+			
+			try {
+				
+				path = compareObj.process();		
+				reportText = PDFToText(path);
+			} catch (Exception ex) {
+				Logger.getLogger(Compare.class.getName()).log(Level.SEVERE, null,
+						ex);
+			}
+		}
+		//int reportId = this.saveReport(path);
+		
+		int compareId = searchAndLoadCompare(request,diagram1.getDiagramId(), diagram2.getDiagramId(), path);
+		loadComments(request, compareId);
+		
+		request.setAttribute("reportText", reportText);
+		request.setAttribute("reportPath", path);
+		request.setAttribute("path1", diagram1.getFilePath() + ".png");
+		request.setAttribute("path2", diagram2.getFilePath() + ".png");
+		request.setAttribute("diagramAId", diagram1.getDiagramId());
+		request.setAttribute("diagramBId", diagram2.getDiagramId());
+		//request.setAttribute("reportText", compareObj.getReportText());
+		RequestDispatcher dispatcher = request
+				.getRequestDispatcher("WEB-INF/JSP/promote.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	// <editor-fold defaultstate="collapsed"

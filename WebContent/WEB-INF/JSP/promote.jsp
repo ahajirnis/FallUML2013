@@ -24,6 +24,15 @@
  			$("#btn2").click(function(){
    			 	$( "#dialog2" ).dialog();
   			});
+ 			
+ 			$("#suggestButton").click(function() {
+ 	           $("#suggestForm").submit();
+ 	       });
+ 			
+ 			$("#returnButton").click(function() {
+  	           $("#returnForm").submit();
+  	       });
+ 			
 
 			var report = "reports/";
 			var link = $("#reportLink").val();
@@ -50,7 +59,7 @@
 	</script>
 	<style>
 	
-</style>
+	</style>
     </head>
 
     <body style="background-color: #F3F3F3">
@@ -87,7 +96,7 @@
 						Comment:<input type="text" id="comment1" name="comment"/><br/>
 						<div class="sumbitbutton">
 						<button id="button1" class="pbutton">Submit</button><br/></div>
-						<input type="hidden" name="diagramId" value="${requestScope.diagramAId}"/>
+						<input type="hidden" name="diagramAId" value="${requestScope.diagramAId}"/>
 						<input type="hidden" name="compareId" value="${requestScope.compareId}"/>
 						<input type="hidden" name="A" value="${requestScope.A}"/>
 						<input type="hidden" name="B" value="${requestScope.B}"/>
@@ -113,7 +122,7 @@
 						<div class="sumbitbutton">
 		                	<!---- <input type="submit" id="button2" value="Promote" class="pbutton"/>--->
 							<button id="button2" class="pbutton">Submit</button><br/>
-							<input type="hidden" name="diagramId" value="${requestScope.diagramBId}"/>
+							<input type="hidden" name="diagramBId" value="${requestScope.diagramBId}"/>
 							<input type="hidden" name="compareId" value="${requestScope.compareId}"/>
 							<input type="hidden" name="A" value="${requestScope.A}"/>
 							<input type="hidden" name="B" value="${requestScope.B}"/>
@@ -138,24 +147,32 @@
 	    </div>
 	    <p>${requestScope.compareId}</p>
 		<br/>
-		<div class="reportfile" style="float:left;">
-			<!---- <div id="reportLink" style="display: none">${requestScope.reportPath}</div>---->
-		 
+		<div class="reportfile" style="float:left;">		 
 			<div  class="scrollreport">
 			
 			<pre>${requestScope.reportText}</pre>
 			
 			</div>
+			<form class="putton" action="Compare" method="post" id="suggestForm">
+						<input type="hidden" name="smartsuggest" value="Suggest Promote"/> 
+						<input type="hidden" name="reportText" value="${requestScope.reportText}"/>
+						<input type="hidden" name="reportPath" value="${requestScope.reportPath}"/>
+						<input type="hidden" name="file1" value="${requestScope.diagramAId}"/>
+						<input type="hidden" name="file2" value="${requestScope.diagramBId}"/>
+						<input type="hidden" name="comment1" value="${requestScope.diagram1comments}"/>
+						<input type="hidden" name="comment2" value="${requestScope.diagram2comments}"/>
+			</form>
+			<form action="Display" method="post" id="returnForm"></form>
 			<div class="promote-bottom-button-wrap">
 				<div class="promote-bottom-button">
 					<button id="saveAsPdf" class="pbutton">Save As PDF</button>
-					<button  class="pbutton">Suggestion Promote</button>
-					<button  class="pbutton">Return</button>
+					<button  id="suggestButton" class="pbutton" type="submit">Suggest Promote</button>
+					<button  class="pbutton" id="returnButton">Return</button>
 				</div>
 			</div>
 		</div>
 	</div>
 	  
-</body>
+	</body>
 
 </html>
