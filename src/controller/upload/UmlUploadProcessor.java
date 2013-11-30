@@ -1,5 +1,6 @@
 package controller.upload;
 
+import repository.ContextDAO;
 import repository.DiagramDAO;
 import uml2parser.*;
 import logging.Log;
@@ -17,6 +18,7 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EReference;
 
 import domain.Diagram;
+import domain.DiagramContext;
 import domain.DiagramType;
 
 /**
@@ -144,6 +146,7 @@ public class UmlUploadProcessor implements UploadProcessor {
 			diagramObj.setDiFileName(baseFileName + ".di");
 			diagramObj.setNotationFileName(baseFileName + ".notation");
 			diagramObj.setDiFilepath(folder);
+			diagramObj.setFileType("XMI");
 			diagramObj.setNotationFilePath(folder);
 			//support for enum type| we have to make sure, that the diagramType supplied here is in accordance to the Enum
 			diagramObj.setDiagramType(diagramType);
