@@ -81,10 +81,14 @@ public class Display extends HttpServlet {
     	// in case the user wants to perform a different merge.
     	HttpSession session = request.getSession();
     	session.setAttribute(COMPARE_OBJECT, null);
+    	System.out.println(request.getParameter("ProjectID"));
+    	int ProjectID= Integer.parseInt(request.getParameter("ProjectID"));
+    	System.out.println(ProjectID);
+    	
     	
     //Modified by Xuesong Meng
     	try{
-    	ArrayList<domain.Diagram> diagrams = DiagramDAO.getDiagramList(2);
+    	ArrayList<domain.Diagram> diagrams = DiagramDAO.getDiagramList(ProjectID);
 	    if (!diagrams.isEmpty()) {
 		request.setAttribute("diagrams", diagrams);
 		//set the first diagram in diagram list as the default display diagram..
@@ -105,6 +109,7 @@ public class Display extends HttpServlet {
     	String userAgent = request.getHeader("User-Agent").toLowerCase();
     	OSDetails.setClientOS(userAgent);
     	
+    	request.setAttribute("ProjectID", ProjectID);
     	RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/JSP/display.jsp");
     	dispatcher.forward(request, response);
     }
