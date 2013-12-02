@@ -64,7 +64,7 @@
 <script type="text/javascript">
 
 function submitToDisplay(){
-	var a = document.getElementById("ProjectIdBtn");
+	var a = document.getElementById("ProjectIdBtn").value;
 	document.getElementById("submitprojid").value = a;
 	document.getElementById("sendtodisplay").submit();
 	
@@ -155,6 +155,9 @@ display: inline;;
 <div class="buttoninpopup">
 			<input class="btn btn-info"  type="submit" value="Update" />
 </div>
+
+<input type="hidden" id="projectID" >
+
 </form>
 </div>
 
