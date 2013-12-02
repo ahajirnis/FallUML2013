@@ -32,6 +32,13 @@
  $(document).ready(function(){
 
 	
+	 function submitToDisplay(){
+			var a = document.getElementById("ProjectIdBtn").value;
+			document.getElementById("submitprojid").value = a;
+			document.getElementById("sendtodisplay").submit();
+			
+		}
+	 
 	$( "#dialogUpdate" ).hide();
 	
 	  $("#UpdateProj").click(function(){
@@ -63,12 +70,7 @@
 
 <script type="text/javascript">
 
-function submitToDisplay(){
-	var a = document.getElementById("ProjectIdBtn").value;
-	document.getElementById("submitprojid").value = a;
-	document.getElementById("sendtodisplay").submit();
-	
-}
+
 </script>
 <style type="text/css">
 #Description{
