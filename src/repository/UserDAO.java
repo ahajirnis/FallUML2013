@@ -3,6 +3,9 @@ package repository;
 /**
  * @author Xuesong Meng&Yidu Liang
  * @author Joanne Zhuo
+ * @author Siddhesh Jaiswal
+ * @author Indrajit Kulkarni
+ * @author Aniket Hajirnis
  */
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -308,5 +311,34 @@ public class UserDAO {
 		} catch (SQLException e) {
 			throw new IllegalArgumentException(e.getMessage(), e);
 		}
+	}
+
+	public static ArrayList<User> getAllUser() throws SQLException {
+		
+		ArrayList<User> users = new ArrayList<User>();
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	ResultSet rs = null;
+    	try {
+    		conn = DbManager.getConnection();
+    	    pstmt = conn.prepareStatement(
+    		    "SELECT * FROM user;");
+    	    rs = pstmt.executeQuery();
+    	    while (rs.next()) {
+    		User user = new User(rs.getInt("userId"), rs.getString("userName"),
+    				rs.getString("email"), rs.getString("password"),
+    				rs.getString("securityQ"),rs.getString("securityA"),rs.getString("userType"));
+    		users.add(user);
+    	    }
+    	    return users;
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    	} finally {
+    		if( rs != null) {rs.close();}
+    		if( pstmt != null) {pstmt.close();}
+    		if( conn != null) {conn.close();}
+    	}
+    	return users;
+		
 	}
 }

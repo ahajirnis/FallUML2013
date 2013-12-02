@@ -89,8 +89,10 @@
 						<button id="button1" class="pbutton">Submit</button><br/></div>
 						<input type="hidden" name="diagramId" value="${requestScope.diagramAId}"/>
 						<input type="hidden" name="compareId" value="${requestScope.compareId}"/>
-						<input type="hidden" name="file1" value="${requestScope.A}"/>
-						<input type="hidden" name="file2" value="${requestScope.B}"/>
+						<input type="hidden" name="A" value="${requestScope.A}"/>
+						<input type="hidden" name="B" value="${requestScope.B}"/>
+						<input type="hidden" name="file1" value="${requestScope.diagramAId}"/>
+						<input type="hidden" name="file2" value="${requestScope.diagramBId}"/>
 					</form>
 	    		</div>
 	    	</div>
@@ -113,8 +115,10 @@
 							<button id="button2" class="pbutton">Submit</button><br/>
 							<input type="hidden" name="diagramId" value="${requestScope.diagramBId}"/>
 							<input type="hidden" name="compareId" value="${requestScope.compareId}"/>
-							<input type="hidden" name="file1" value="${requestScope.A}"/>
-							<input type="hidden" name="file2" value="${requestScope.B}"/>
+							<input type="hidden" name="A" value="${requestScope.A}"/>
+							<input type="hidden" name="B" value="${requestScope.B}"/>
+							<input type="hidden" name="file1" value="${requestScope.diagramAId}"/>
+							<input type="hidden" name="file2" value="${requestScope.diagramBId}"/>
 						</div>
 					</form>
 				</div>

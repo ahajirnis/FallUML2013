@@ -7,6 +7,15 @@ public class DiagramPolicyScore {
 	private int policyScore;
 	private String justification;
 	
+	
+//	public DiagramPolicyScore(Diagram diagram, Policy policy) {
+//		super();
+//		this.diagramID = diagram.getDiagramId();
+//		this.policyID = policy.getPolicyID();
+//		//this.policyScore = policyScore;
+//		//this.justification = justification;
+//	}
+
 	public int getDiagramID() {
 		return diagramID;
 	}

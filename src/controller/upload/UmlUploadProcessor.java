@@ -1,5 +1,6 @@
 package controller.upload;
 
+import repository.ContextDAO;
 import repository.DiagramDAO;
 import uml2parser.*;
 import logging.Log;
@@ -8,6 +9,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.*;
+import java.sql.SQLException;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
@@ -17,6 +19,7 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EReference;
 
 import domain.Diagram;
+import domain.DiagramContext;
 import domain.DiagramType;
 
 /**
@@ -133,6 +136,7 @@ public class UmlUploadProcessor implements UploadProcessor {
 	 */
 	private void storeDatabase(String folder, String umlFileName, int userID, DiagramType diagramType) {
 		try {
+			int projectId = 2 ; 				// needs to be passed in as in UploadServlet
 			logging.Log.LogCreate().Info(folder + " " + umlFileName);
 			String baseFileName = umlFileName.substring(0, umlFileName.length() - ".uml".length());
 			Diagram diagramObj = new Diagram();
@@ -144,7 +148,10 @@ public class UmlUploadProcessor implements UploadProcessor {
 			diagramObj.setDiFileName(baseFileName + ".di");
 			diagramObj.setNotationFileName(baseFileName + ".notation");
 			diagramObj.setDiFilepath(folder);
+			diagramObj.setFileType("XMI");
 			diagramObj.setNotationFilePath(folder);
+			DiagramContext cd = ContextDAO.getContext(projectId);
+			diagramObj.setContextId(ContextDAO.getContext(projectId).getDiagramContextId());
 			//support for enum type| we have to make sure, that the diagramType supplied here is in accordance to the Enum
 			diagramObj.setDiagramType(diagramType);
 			//diagramObj.setDiagramType(diagramType);
@@ -158,6 +165,9 @@ public class UmlUploadProcessor implements UploadProcessor {
 			EditingHistoryDAO.addHistory(editObj);
 			*/
 		} catch (IllegalArgumentException e) {
+		}
+		catch (SQLException sqlE){
+			sqlE.printStackTrace();
 		}
 	}
 

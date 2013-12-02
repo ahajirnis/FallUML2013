@@ -18,20 +18,6 @@ public abstract class ClassDiagramParser extends DiagramParser{
 	}
 	
 	public abstract List<CD_Attribute> getAtrributes();
-//	{
-//		
-//		switch ((super.getDiagram().getFileType()))
-//		{
-//			case ENCORE:
-//				//code here
-//				break;
-//			case XMI:
-//				//code here
-//				break;
-//		}
-//		
-//		return new ArrayList<CD_Attribute>();
-//	}
 	
 	public abstract List<CD_Class> getClasses();
 	

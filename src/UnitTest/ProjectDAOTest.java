@@ -77,16 +77,16 @@ public class ProjectDAOTest {
 	@Test
 	public void testDisableProject() throws SQLException {
 		//clubuml5 is existed and enabled
-		String projectName = "clubuml5";
-		boolean result = ProjectDAO.disableProject(projectName);
+		int projectId = 15;
+		boolean result = ProjectDAO.disableProject(projectId);
 		Assert.assertEquals(true, result);
 	}
 	
 	@Test
 	public void testEnableProject() throws SQLException {
 		//clubuml2 is existed and disabled
-		String projectName = "clubuml2";
-		boolean result = ProjectDAO.enableProject(projectName);
+		int projectId = 12;
+		boolean result = ProjectDAO.enableProject(projectId);
 		Assert.assertEquals(true, result);
 	}
 	

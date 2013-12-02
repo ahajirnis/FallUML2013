@@ -8,7 +8,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import domain.Attributes;
+import domain.Classes;
+import domain.MatricsObject;
+import domain.MatricsType;
 import domain.Policy;
 import domain.User;
 
@@ -96,4 +101,89 @@ public class PolicyDAO {
 			throw new IllegalArgumentException(e.getMessage(), e);
 		}
 	}
+    
+    public static Policy getPolicy(int diagramID){
+    	
+    	try {
+    		Policy policy = new Policy();
+			Connection conn = DbManager.getConnection();
+			PreparedStatement pstmt = conn
+					.prepareStatement("SELECT p.* FROM policy p INNER JOIN diagramContext dc ON p.policyId = dc.policyId WHERE dc.diagramContextId in (SELECT contextid FROM diagram where diagramId = ?);");
+			pstmt.setInt(1, diagramID );
+
+			// Execute the SQL statement and update database accordingly.
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				policy.setPolicyID(rs.getInt("policyId"));
+				policy.setPolicyName(rs.getString("policyName"));
+				policy.setPolicyLevel(rs.getInt("policyLevel"));
+				policy.setPolicyDescription(rs.getString("policyDescription"));
+				
+			}
+			pstmt.close();
+			ArrayList<MatricsObject> mObjs = new ArrayList<MatricsObject>();
+			PreparedStatement pstmt2 = conn.prepareStatement("SELECT * FROM Metric m WHERE policyId = ?");
+			pstmt2.setInt(1,  policy.getPolicyID());
+			ResultSet rs2 = pstmt2.executeQuery();
+			while (rs2.next()) {
+				
+				MatricsType mType = MatricsType.fromInt(rs2.getInt("metricTypeId"));
+				int mId = rs2.getInt("metricId");
+				int policyId = rs2.getInt("policyId");
+				int matricsWt = rs2.getInt("metricsWeight");
+				
+				if(mType == MatricsType.CLASSES)
+				{
+					Classes mObj = new Classes();
+					mObj.setPolicyId(policyId);
+					mObj.setMatricsType(mType);
+					mObj.setMatricsId(mId);
+					mObj.setMatricsWeight(matricsWt);
+					
+					PreparedStatement pstmt3 = conn.prepareStatement("SELECT * FROM CLASSES m WHERE metricId = ?");
+					pstmt3.setInt(1,  mId);
+					ResultSet rs3 = pstmt3.executeQuery(); 
+					while (rs3.next()) {
+						
+						mObj.setIdealNoOfClasses(rs3.getInt("idealNoOfClasses"));
+						mObj.setMaxNoOfClasses(rs3.getInt("maxNoOfClasses"));
+						mObj.setMinNoOfClasses(rs3.getInt("minNoOfClasses"));
+						
+					}
+					pstmt3.close();
+					mObjs.add(mObj);
+				
+				}
+				if(mType == MatricsType.ATTRIBUTES)
+				{
+					Attributes mObj = new Attributes();
+					mObj.setPolicyId(policyId);
+					mObj.setMatricsType(mType);
+					mObj.setMatricsId(mId);
+					mObj.setMatricsWeight(matricsWt);
+					
+					PreparedStatement pstmt3 = conn.prepareStatement("SELECT * FROM Attributes m WHERE metricId = ?");
+					pstmt3.setInt(1,  mId);
+					ResultSet rs3 = pstmt3.executeQuery(); 
+					while (rs3.next()) {
+						
+						mObj.setIdealNoOfAttributes(rs3.getInt("idealNoOfAttributes"));
+						mObj.setMaxNoOfAttributes(rs3.getInt("maxNoOfAttributes"));
+						mObj.setMinNoOfAttributes(rs3.getInt("minNoOfAttributes"));
+						
+					}
+					pstmt3.close();
+					mObjs.add(mObj);
+				}
+				
+				
+			}
+			pstmt2.close();
+			conn.close();
+			policy.setMatricsObjects(mObjs);
+			return policy;
+		} catch (SQLException e) {
+			throw new IllegalArgumentException(e.getMessage(), e);
+		}
+    }
 }

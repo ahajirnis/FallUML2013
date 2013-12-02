@@ -5,8 +5,11 @@
 package controller;
 
 import domain.Diagram;
+import domain.DiagramPolicyScore;
 import domain.Report;
 import compareAlgorithm.CompareDiagrams;
+import compareAlgorithm.DiagramCompare;
+import compareAlgorithm.smartPolicy.PolicyScoreGenerator;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -32,9 +35,13 @@ import com.itextpdf.text.pdf.parser.PdfReaderContentParser;
 import com.itextpdf.text.pdf.parser.SimpleTextExtractionStrategy;
 import com.itextpdf.text.pdf.parser.TextExtractionStrategy;
 
+import controller.diagramparser.DiagramParser;
+import controller.diagramparser.DiagramParserFactory;
+
 import repository.CommentDAO;
 import repository.CompareDAO;
 import repository.DiagramDAO;
+import repository.PolicyDAO;
 import repository.ReportDAO;
 
 /**
@@ -52,7 +59,8 @@ public class Compare extends HttpServlet {
 
 	private int diagramID1;
 	private int diagramID2;
-
+	private String diagram1RealPath;
+	private String diagram2RealPath;
 	/**
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
 	 * methods.
@@ -76,13 +84,25 @@ public class Compare extends HttpServlet {
 		Diagram diagram1 = DiagramDAO.getDiagram(this.diagramID1);
 		Diagram diagram2 = DiagramDAO.getDiagram(this.diagramID2);
 		
-		
+		diagram1.setDiagramRealPath(context.getRealPath(diagram1.getFilePath()));
+		diagram2.setDiagramRealPath(context.getRealPath(diagram2.getFilePath()));
+		// setting context Paths for Diagrams
+		diagram1.setConPath(context.getRealPath("/").toString());
 
-		CompareDiagrams compareObj = new CompareDiagrams(
-				context.getRealPath(diagram1.getFilePath()),
-				context.getRealPath(diagram2.getFilePath()),
-				context.getRealPath("/reports/"));
+		diagram2.setConPath(context.getRealPath("/").toString());
+
+		DiagramCompare compareObj = new DiagramCompare(diagram1, diagram2, context.getRealPath("/reports/"));
+		
+		DiagramParserFactory factory = new DiagramParserFactory();
+		DiagramParser diag1Parser = DiagramParserFactory.getDiagramParser(diagram1);
+		DiagramParser diag2Parser = DiagramParserFactory.getDiagramParser(diagram2);
+		PolicyScoreGenerator scorer = new PolicyScoreGenerator();
+		
 		try {
+			
+			DiagramPolicyScore diagram1Score = scorer.generateScore(PolicyDAO.getPolicy(diagramID1), diag1Parser);
+			DiagramPolicyScore diagram2Score = scorer.generateScore(PolicyDAO.getPolicy(diagramID2), diag2Parser);
+			
 			String path = compareObj.process();
 			//int reportId = this.saveReport(path);
 			// this.showPdf(path, request, response);
@@ -95,7 +115,8 @@ public class Compare extends HttpServlet {
 			request.setAttribute("path1", diagram1.getFilePath() + ".png");
 			request.setAttribute("path2", diagram2.getFilePath() + ".png");
 			request.setAttribute("diagramAId", diagram1.getDiagramId());
-			request.setAttribute("diagramBId", diagram1.getDiagramId());
+			request.setAttribute("diagramBId", diagram2.getDiagramId());
+			//request.setAttribute("reportText", compareObj.getReportText());
 			RequestDispatcher dispatcher = request
 					.getRequestDispatcher("WEB-INF/JSP/promote.jsp");
 			dispatcher.forward(request, response);
