@@ -24,7 +24,7 @@ import repository.ProjectDAO;
 public class ChangeProjectStatus extends HttpServlet{
 
 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		//
 		try {
 			processRequest(request, response);
 		} catch (SQLException e) {
@@ -34,6 +34,10 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 	}
 
 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+	
+	getServletConfig().getServletContext().getRequestDispatcher("/Display").forward(request, response);
+	
 	
 	try {
 		processRequest(request, response);
