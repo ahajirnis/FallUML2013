@@ -64,8 +64,8 @@
 <script type="text/javascript">
 
 	
-function submitToDisplay(){
-	var a = document.getElementById("ProjectIdBtn");
+function submitToDisplay(a){
+//	var a = document.getElementById("ProjectIdBtn");
 	document.getElementById("submitprojid").value = a;
 	document.getElementById("sendtodisplay").submit();
 	
@@ -236,7 +236,7 @@ display: inline;;
 			<tr>
 				<td><input type="radio" value="${project.projectId }" id="projIdradio" name="projIdradio"/></td>
 				<td>${project.projectId}</td>
-				<td><button  type="button" class="btn btn-link" value="${project.projectId }" onclick="submitToDisplay()" name="ProjectIdBtn">${project.projectName }</button></td>
+				<td><button  type="button" class="btn btn-link" value="${project.projectId }" onclick="submitToDisplay(${project.projectId })" name="ProjectIdBtn">${project.projectName }</button></td>
 				<td>${project.startDate}</td>
 				<td>${projetct.description}</td>
 				
