@@ -15,11 +15,7 @@
 
 <script type="text/javascript">
 
-	function deleteCont(){
-		
-		alert("Context will be deleted if you click OK. Are you sure you want to delete the context");
-		
-	}
+	
 </script>
 
 <style type="text/css">
@@ -40,12 +36,20 @@
 width:80%;
 	
 }
+#menu li{
+display: inline;
+}
 </style>
 </head>
 <body>
 
 
-
+<div id="menu">
+		<ul class="contul">
+			<li><button class="btn btn-link" onclick="()">Add Context</button> </li> 
+			<li><button class="btn btn-link">Delete Selected Context</button></li>
+		</ul>
+</div>
 	
 <div class="contextTab">
 <h2>Current Contexts</h2>
@@ -91,12 +95,7 @@ width:80%;
 		
 	</table>
 </div>
-<div class="contextMenu">
-		<ul class="contul">
-			<li><button class="btn btn-link" onclick="deleteCont()">Add Context</button> </li> 
-			<li><button class="btn btn-link">Delete Selected Context</button></li>
-		</ul>
-</div>
+
 
 </body>
 </html>
