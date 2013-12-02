@@ -93,19 +93,22 @@ public class Compare extends HttpServlet {
 			// your code here
 
 			DiagramParserFactory factory = new DiagramParserFactory();
-			DiagramParser diag1Parser = DiagramParserFactory.getDiagramParser(diagram1);
-			DiagramParser diag2Parser = DiagramParserFactory.getDiagramParser(diagram2);
+//			DiagramParser diag1Parser = DiagramParserFactory.getDiagramParser(diagram1);
+//			DiagramParser diag2Parser = DiagramParserFactory.getDiagramParser(diagram2);
 			PolicyScoreGenerator scorer = new PolicyScoreGenerator();
 			try {
-				DiagramPolicyScore diagram1Score = scorer.generateScore(PolicyDAO.getPolicy(diagramID1), diag1Parser);
-				DiagramPolicyScore diagram2Score = scorer.generateScore(PolicyDAO.getPolicy(diagramID2), diag2Parser);
+//				DiagramPolicyScore diagram1Score = scorer.generateScore(PolicyDAO.getPolicy(diagramID1), diag1Parser);
+//				DiagramPolicyScore diagram2Score = scorer.generateScore(PolicyDAO.getPolicy(diagramID2), diag2Parser);
+				String justification = "Adding Suggestion Remarks";
+//				String justification = diagram1Score.getJustification();
+						reportText = (String) request.getParameter("reportText");
+						reportText = justification + "\n\n" + reportText;
 			} catch (Exception ex) {
 				Logger.getLogger(Compare.class.getName()).log(Level.SEVERE, null, ex);
 			}
 
-			String test = "Adding Suggestion Remarks";
-			reportText = (String) request.getParameter("reportText");
-			reportText = test + "\n\n" + reportText;
+			
+			
 		}
 		else 
 		{
@@ -126,22 +129,20 @@ public class Compare extends HttpServlet {
 			}
 		}
 
-			//int reportId = this.saveReport(path);
-			// this.showPdf(path, request, response);
-			int compareId = searchAndLoadCompare(request,diagram1.getDiagramId(), diagram2.getDiagramId(), path);
-			loadComments(request, compareId);
 			
-			request.setAttribute("reportText", reportText);
-			request.setAttribute("reportPath", path);
-			request.setAttribute("path1", diagram1.getFilePath() + ".png");
-			request.setAttribute("path2", diagram2.getFilePath() + ".png");
-			request.setAttribute("diagramAId", diagram1.getDiagramId());
-			request.setAttribute("diagramBId", diagram2.getDiagramId());
-			//request.setAttribute("reportText", compareObj.getReportText());
-			RequestDispatcher dispatcher = request
-					.getRequestDispatcher("WEB-INF/JSP/promote.jsp");
-			dispatcher.forward(request, response);
+		int compareId = searchAndLoadCompare(request,diagram1.getDiagramId(), diagram2.getDiagramId(), path);
+		loadComments(request, compareId);
 		
+		request.setAttribute("reportText", reportText);
+		request.setAttribute("reportPath", path);
+		request.setAttribute("path1", diagram1.getFilePath() + ".png");
+		request.setAttribute("path2", diagram2.getFilePath() + ".png");
+		request.setAttribute("diagramAId", diagram1.getDiagramId());
+		request.setAttribute("diagramBId", diagram2.getDiagramId());
+		//request.setAttribute("reportText", compareObj.getReportText());
+		RequestDispatcher dispatcher = request
+				.getRequestDispatcher("WEB-INF/JSP/promote.jsp");
+		dispatcher.forward(request, response);		
 	}
 
 	// <editor-fold defaultstate="collapsed"
