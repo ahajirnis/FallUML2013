@@ -30,17 +30,24 @@
 	}); */
 	
  $(document).ready(function(){
-	
 
-	
 	
 	$( "#dialogUpdate" ).hide();
 	
 	  $("#UpdateProj").click(function(){
-		 var selected = $("#projIdradio").is(":checked");
-		 var s = selected.val();
-		 console.log("this is selected "+selected);
-	    $( "#dialogUpdate" ).dialog();
+		  
+		  var form = document.getElementById("ChangeProjectStatus");
+		  var valueSelected ;
+		  for(var i = 0; i < form.projIdradio.length; i++){
+			  if(form.projIdradio[i].checked)
+			  {
+	                        valueSelected = form.projIdradio[i].value;
+			  }
+		  }
+		
+		 console.log("this is selected "+valueSelected);
+		 
+		 $( "#dialogUpdate" ).dialog();
 	    
 	  });
 	  
@@ -208,7 +215,7 @@ display: inline;;
 
 
 <div class="outer">
-	<form action="ChangeProjectStatus" method="post">
+	<form action="ChangeProjectStatus" method="post" id="ChangeProjectStatus">
 	<div class="projectTab">
 	<h2>Current Projects</h2>
 		<table class="table table-hover" id="enabledTab"> 
@@ -222,7 +229,7 @@ display: inline;;
 			</tr>
 			<c:forEach items="${activeprojects}" var="project">
 			<tr>
-				<td><input type="radio" value="${project.projectId }" id="projIdradio"/></td>
+				<td><input type="radio" value="${project.projectId }" id="projIdradio" name="projIdradio"/></td>
 				<td>${project.projectId}</td>
 				<td><button  type="button" class="btn btn-link" value="${project.projectId }" onclick="submitToDisplay()" name="ProjectIdBtn">${project.projectName }</button></td>
 				<td>${project.startDate}</td>
