@@ -435,7 +435,7 @@ display: inline;
 
 <div class="outer">
 
-<form action="ChangeProjectStatus" method="post" id="ChangeProjectStatus">
+<form action="ChangeProjectStatus" method="get" id="ChangeProjectStatus">
 
 <div class="projectTab">
 
@@ -510,7 +510,7 @@ display: inline;
 
 
 
-<form action="ChangeProjectStatus" method="post">
+<form action="ChangeProjectStatus" method="get">
 
 <h2>Disabled Projects</h2>
 
@@ -528,7 +528,7 @@ display: inline;
 
 <th>Start Date</th>
 
-<th>Description</th>
+<th>Description<th>Status</th>
 
 <th></th>
 
@@ -561,12 +561,12 @@ display: inline;
 
 <!-- sid changed from enabled to true to match boolean value -->
 
-<input type="hidden" value= false name="statusChangeTo">
+<input type="hidden" value= true name="statusChangeTo">
 
 
 <input type="hidden" name="ProjectId" value="${project.projectId }">
 
-<input type="hidden" name="redirect" value="false">
+<input type="hidden" name="redirect" value="true">
 
 </form>
 
