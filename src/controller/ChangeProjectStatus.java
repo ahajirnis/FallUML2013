@@ -35,7 +35,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 
 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-	
+	System.out.println("******"+request.getParameter("projIdradio"));
 	getServletConfig().getServletContext().getRequestDispatcher("/Display").forward(request, response);
 	
 	

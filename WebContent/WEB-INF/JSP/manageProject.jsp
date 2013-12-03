@@ -20,14 +20,6 @@
   <link rel="stylesheet" href="/resources/demos/style.css" />
 <title>Insert title here</title>
 <script type="text/javascript">
-
-/* $(document).ready(function(){
-	  $("addProj").click(function(){
-	    $.get("demo_test.asp",function(data,status){
-	      alert("Data: " + data + "\nStatus: " + status);
-	    });
-	  });
-	}); */
 	
  $(document).ready(function(){
 
@@ -38,12 +30,16 @@
 		  
 		  var form = document.getElementById("ChangeProjectStatus");
 		  var valueSelected ;
+		  
 		  for(var i = 0; i < form.projIdradio.length; i++){
 			  if(form.projIdradio[i].checked)
 			  {
 	                        valueSelected = form.projIdradio[i].value;
 			  }
 		  }
+		  var updateform = document.getElementById("UpdateProject");
+		  updateform.ProjectName.value = valueSelected;
+		document.getElementById("projname").value="trial";
 		
 		 console.log("this is selected "+valueSelected);
 		 
@@ -56,7 +52,12 @@
 	  $("#addProj").click(function(){
 	    $( "#dialogAdd" ).dialog();
 	  });
-	
+	  
+	  
+		$( "#dialogAddUser" ).hide();
+		  $("#addUser").click(function(){
+			    $( "#dialogAddUser" ).dialog();
+			  });
 }); 
 </script>
 
@@ -113,19 +114,19 @@ margin-left:30px;
 
 }
 #menu li{
-display: inline;;
+display: inline;
 }
 </style>
 </head>
 <body>
 <div id="dialogUpdate">
-<form class="form-horizontal" action="UpdateProject" method="post">
+<form class="form-horizontal" action="UpdateProject" method="post" id="UpdateProject">
     
      <h3><strong>Update Project</strong></h3>
 	 <br/>
 
  <div class="form-group">
-    <label class="col-lg-2 control-label">Project Name</label>
+    <label class="col-lg-2 control-label" id="projname">Project Name</label>
     <div class="col-lg-10">
       <input type="text" class="form-control" id="ProjectName" name ="ProjectName" placeholder="ProjectName"/>
     </div>
@@ -148,10 +149,7 @@ display: inline;;
     </div>
   </div>
   
-  
-  <div id="dialogAddUser">
-  	
-  </div>
+
   
   
 <div class="buttoninpopup">
@@ -163,6 +161,31 @@ display: inline;;
 </form>
 </div>
 
+  
+  <div id="dialogAddUser">
+  	<form class="form-horizontal" action="AddUser" method="post">
+  	<h3><strong>Add User to Project</strong></h3>
+	 <br/>
+	 <div class="form-group">
+    <label class="col-lg-2 control-label">Select Project</label>
+  	<select>
+  	<c:forEach items="${activeprojects}" var="project">
+  		<option>${project.projectName }</option>
+  	</c:forEach>
+  </select>
+  </div>
+  
+  	 <div class="form-group">
+    <label class="col-lg-2 control-label">Select User</label>
+  	<select>
+  	<c:forEach items="${activeprojects}" var="project">
+  		<option>${project.projectName }</option>
+  	</c:forEach>
+  </select>
+  </div>
+  
+    </form>
+  </div>
 
 <div id="dialogAdd">
 <form class="form-horizontal" action="CreateProject" method="post">
@@ -212,7 +235,7 @@ display: inline;;
   <ul>
     <li><button class="btn btn-link" id="addProj" onclick="">Add Project</button> </li>
     <li> <button class="btn btn-link" id="UpdateProj" onclick="">Update Project</button> </li>
-    <li><button class="btn btn-link">Add User</button></li>
+    <li><button class="btn btn-link" id="addUser">Add User</button></li>
   </ul>
 </div>
 		
@@ -240,7 +263,7 @@ display: inline;;
 				<td>${project.startDate}</td>
 				<td>${projetct.description}</td>
 				
-				<td><button class="btn btn-link" type="submit">Disable</button></td> 
+				<td><button class="btn btn-link" type="submit" value="${project.projectId }" name="disableprojid">Disable</button></td> 
 					
 			</tr>
 	</c:forEach>
@@ -274,7 +297,7 @@ display: inline;;
 			</tr>
 		<c:forEach items="${inactiveprojects}" var="project">
 			<tr>
-				<td><input type="checkbox" /></td>
+				<td><input type="radio" name="radbtn"/></td>
 				<td>${project.projectId}</td>
 				<td><a  style="color:gray ;">${project.projectName }</a></td>
 				<td>${project.startDate}</td>
