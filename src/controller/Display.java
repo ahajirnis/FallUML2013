@@ -81,7 +81,7 @@ public class Display extends HttpServlet {
     	// in case the user wants to perform a different merge.
     	HttpSession session = request.getSession();
     	session.setAttribute(COMPARE_OBJECT, null);
-    	System.out.println(request.getParameter("ProjectID"));
+    	System.out.println("ProjectID:"+request.getParameter("ProjectID"));
     	int ProjectID= Integer.parseInt(request.getParameter("ProjectID"));
     	System.out.println("In Display Servlet");
     	System.out.println(ProjectID);
@@ -151,6 +151,7 @@ public class Display extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
+    	System.out.println(request.getParameter("ProjectID"));
 	processRequest(request, response);
     }
     

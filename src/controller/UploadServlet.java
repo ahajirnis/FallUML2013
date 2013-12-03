@@ -164,7 +164,7 @@ public class UploadServlet extends HttpServlet {
 						String image_file_name = filename + ".png";	
 						String folder = "uploads/" + id_file_date + "/" + filename;
 						this.storeDatabase(folder, image_file_name,
-								Integer.parseInt(id), Integer.parseInt(request.getParameter("ProjectID")));
+								Integer.parseInt(id));
 					}
 				}
 			}
@@ -222,9 +222,9 @@ public class UploadServlet extends HttpServlet {
 	/*
 	 * function to store upload diagram information into database.
 	 */
-	private void storeDatabase(String path, String fileName, int userID, int projectId) {
+	private void storeDatabase(String path, String fileName, int userID) {
 		try {
-			//int projectId = 2; // Please get project Id from GUI onClick.
+			int projectId = 2; // Please get project Id from GUI onClick.
 			Diagram diagramObj = new Diagram();
 			diagramObj.setDiagramName(fileName);
 			diagramObj.setFilePath(path);
@@ -274,25 +274,8 @@ public class UploadServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		//System.out.println("Entering Upload Servlet");
-		//System.out.println(request.getParameter("ProjectID"));
-		
-		//processRequest(request, response);
-
-		
-	}
-	
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Entering Upload Servlet");
-		System.out.println(request.getParameter("ProjectID"));
-		
 		processRequest(request, response);
-
-		
 	}
-	
-	
 
 	private boolean isFileType(String fileName, String fileType) {
 		// Retrieve file extension
