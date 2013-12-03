@@ -125,6 +125,16 @@ public class Project {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Project(String projectName, String description,
+			Boolean projectstatus, int projectId) {
+		
+
+		this.projectId = projectId;
+		this.projectName = projectName;
+		this.description = description;
+		this.enabled = projectstatus;
+	}
+
 	/**
 	 * Gete the projectId
 	 * 
