@@ -83,6 +83,7 @@ public class Display extends HttpServlet {
     	session.setAttribute(COMPARE_OBJECT, null);
     	System.out.println(request.getParameter("ProjectID"));
     	int ProjectID= Integer.parseInt(request.getParameter("ProjectID"));
+    	System.out.println("In Display Servlet");
     	System.out.println(ProjectID);
     	
     	

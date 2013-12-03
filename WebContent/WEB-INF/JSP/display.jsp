@@ -235,7 +235,7 @@
 					<option value="ecore">ECORE</option>
 					<option value="xmi">XMI</option>
 			</select> 
-			<form action="UploadServlet" method="post" enctype="multipart/form-data">		
+			<form action="UploadServlet" method="get" enctype="multipart/form-data">		
 					<input id="file1" type="file" name="file" size="50" />
 					<input id="file2" type="file" name="file2" size="50" style="display:none"/>
 					<input id="file3" type="file" name="file3" size="50" style="display:none"/>
