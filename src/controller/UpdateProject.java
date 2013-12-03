@@ -56,13 +56,14 @@ private void processRequest(HttpServletRequest request,
 		HttpServletResponse response) throws SQLException, ServletException, IOException {
 	
 	
-	Boolean projectstatus = Boolean.valueOf(request.getParameter("selectstatus"));
+	Boolean projectstatus = Boolean.valueOf(request.getParameter("updatestatus"));
 	String projectname = request.getParameter("ProjectName");
 	String description = request.getParameter("Description");
 	
 	//System.out.println(Integer.parseInt(request.getParameter("ProjectID")));
-	
-	int projectId = Integer.parseInt(request.getParameter("ProjectID"));
+	String s = request.getParameter("projectID");
+	int projectId = Integer.parseInt(s);
+	System.out.println(s+"project id in update project");
 	//int projectId=1;
 	
 	try {
