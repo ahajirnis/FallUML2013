@@ -57,8 +57,10 @@ private void processRequest(HttpServletRequest request,
 	Boolean projectstatus = Boolean.valueOf(request.getParameter("statusChangeTo"));
 	String projectname = request.getParameter("ProjectName");
 	String description = request.getParameter("Description");
-	//int projectId = Integer.parseInt(request.getParameter("ProjectID"));
-	int projectId=1;
+	System.out.println(request.getParameter("projectID"));
+	int projectId = Integer.parseInt(request.getParameter("projectID"));
+	
+	//int projectId=1;
 	
 	try {
 		if (ProjectDAO.exists(projectname)) {
