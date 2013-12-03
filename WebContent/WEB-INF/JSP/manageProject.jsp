@@ -178,8 +178,8 @@ display: inline;
   	 <div class="form-group">
     <label class="col-lg-2 control-label">Select User</label>
   	<select>
-  	<c:forEach items="${activeprojects}" var="project">
-  		<option>${project.projectName }</option>
+  	<c:forEach items="${activeusers}" var="user">
+  		<option>${user.userName }</option>
   	</c:forEach>
   </select>
   </div>
@@ -297,7 +297,7 @@ display: inline;
 			</tr>
 		<c:forEach items="${inactiveprojects}" var="project">
 			<tr>
-				<td><input type="radio" name="radbtn"/></td>
+				<td><input type="radio" value="${project.projectId }" id="projIdradio" name="projIdradio"/></td>
 				<td>${project.projectId}</td>
 				<td><a  style="color:gray ;">${project.projectName }</a></td>
 				<td>${project.startDate}</td>
