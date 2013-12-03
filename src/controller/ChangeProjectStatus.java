@@ -35,10 +35,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 
 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-	
-	getServletConfig().getServletContext().getRequestDispatcher("/Display").forward(request, response);
-	
-	
+	System.out.println("Enters changeProjectStaus servlet");	
 	try {
 		processRequest(request, response);
 	} catch (SQLException e) {
@@ -59,7 +56,8 @@ private void processRequest(HttpServletRequest request,
 	 */
 	
 	Boolean projectstatus = Boolean.valueOf(request.getParameter("statusChangeTo"));
-	int projectId = Integer.parseInt(request.getParameter("ProjectId"));
+	System.out.println(request.getParameter("disableprojid"));
+	int projectId = Integer.parseInt(request.getParameter("disableprojid"));
 	
 	
 	// if projectstatus true
