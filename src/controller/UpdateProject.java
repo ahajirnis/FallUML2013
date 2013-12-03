@@ -28,6 +28,8 @@ public class UpdateProject extends HttpServlet{
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		System.out.println("enters update project servlet");
+		System.out.println(request.getParameter("projectID"));
 		try {
 			processRequest(request, response);
 		} catch (SQLException e) {
@@ -39,7 +41,7 @@ public class UpdateProject extends HttpServlet{
 
 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-	System.out.println("enters update project servlet");
+	
 	try {
 		processRequest(request, response);
 	} catch (SQLException e) {
@@ -57,6 +59,9 @@ private void processRequest(HttpServletRequest request,
 	Boolean projectstatus = Boolean.valueOf(request.getParameter("selectstatus"));
 	String projectname = request.getParameter("ProjectName");
 	String description = request.getParameter("Description");
+	
+	//System.out.println(Integer.parseInt(request.getParameter("ProjectID")));
+	
 	int projectId = Integer.parseInt(request.getParameter("ProjectID"));
 	//int projectId=1;
 	
