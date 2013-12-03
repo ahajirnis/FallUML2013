@@ -144,7 +144,7 @@ display: inline;
     <div class="col-lg-10">
      <select name="updateststus">
      	<option value="true">Active Project</option>
-     	<option value="true">Disabled Project</option>
+     	<option value="false">Disabled Project</option>
      </select>
     </div>
   </div>
@@ -310,10 +310,10 @@ display: inline;
 	
 		</table>
 		<!-- 	sid changed from enabled to true to match boolean value -->
-		<input type="hidden" value= false name="statusChangeTo">
+		<input type="hidden" value= true name="statusChangeTo">
 		
 		<input type="hidden" name="ProjectId" value="${project.projectId }">
-		<input type="hidden" name="redirect" value="false">
+		<input type="hidden" name="redirect" value="true">
 		</form>
 	</div>
 	

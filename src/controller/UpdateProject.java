@@ -54,11 +54,11 @@ private void processRequest(HttpServletRequest request,
 		HttpServletResponse response) throws SQLException, ServletException, IOException {
 	
 	
-	Boolean projectstatus = Boolean.valueOf(request.getParameter("selectstatus"));
+	Boolean projectstatus = Boolean.valueOf(request.getParameter("statusChangeTo"));
 	String projectname = request.getParameter("ProjectName");
 	String description = request.getParameter("Description");
-	int projectId = Integer.parseInt(request.getParameter("ProjectID"));
-	//int projectId=1;
+	//int projectId = Integer.parseInt(request.getParameter("ProjectID"));
+	int projectId=1;
 	
 	try {
 		if (ProjectDAO.exists(projectname)) {
