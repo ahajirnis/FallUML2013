@@ -14,12 +14,25 @@
 <title>Insert title here</title>
 
 <script type="text/javascript">
-
+ $("#AddContext").hide();
+ 
+ $("#addContextBtn").click(function(){
+	 $("#AddContext").dialog(); 
+	 
+ });
+ $("#UpdateContext").hide();
+ $("#updateContextBtn").click(function(){
+	 $("#UpdateContext").dialog(); 
+	 
+ });
 	
 </script>
 
 <style type="text/css">
+#Description{
 
+height:150px;
+}
 .contextTab{
 
 }
@@ -43,11 +56,117 @@ display: inline;
 </head>
 <body>
 
+<div id="AddContext">
+	 <h3><strong>Add Context</strong></h3>
+     <br/>
+     <form action="CreateContext" method="get">
+     
+      <div class="form-group">
+
+    <label class="col-lg-2 control-label" id="ContextName" >Context Name</label>
+
+    <div class="col-lg-10">
+
+      <input type="text" class="form-control" id="ProjectName" name ="ProjectName" placeholder="ProjectName"/>
+
+    </div>
+
+  </div>
+  
+    <div class="form-group">
+
+    <label class="col-lg-2 control-label">Description</label>
+
+    <div class="col-lg-10">
+
+    
+
+      <input type="text" class="form-control" id="Description" name="Description" placeholder="Description"/>
+
+    </div>
+
+  </div>
+  
+  
+  <div class="form-group">
+
+    <label class="col-lg-2 control-label">Select Project</label>
+
+  <select>
+
+  <c:forEach items="${activeprojects}" var="project">
+
+  <option>${project.projectName }</option>
+
+  </c:forEach>
+
+  </select>
+
+  </div>
+  
+  <input class="btn btn-info"  type="submit" value="Create" />
+     </form>
+	
+</div>
+
+
+<div id="UpdateContext">
+	 <h3><strong>Update Context</strong></h3>
+     <br/>
+     <form action="CreateContext" method="get">
+     
+      <div class="form-group">
+
+    <label class="col-lg-2 control-label" id="ContextName" >Context Name</label>
+
+    <div class="col-lg-10">
+
+      <input type="text" class="form-control" id="ProjectName" name ="ProjectName" placeholder="ProjectName"/>
+
+    </div>
+
+  </div>
+  
+    <div class="form-group">
+
+    <label class="col-lg-2 control-label">Description</label>
+
+    <div class="col-lg-10">
+
+    
+
+      <input type="text" class="form-control" id="Description" name="Description" placeholder="Description"/>
+
+    </div>
+
+  </div>
+  
+  
+  <div class="form-group">
+
+    <label class="col-lg-2 control-label">Select Project</label>
+
+  <select>
+
+  <c:forEach items="${activeprojects}" var="project">
+
+  <option>${project.projectName }</option>
+
+  </c:forEach>
+
+  </select>
+
+  </div>
+  
+  <input class="btn btn-info"  type="submit" value="Update" />
+     </form>
+	
+</div>
 
 <div id="menu">
 		<ul class="contul">
-			<li><button class="btn btn-link" onclick="()">Add Context</button> </li> 
-			<li><button class="btn btn-link">Delete Selected Context</button></li>
+			<li><button class="btn btn-link"  id="addContextBtn">Add Context</button> </li> 
+			<li><button class="btn btn-link" id="updateContextBtn">Delete Selected Context</button></li>
 		</ul>
 </div>
 	

@@ -16,7 +16,7 @@ public class Project {
 	private byte achived = 0;// Default
 	private String startDate;
 	private boolean enabled;
-	private String disabledDate;
+	private String disabledDate; 
 
 	public String getStartDate() {
 		return startDate;
@@ -123,6 +123,16 @@ public class Project {
 		this.description = description;
 		this.enabled = enabled;
 		// TODO Auto-generated constructor stub
+	}
+
+	public Project(String projectName, String description,
+			Boolean projectstatus, int projectId) {
+		
+
+		this.projectId = projectId;
+		this.projectName = projectName;
+		this.description = description;
+		this.enabled = projectstatus;
 	}
 
 	/**

@@ -23,9 +23,14 @@ import repository.ProjectDAO;
 @WebServlet(name= "ChangeProjectStatus", urlPatterns = { "/ChangeProjectStatus"} )
 public class ChangeProjectStatus extends HttpServlet{
 
+	private static final long serialVersionUID = 1L;
+
 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//
-		try {
+	System.out.println("Enters changeProjectStaus servlet");	
+	System.out.println(request.getParameter("projIdradio"));	
+	
+	try {
 			processRequest(request, response);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -35,16 +40,11 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 
 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-	
-	getServletConfig().getServletContext().getRequestDispatcher("/Display").forward(request, response);
-	
-	
-	try {
-		processRequest(request, response);
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+//	System.out.println("Enters changeProjectStaus servlet");	
+//	System.out.println(request.getParameter("projIdradio"));
+
+		doGet(request, response);
+
 }
 
 private void processRequest(HttpServletRequest request,
@@ -59,7 +59,11 @@ private void processRequest(HttpServletRequest request,
 	 */
 	
 	Boolean projectstatus = Boolean.valueOf(request.getParameter("statusChangeTo"));
-	int projectId = Integer.parseInt(request.getParameter("ProjectId"));
+	
+	System.out.println(request.getParameter("projIdradio"));
+	int projectId = Integer.parseInt(request.getParameter("projIdradio"));
+	
+	//int projectId = 1;
 	
 	
 	// if projectstatus true
