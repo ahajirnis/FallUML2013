@@ -5,19 +5,22 @@ package domain;
  * @author Jiayuan Song
  *
  */
-public class Classes extends MatricsObject {
-	
+public class Classes extends Metrics {
+	private int metricId;
 	private int idealNoOfClasses;
 	private int maxNoOfClasses;
-	private int totalClassMaxPoints;
 	private int minNoOfClasses;
-	
-	public Classes(){
-		super();
+	/**
+	 * @return the metricId
+	 */
+	public int getMetricId() {
+		return metricId;
 	}
-	
-	public int getMinNoOfClasses() {
-		return minNoOfClasses;
+	/**
+	 * @param metricId the metricId to set
+	 */
+	public void setMetricId(int metricId) {
+		this.metricId = metricId;
 	}
 	public void setMinNoOfClasses(int minNoOfClasses) {
 		this.minNoOfClasses = minNoOfClasses;
@@ -49,18 +52,21 @@ public class Classes extends MatricsObject {
 		this.maxNoOfClasses = maxNoOfClasses;
 	}
 	/**
-	 * @return the totalClassMaxPoints
+	 * 
+	 * @return minNoOfClasses
 	 */
-	public int getTotalClassMaxPoints() {
-		return totalClassMaxPoints;
+	
+	public int getMinNoOfClasses(){
+		return minNoOfClasses;
 	}
 	/**
-	 * @param totalClassMaxPoints the totalClassMaxPoints to set
+	 * 
+	 * @param minNoOfClasses
 	 */
-	public void setTotalClassMaxPoints(int totalClassMaxPoints) {
-		this.totalClassMaxPoints = totalClassMaxPoints;
-	}
 	
+	public void setMinNoOfClasses(int minNoOfClasses){
+		this.minNoOfClasses = minNoOfClasses;
+	}
 	
 	
 }

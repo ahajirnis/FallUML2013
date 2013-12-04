@@ -5,37 +5,24 @@ package domain;
  * @author Jiayuan Song
  *
  */
-public class Attributes extends MatricsObject {
-	
-	private int averagePointOver;
+public class Attributes extends Metrics {
+	private int metricId;
 	private int idealNoOfAttributes;
 	private int maxNoOfAttributes;
 	private int minNoOfAttributes;
-	
-	public Attributes()
-	{
-		super();
-	}
-	
-	public int getMinNoOfAttributes() {
-		return minNoOfAttributes;
-	}
-	public void setMinNoOfAttributes(int minNoOfAttributes) {
-		this.minNoOfAttributes = minNoOfAttributes;
-	}
-	
 	/**
-	 * @return the averagePointOver
+	 * @return the metricId
 	 */
-	public int getAveragePointOver() {
-		return averagePointOver;
+	public int getMetricId() {
+		return metricId;
 	}
 	/**
-	 * @param averagePointOver the averagePointOver to set
+	 * @param metricId the metricId to set
 	 */
-	public void setAveragePointOver(int averagePointOver) {
-		this.averagePointOver = averagePointOver;
+	public void setMetricId(int metricId) {
+		this.metricId = metricId;
 	}
+	
 	/**
 	 * @return the idealNoOfAttributes
 	 */
@@ -59,6 +46,21 @@ public class Attributes extends MatricsObject {
 	 */
 	public void setMaxNoOfAttributes(int maxNoOfAttributes) {
 		this.maxNoOfAttributes = maxNoOfAttributes;
+	}
+	/**
+	 * 
+	 * @return minNoOfAttributes
+	 */
+	public int getMinNoOfAttributes(){
+		return minNoOfAttributes;
+	}
+	/**
+	 * 
+	 * @param minNoOfAttributes the minimum # of attributes
+	 */
+	
+	public void setMinNoOfAttributes(int minNoOfAttributes){
+		this.minNoOfAttributes = minNoOfAttributes;
 	}
 	
 	

@@ -6,7 +6,7 @@ package domain;
  * @author Jiayuan Song
  *
  */
-public enum MatricsType {
+public enum MetricsType {
 	NOTDEFINED (0),
 	ASSOCIATIONS (1),
 	MULTIPLICITIES (2),
@@ -14,15 +14,13 @@ public enum MatricsType {
 	CLASSES (4);
 	
 	private int mTypeId;
-	MatricsType(int matricsTypeId){
-		this.mTypeId = matricsTypeId;
+	MetricsType(int metricsTypeId){
+		this.mTypeId = metricsTypeId;
 	}
 	
 	
-	public static MatricsType fromString(String string) {
-		if(string == null)
-			return NOTDEFINED;
-        for (MatricsType mt : values() ){
+	public static MetricsType fromString(String string) {
+        for (MetricsType mt : values() ){
             if (mt.toString().equals(string)) return mt;
         }
         return null;

@@ -5,6 +5,6 @@ package domain;
  * @author Jiayuan Song
  *
  */
-public class Multiplicities extends MatricsObject {
+public class Multiplicities extends Metrics {
 
 }
