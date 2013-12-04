@@ -84,46 +84,74 @@ public class Compare extends HttpServlet {
 		Diagram diagram1 = DiagramDAO.getDiagram(this.diagramID1);
 		Diagram diagram2 = DiagramDAO.getDiagram(this.diagramID2);
 		
+		String path = "";
+		String reportText = "";
+		
 		diagram1.setDiagramRealPath(context.getRealPath(diagram1.getFilePath()));
 		diagram2.setDiagramRealPath(context.getRealPath(diagram2.getFilePath()));
 		// setting context Paths for Diagrams
-		diagram1.setConPath(context.getRealPath("/").toString());
-
+		diagram1.setConPath(context.getRealPath("/").toString());	
 		diagram2.setConPath(context.getRealPath("/").toString());
+		
+		if(request.getParameter("smartsuggest") != null && 
+				request.getParameter("smartsuggest").equals("Suggest Promote"))
+		{
+			// your code here
 
-		DiagramCompare compareObj = new DiagramCompare(diagram1, diagram2, context.getRealPath("/reports/"));
-		
-		DiagramParserFactory factory = new DiagramParserFactory();
-		DiagramParser diag1Parser = DiagramParserFactory.getDiagramParser(diagram1);
-		DiagramParser diag2Parser = DiagramParserFactory.getDiagramParser(diagram2);
-		PolicyScoreGenerator scorer = new PolicyScoreGenerator();
-		
-		try {
+			DiagramParserFactory factory = new DiagramParserFactory();
+ 			DiagramParser diag1Parser = DiagramParserFactory.getDiagramParser(diagram1);
+			DiagramParser diag2Parser = DiagramParserFactory.getDiagramParser(diagram2);
+			PolicyScoreGenerator scorer = new PolicyScoreGenerator();
+			try {
+				DiagramPolicyScore diagram1Score = scorer.generateScore(PolicyDAO.getPolicy(diagramID1), diag1Parser);
+				DiagramPolicyScore diagram2Score = scorer.generateScore(PolicyDAO.getPolicy(diagramID2), diag2Parser);
+				//String justification = "Adding Suggestion Remarks";
+				String justification = "";
+				if(diagram1Score.getPolicyScore() > diagram2Score.getPolicyScore())
+					justification = "Diagram 2 is preferred!! \n";
+				else if (diagram1Score.getPolicyScore() < diagram2Score.getPolicyScore())
+					justification = "Diagram 1 is preferred!! \n";
+				else
+					justification = "Diagram 1 nad Diagram 2 are equally preferred!! \n ";
+				justification += "<b>SCORING DETAILS: </b> \n \n";	
+				justification += "<b>Diagram1:</b> Score:" + diagram1Score.getPolicyScore() + "\n";
+				justification +=	diagram1Score.getJustification();
+				justification += "\n" +"<b>Diagram2:</b> Score:" + diagram2Score.getPolicyScore() + "\n";
+				justification +=	diagram2Score.getJustification();
+				reportText = (String) request.getParameter("reportText");
+				reportText = justification + "\n\n" + reportText;
+			} catch (Exception ex) {
+				Logger.getLogger(Compare.class.getName()).log(Level.SEVERE, null, ex);
+			}
 			
-			DiagramPolicyScore diagram1Score = scorer.generateScore(PolicyDAO.getPolicy(diagramID1), diag1Parser);
-			DiagramPolicyScore diagram2Score = scorer.generateScore(PolicyDAO.getPolicy(diagramID2), diag2Parser);
-			
-			String path = compareObj.process();
-			//int reportId = this.saveReport(path);
-			// this.showPdf(path, request, response);
-			int compareId = searchAndLoadCompare(request,diagram1.getDiagramId(), diagram2.getDiagramId(), path);
-			loadComments(request, compareId);
-			
-			String reportText = PDFToText(path);
-			request.setAttribute("reportText", reportText);
-			request.setAttribute("reportPath", path);
-			request.setAttribute("path1", diagram1.getFilePath() + ".png");
-			request.setAttribute("path2", diagram2.getFilePath() + ".png");
-			request.setAttribute("diagramAId", diagram1.getDiagramId());
-			request.setAttribute("diagramBId", diagram2.getDiagramId());
-			//request.setAttribute("reportText", compareObj.getReportText());
-			RequestDispatcher dispatcher = request
-					.getRequestDispatcher("WEB-INF/JSP/promote.jsp");
-			dispatcher.forward(request, response);
-		} catch (Exception ex) {
-			Logger.getLogger(Compare.class.getName()).log(Level.SEVERE, null,
-					ex);
 		}
+		else 
+		{
+			DiagramCompare compareObj = new DiagramCompare(diagram1, diagram2, context.getRealPath("/reports/"));
+			
+			try {
+				
+				path = compareObj.process();		
+				reportText = PDFToText(path);
+			} catch (Exception ex) {
+				Logger.getLogger(Compare.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+
+			
+		int compareId = searchAndLoadCompare(request,diagram1.getDiagramId(), diagram2.getDiagramId(), path);
+		loadComments(request, compareId);
+		
+		request.setAttribute("reportText", reportText);
+		request.setAttribute("reportPath", path);
+		request.setAttribute("path1", diagram1.getFilePath() + ".png");
+		request.setAttribute("path2", diagram2.getFilePath() + ".png");
+		request.setAttribute("diagramAId", diagram1.getDiagramId());
+		request.setAttribute("diagramBId", diagram2.getDiagramId());
+		//request.setAttribute("reportText", compareObj.getReportText());
+		RequestDispatcher dispatcher = request
+				.getRequestDispatcher("WEB-INF/JSP/promote.jsp");
+		dispatcher.forward(request, response);		
 	}
 
 	// <editor-fold defaultstate="collapsed"

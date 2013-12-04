@@ -16,7 +16,7 @@
     <servlet-name>UploadServlet</servlet-name>
     <servlet-class>controller.UploadServlet</servlet-class>
   </servlet>
-    <servlet>
+  <servlet>
     <servlet-name>ValidateServlet</servlet-name>
     <servlet-class>controller.ValidateServlet</servlet-class>
   </servlet>
@@ -25,19 +25,17 @@
     <servlet-class>controller.DisplayDiagram</servlet-class>
   </servlet>
   <servlet>
-  	<servlet-name>ManageProject</servlet-name>
-  	<servlet-class>controller.ManageProject</servlet-class>
+    <servlet-name>ManageProject</servlet-name>
+    <servlet-class>controller.ManageProject</servlet-class>
   </servlet>
   <servlet>
-   	<servlet-name>ManageContext</servlet-name>
-  	<servlet-class>controller.ManageContext</servlet-class>
+    <servlet-name>ManageContext</servlet-name>
+    <servlet-class>controller.ManageContext</servlet-class>
   </servlet>
-   <servlet>
-  	<servlet-name>ManagePolicy</servlet-name>
-  	<servlet-class>controller.ManagePolicy</servlet-class>
+  <servlet>
+    <servlet-name>ManagePolicy</servlet-name>
+    <servlet-class>controller.ManagePolicy</servlet-class>
   </servlet>
-  
- 
   <servlet-mapping>
     <servlet-name>RegisterServlet</servlet-name>
     <url-pattern>/RegisterServlet</url-pattern>
@@ -58,7 +56,7 @@
     <servlet-name>DisplayDiagram</servlet-name>
     <url-pattern>/DisplayDiagram</url-pattern>
   </servlet-mapping>
-    <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>ValidateServlet</servlet-name>
     <url-pattern>/ValidateServlet</url-pattern>
   </servlet-mapping>
@@ -66,27 +64,23 @@
     <session-timeout>30</session-timeout>
   </session-config>
   <servlet>
-  	<servlet-name>ClassMergeComunicator</servlet-name>
-  	<servlet-class>controller.ClassMergeComunicator</servlet-class>
+    <servlet-name>ClassMergeComunicator</servlet-name>
+    <servlet-class>controller.ClassMergeComunicator</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>ClassMergeComunicator</servlet-name>
-  	<url-pattern>/ClassMergeComunicator</url-pattern>
+    <servlet-name>ClassMergeComunicator</servlet-name>
+    <url-pattern>/ClassMergeComunicator</url-pattern>
   </servlet-mapping>
-   <servlet-mapping>
-  	<servlet-name>ManageProject</servlet-name>
-  	<url-pattern>/ManageProject</url-pattern>
+  <servlet-mapping>
+    <servlet-name>ManageProject</servlet-name>
+    <url-pattern>/ManageProject</url-pattern>
   </servlet-mapping>
-   
-    <servlet-mapping>
-  	<servlet-name>ManageContext</servlet-name>
-  	<url-pattern>/ManageContext</url-pattern>
+  <servlet-mapping>
+    <servlet-name>ManageContext</servlet-name>
+    <url-pattern>/ManageContext</url-pattern>
   </servlet-mapping>
-   
-    <servlet-mapping>
-  	<servlet-name>ManagePolicy</servlet-name>
-  	<url-pattern>/ManagePolicy</url-pattern>
+  <servlet-mapping>
+    <servlet-name>ManagePolicy</servlet-name>
+    <url-pattern>/ManagePolicy</url-pattern>
   </servlet-mapping>
-  
-  
 </web-app>

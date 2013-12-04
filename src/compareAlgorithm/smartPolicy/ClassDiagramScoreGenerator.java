@@ -9,8 +9,8 @@ import domain.Attributes;
 import domain.CD_Class;
 import domain.Classes;
 import domain.DiagramPolicyScore;
-import domain.MatricsObject;
-import domain.MatricsType;
+import domain.Metrics;
+import domain.MetricsType;
 import domain.Policy;
 
 
@@ -71,18 +71,20 @@ public class ClassDiagramScoreGenerator {
 	}
 	
 	public DiagramPolicyScore generateScore() throws Exception{
-		
-		for(MatricsObject mObj : policy.getMatricsObjects())
+		justification = "";
+		for(Metrics mObj : policy.getMetrics())
 		{
-			policyScore.setPolicyScore(GenerateMatricScore(diagramParser, mObj));
+			policyScore.setPolicyScore(GenerateMetricScore(diagramParser, mObj));
+			if(justification != "")
+				justification += "\n";
 			policyScore.setJustification(justification);
 		}
 		return policyScore;
 	}
 	
-	private int GenerateMatricScore(DiagramParser diagramParser, MatricsObject mObj)throws Exception{
+	private int GenerateMetricScore(DiagramParser diagramParser, Metrics mObj)throws Exception{
 		
-		switch (mObj.getMatricsType()){
+		switch (mObj.getMetricsType()){
 		
 			case CLASSES:
 				classScore = scoreClasses(mObj);
@@ -112,51 +114,48 @@ public class ClassDiagramScoreGenerator {
 		
 	}
 	
-	private int scoreClasses(MatricsObject mObj) throws Exception {
+	private int scoreClasses(Metrics mObj) throws Exception {
 		int score = 0;
-		if(mObj.getMatricsType() != MatricsType.CLASSES)
+		if(mObj.getMetricsType() != MetricsType.CLASSES)
 			throw new Exception("Wrong Matrics Type");
 		int totalNoOfClasses = diagramParser.getClasses().size();
 		int idealNoOfClasses = ((Classes)mObj).getIdealNoOfClasses();
 		int maxNoOfClasses = ((Classes)mObj).getMaxNoOfClasses();
 		int minNoOfClasses = ((Classes)mObj).getMinNoOfClasses();
 		
-//		 If the (A) total number of Classes > idealNoOfClasses < maxNoOfClasses 
-//	      OR (B) minNoOfClasses < total number of Classes < idealNoOfClasses, then 
-//	      totalClassesScore is 
-//	      Absolute Value (idealNoOfClasses - total number of Classes ) * totalClassBetweenPoints
-		
+
 		if((totalNoOfClasses > idealNoOfClasses && totalNoOfClasses < maxNoOfClasses) || 
 				(totalNoOfClasses < idealNoOfClasses && totalNoOfClasses > minNoOfClasses))
 		{
 			score = Math.abs((idealNoOfClasses - totalNoOfClasses)) * totalClassBetweenPoints;
 			if(totalNoOfClasses > idealNoOfClasses) 
-				justification += "<b/> The number of classes is above the ideal amount set for this Context. But it is less then the Maxinum allowed. ";
+				justification += "The number of classes is above the ideal amount set for this Context. But it is less then the Maxinum allowed. ";
 			else
-				justification += "<b/> The number of classes is below the ideal amount set for this Context. But it is greater then the minimum allowed. ";
+				justification += "The number of classes is below the ideal amount set for this Context. But it is greater then the minimum allowed. ";
 		}
 		else if(diagramParser.getClasses().size() == ((Classes)mObj).getIdealNoOfClasses())
 		{
 			score = 0;
+			justification += "The number of classes is same as the ideal number set for this context.";
 		}
 		else //overflow
 		{
 			if(totalNoOfClasses >= maxNoOfClasses){
 				score = (totalClassMaxPoints + ((totalNoOfClasses - maxNoOfClasses) * totalClassOverMaxPoints));
-				justification += "<b/> The number of classes is above the Maxinum allowed for this Context.";
+				justification += "The number of classes is above the Maxinum allowed for this Context.";
 			}
 			else if(totalNoOfClasses <= minNoOfClasses){
 				score = totalClassMinPoints + ((minNoOfClasses - totalNoOfClasses) * totalClassUnderPoints);
-				justification += "<b/> The number of classes less then or equal to the minimm allowed for this context ";
+				justification += "The number of classes is less then or equal to the minimum allowed for this context. ";
 			}
 			else
-				throw new Exception("The ideal value is not in between Max and min values");
+				throw new Exception("The ideal value is not in between Max and min values.");
 			
 		}
 		return score;
 	}
 	
-	private int scoreAttributes(MatricsObject mObj) throws Exception{
+	private int scoreAttributes(Metrics mObj) throws Exception{
 		int score = 0;
 		int avgNoAttribute = 0;
 		int totalNoAttributes = 0;
@@ -180,40 +179,40 @@ public class ClassDiagramScoreGenerator {
 				((avgNoAttribute < idealNoOfAttribuutes) && (avgNoAttribute > minNoAttributes))){
 			score = Math.abs((idealNoOfAttribuutes - avgNoAttribute)) * avgAttributesBetweenPoints;
 			if(avgNoAttribute > idealNoOfAttribuutes)
-				justification += "<b/> The average number of attributes is above the ideal amount set for this Context. But it is less then the Maxinum allowed. ";
+				justification += "The average number of attributes is above the ideal amount set for this Context. But it is less then the Maxinum allowed. ";
 			else
-				justification += "<b/> The average number of attributes is below the ideal amount set for this Context. But it is greater then the minimum allowed. ";
+				justification += "The average number of attributes is below the ideal amount set for this Context. But it is greater then the minimum allowed. ";
 		}
 		else //overflow
 		{
 			if(avgNoAttribute >= maxNoAttributes){
 				score = (avgAttributesMaxPoints  + ((avgNoAttribute - maxNoAttributes) * avgAttributesOverMaxPoints ));
-				justification += "<b/> The average number of attributes is above the Maxinum allowed for this Context.";
+				justification += "The average number of attributes is above the Maxinum allowed for this Context.";
 			}
 			else if(avgNoAttribute <= minNoAttributes){
 				score = (avgAttributesMinPoints + ((minNoAttributes - avgNoAttribute) * avgAttributesUnderMinPoints));
-				justification += "<b/> The average number of Attrubutes less then or equal to the minimum allowed for this context ";
+				justification += "The average number of Attrubutes less then or equal to the minimum allowed for this context. ";
 			}
 			else if(avgNoAttribute == 0)
 			{
 				score = (avgAttributesMinPoints + ((minNoAttributes - avgNoAttribute) * avgAttributesUnderMinPoints));
-				justification += "<b/> The average number of attributes is zero";
+				justification += "The average number of attributes per class is zero.";
 			}
 			else
-				throw new Exception("The ideal value is not in between Max and min values");
+				throw new Exception("The ideal value is not in between Max and min values.");
 			
 		}	
 		
 		return score;
 	}
 	
-	private int scoreMultiplicity(MatricsObject mObj){
+	private int scoreMultiplicity(Metrics mObj){
 		int score = 0;
 		//Code here
 		return score;
 	}
 	
-	private int scoreAssociations(MatricsObject mObj){
+	private int scoreAssociations(Metrics mObj){
 		int score = 0;
 		//Code here
 		return score;

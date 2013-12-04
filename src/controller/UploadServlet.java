@@ -85,12 +85,10 @@ public class UploadServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		// Set id properly
 		String id = session.getAttribute("userId").toString();
-
+		int projectId = Integer.parseInt(session.getAttribute("projId").toString());
 		context = getServletContext();
 		
 		tmpDir = new File(context.getRealPath(TMP_DIR_PATH));
-
-		//destinationDir = new File(context.getRealPath(DESTINATION_DIR_PATH));
 
 		libDir = new File(context.getRealPath(LIB_DIR_PATH));
 		
@@ -159,12 +157,11 @@ public class UploadServlet extends HttpServlet {
 							+ ".java");
 					fileList.add(new FileInfo(absolutePath,filename,libPath));
 					//Log.LogCreate().Info(" File list " + absolutePath  +"  "  + newName + " "  + libPath);
-					
 					if (isFileType(filename,"ecore")){
 						String image_file_name = filename + ".png";	
 						String folder = "uploads/" + id_file_date + "/" + filename;
 						this.storeDatabase(folder, image_file_name,
-								Integer.parseInt(id));
+								Integer.parseInt(id), projectId);
 					}
 				}
 			}
@@ -222,9 +219,9 @@ public class UploadServlet extends HttpServlet {
 	/*
 	 * function to store upload diagram information into database.
 	 */
-	private void storeDatabase(String path, String fileName, int userID) {
+	private void storeDatabase(String path, String fileName, int userID, int projectId) {
 		try {
-			int projectId = 2; // Please get project Id from GUI onClick.
+			//int projectId = 2; // Please get project Id from GUI onClick.
 			Diagram diagramObj = new Diagram();
 			diagramObj.setDiagramName(fileName);
 			diagramObj.setFilePath(path);
@@ -233,15 +230,8 @@ public class UploadServlet extends HttpServlet {
 			diagramObj.setProjectId(projectId);
 			DiagramContext cd = ContextDAO.getContext(projectId);
 			diagramObj.setContextId(ContextDAO.getContext(projectId).getDiagramContextId());
-			//Use of ENCORE in diagramType is wrong, we should use .setFileType instead
-			//diagramObj.setDiagramType("Ecore");
 			diagramObj.setFileType("Ecore");
-			
-			//diagramObj.setDiFileName("baseFileName" + ".di");
-			//diagramObj.setNotationFileName("baseFileName" + ".notation");
-			//diagramObj.setDiFilepath("folder");
-			//diagramObj.setNotationFilePath("folder");
-			//diagramObj.setDiagramType("diagramType");
+		
 			DiagramDAO.addDiagram(diagramObj);
 			
 			/*
@@ -273,7 +263,8 @@ public class UploadServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+			HttpServletResponse response) throws ServletException, IOException 
+	{
 		processRequest(request, response);
 	}
 

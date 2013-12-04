@@ -3,6 +3,8 @@ package controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -31,7 +33,17 @@ public class ManageProject extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
+	private <T> ArrayList<T> subtract(ArrayList<T> list1, ArrayList<T> list2) {  
+		ArrayList<T> result = new ArrayList<T>();  
+        Set<T> set2 = new HashSet<T>(list2);  
+        for (T t1 : list1) {  
+            if( !set2.contains(t1) ) {  
+                result.add(t1);  
+            }  
+        }  
+        return result;  
+    }  
 	
 	
 	@Override
@@ -44,11 +56,16 @@ public class ManageProject extends HttpServlet {
 	ArrayList<Project> allProjects;
 	ArrayList<Project> activeProjects;
 	ArrayList<Project> inactiveProjects;
+	ArrayList<Integer> inactiveUsers;
 	try {
 		allProjects = ProjectDAO.getAllProjects();
 		
 		 activeProjects = new ArrayList<>();
 		inactiveProjects = new ArrayList<>();
+		inactiveUsers = new ArrayList<>();
+		
+		inactiveUsers = this.subtract(UserDAO.getAllUser("user"),UserDAO.getAllUser("userproject"));
+		
 		
 		for(Project p: allProjects){
 			if(p.getEnabled()){
@@ -56,6 +73,7 @@ public class ManageProject extends HttpServlet {
 			}else{
 				inactiveProjects.add(p);
 			}
+			request.setAttribute("inactiveusers", inactiveUsers);
 			request.setAttribute("activeprojects", activeProjects);
 			request.setAttribute("inactiveprojects", inactiveProjects);
 		}
