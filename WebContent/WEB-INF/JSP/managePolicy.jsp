@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
 	pageEncoding="US-ASCII"%>
-	
-	<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -161,10 +161,20 @@ margin-left:20px;}
 margin-left:20px;}
 #afteradd{margin-left:20px;}
 #afterupdate{margin-left:20px;}
+#menuPolicy li{
+display: inline;;
+}
 
 </style>
 </head>
 <body>
+<div id="menuPolicy">
+  <ul>
+    <li><button class="btn btn-link" id="addPolicy" onclick="">Add Policy</button> </li>
+    <li> <button class="btn btn-link" id="UpdatePolicy" onclick="">Update Policy</button> </li>
+ 
+  </ul>
+</div>
 <div id="dialogUpdatePolicy">
 <form class="form-horizontal" action="UpdateProject" method="post">
     
@@ -252,80 +262,70 @@ margin-left:20px;}
 
 
 <div id="dialogAddPolicy">
-<form class="form-horizontal" action="CreatePolicy" method="post">
-    
-     <h3><strong>Create Policy</strong></h3>
-	 <br/>
+<form class="form-horizontal" action="CreatePolicy" method="get"> 
+	     <h3><strong>Create Policy</strong></h3>
+		 <br/>
+	
+	 <div class="form-group">
+	    <label class="col-lg-2 control-label">Policy Name</label>
+	    <div class="col-lg-10">
+	      <input type="text" class="form-control" id="PolicyName" name ="PolicyName" placeholder="PolicyName"/>
+	    </div>
+	  </div>
+ 	  
+	   <div class="form-group">
+	    <label class="col-lg-2 control-label">Description</label>
+	    <div class="col-lg-10">
+	    
+	      <input type="text" class="form-control" id="PolicyDescription" name="PolicyDescription" placeholder="Description"/>
+	    </div>
+	  </div>
+	  
+	  <div class="form-group">
+	    <label class="col-lg-2 control-label">Policy Level</label>
+	      <div class="col-lg-10">
+	     <select name="PolicyLevel" class="form-control">
+	 	    <option value="1">Context</option>
+	  		<option value="1">Project</option>
+	 	    <option value="1">User</option>
+	 
+		</select>
+	    </div>
+	  </div>
+	  
+	<div class="buttoninpopup">
+				<input class="btn btn-info"  type="submit" value="Create" id="afteradd" />
 
- <div class="form-group">
-    <label class="col-lg-2 control-label">Policy Name</label>
-    <div class="col-lg-10">
-      <input type="text" class="form-control" id="PolicyName" name ="PolicyName" placeholder="PolicyName"/>
-    </div>
-  </div>
-  
-
- 
-  
-   <div class="form-group">
-    <label class="col-lg-2 control-label">Description</label>
-    <div class="col-lg-10">
-    
-      <input type="text" class="form-control" id="PolicyDescription" name="PolicyDescription" placeholder="Description"/>
-    </div>
-  </div>
-  
-  <div class="form-group">
-    <label class="col-lg-2 control-label">Policy Level</label>
-      <div class="col-lg-10">
-     <select class="form-control">
- 	    <option>Context</option>
-  		<option>Project</option>
- 	    <option>User</option>
- 
-	</select>
-    </div>
-  </div>
-  
-<div class="buttoninpopup">
-			<input class="btn btn-info"  type="submit" value="Create" id="afteradd" />
-
-
-
-	<%------------------------- Add metric --%>
- <button class="btn btn-info " id="btn3">ADD Metric</button>
-     <div id="dialogAddMetric" title="ADD Metric">
-
-  <div id="accordion">
-	<h3>Attribute</h3>
-  <div>
-			<div class="matrics-items" ><input type="text" placeholder="IdealNo.of Attribute " class="form-control"   /></div>
-			<div class="matrics-items" ><input type="text" placeholder="MaxNo.of Attribute " class="form-control"  /></div>
-			<div class="matrics-items" ><input type="text" placeholder="MinNo.of Attribute " class="form-control"  /></div>
-			<div class="matrics-items" ><input class="btn btn-info"  type="submit" value="Add Attribute" id="Addattribute"/></div>
-    </div>
-  <h3>Classes</h3>
-  <div>
-			<div class="matrics-items" ><input type="text" placeholder="IdealNo.Of Classes" class="form-control"   /></div>
-			<div class="matrics-items" ><input type="text" placeholder="MinNo.Of Classes " class="form-control"  /></div>
-			<div class="matrics-items" ><input type="text" placeholder="MaxNo.Of Classes " class="form-control"  /></div>
-            <div class="matrics-items" ><input class="btn btn-info"  type="submit" value="Add Classes" id="Addclass"/></div>
-     </div>
-  <h3>Associations</h3>
-  <div>
-   
-  </div>
-  <h3>Multiplicities</h3>
-  <div>
-  </div>
-</div>
- 
-  
-</div>
-			
-			
-			
-</div>
+		<%------------------------- Add metric --%>
+	 <button class="btn btn-info " id="btn3">ADD Metric</button>
+	     <div id="dialogAddMetric" title="ADD Metric">
+	
+	  <div id="accordion">
+		<h3>Attribute</h3>
+	  <div>
+				<div class="matrics-items" ><input type="text" placeholder="IdealNo.of Attribute " class="form-control"   /></div>
+				<div class="matrics-items" ><input type="text" placeholder="MaxNo.of Attribute " class="form-control"  /></div>
+				<div class="matrics-items" ><input type="text" placeholder="MinNo.of Attribute " class="form-control"  /></div>
+				<div class="matrics-items" ><input class="btn btn-info"  type="submit" value="Add Attribute" id="Addattribute"/></div>
+	    </div>
+	  <h3>Classes</h3>
+	  <div>
+				<div class="matrics-items" ><input type="text" placeholder="IdealNo.Of Classes" class="form-control"   /></div>
+				<div class="matrics-items" ><input type="text" placeholder="MinNo.Of Classes " class="form-control"  /></div>
+				<div class="matrics-items" ><input type="text" placeholder="MaxNo.Of Classes " class="form-control"  /></div>
+	            <div class="matrics-items" ><input class="btn btn-info"  type="submit" value="Add Classes" id="Addclass"/></div>
+	     </div>
+	  <h3>Associations</h3>
+	  <div>
+	   
+	  </div>
+	  <h3>Multiplicities</h3>
+	  <div>
+	  </div>
+	</div>	 
+	  
+	</div>			
+	</div>
 </form>
 </div>
 
@@ -343,13 +343,15 @@ margin-left:20px;}
 				
 				
 			</tr>
-			<tr>
-				<td><input type="checkbox" /></td>
-				<td>Policy ID</td>
-				<td>Policy NamE</td>
-				<td>Policy Level</td>
-				<td>Policy Description</td>
-							</tr>
+			<c:forEach items="${policys}" var="policy">
+				<tr>
+					<td><input type="checkbox" /></td>
+					<td>${policy.policyID}</td>
+					<td>${policy.policyName}</td>
+					<td>${policy.policyLevel}</td>
+					<td>${policy.policyDescription}</td>						
+				</tr>
+			</c:forEach>
 
 		</table>
 		<input type="hidden" value="disable" name="statusChangeTo">
@@ -357,14 +359,8 @@ margin-left:20px;}
 		
 		
 	</div>
-	
-	<div class="projectMenu">
-		
-		<button class="btn btn-info" id="addPolicy" onclick="">Add Policy</button> 
-	    <button class="btn btn-info" id="UpdatePolicy" >Update Policy</button>
-		
-	
-	</div>
+			
+
 </div>
 
 
