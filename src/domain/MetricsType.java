@@ -25,9 +25,9 @@ public enum MetricsType {
         }
         return null;
     }
-	public static MatricsType fromInt(int value) {
+	public static MetricsType fromInt(int value) {
 
-        for (MatricsType mt : values() ){
+        for (MetricsType mt : values() ){
             if (mt.mTypeId == value) return mt;
         }
         return null;

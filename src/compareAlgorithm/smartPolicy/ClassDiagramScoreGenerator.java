@@ -9,8 +9,8 @@ import domain.Attributes;
 import domain.CD_Class;
 import domain.Classes;
 import domain.DiagramPolicyScore;
-import domain.MatricsObject;
-import domain.MatricsType;
+import domain.Metrics;
+import domain.MetricsType;
 import domain.Policy;
 
 
@@ -72,9 +72,9 @@ public class ClassDiagramScoreGenerator {
 	
 	public DiagramPolicyScore generateScore() throws Exception{
 		justification = "";
-		for(MatricsObject mObj : policy.getMatricsObjects())
+		for(Metrics mObj : policy.getMetrics())
 		{
-			policyScore.setPolicyScore(GenerateMatricScore(diagramParser, mObj));
+			policyScore.setPolicyScore(GenerateMetricScore(diagramParser, mObj));
 			if(justification != "")
 				justification += "\n";
 			policyScore.setJustification(justification);
@@ -82,9 +82,9 @@ public class ClassDiagramScoreGenerator {
 		return policyScore;
 	}
 	
-	private int GenerateMatricScore(DiagramParser diagramParser, MatricsObject mObj)throws Exception{
+	private int GenerateMetricScore(DiagramParser diagramParser, Metrics mObj)throws Exception{
 		
-		switch (mObj.getMatricsType()){
+		switch (mObj.getMetricsType()){
 		
 			case CLASSES:
 				classScore = scoreClasses(mObj);
@@ -114,9 +114,9 @@ public class ClassDiagramScoreGenerator {
 		
 	}
 	
-	private int scoreClasses(MatricsObject mObj) throws Exception {
+	private int scoreClasses(Metrics mObj) throws Exception {
 		int score = 0;
-		if(mObj.getMatricsType() != MatricsType.CLASSES)
+		if(mObj.getMetricsType() != MetricsType.CLASSES)
 			throw new Exception("Wrong Matrics Type");
 		int totalNoOfClasses = diagramParser.getClasses().size();
 		int idealNoOfClasses = ((Classes)mObj).getIdealNoOfClasses();
@@ -155,7 +155,7 @@ public class ClassDiagramScoreGenerator {
 		return score;
 	}
 	
-	private int scoreAttributes(MatricsObject mObj) throws Exception{
+	private int scoreAttributes(Metrics mObj) throws Exception{
 		int score = 0;
 		int avgNoAttribute = 0;
 		int totalNoAttributes = 0;
@@ -206,13 +206,13 @@ public class ClassDiagramScoreGenerator {
 		return score;
 	}
 	
-	private int scoreMultiplicity(MatricsObject mObj){
+	private int scoreMultiplicity(Metrics mObj){
 		int score = 0;
 		//Code here
 		return score;
 	}
 	
-	private int scoreAssociations(MatricsObject mObj){
+	private int scoreAssociations(Metrics mObj){
 		int score = 0;
 		//Code here
 		return score;

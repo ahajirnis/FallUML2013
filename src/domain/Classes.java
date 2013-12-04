@@ -22,9 +22,6 @@ public class Classes extends Metrics {
 	public void setMetricId(int metricId) {
 		this.metricId = metricId;
 	}
-	public void setMinNoOfClasses(int minNoOfClasses) {
-		this.minNoOfClasses = minNoOfClasses;
-	}
 	
 	
 	/**

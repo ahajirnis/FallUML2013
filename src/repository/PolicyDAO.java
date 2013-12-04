@@ -12,8 +12,8 @@ import java.util.ArrayList;
 
 import domain.Attributes;
 import domain.Classes;
-import domain.MatricsObject;
-import domain.MatricsType;
+import domain.Metrics;
+import domain.MetricsType;
 import domain.Policy;
 
 
@@ -125,24 +125,24 @@ public class PolicyDAO {
 				
 			}
 			pstmt.close();
-			ArrayList<MatricsObject> mObjs = new ArrayList<MatricsObject>();
+			ArrayList<Metrics> mObjs = new ArrayList<Metrics>();
 			PreparedStatement pstmt2 = conn.prepareStatement("SELECT * FROM Metric m WHERE policyId = ?");
 			pstmt2.setInt(1,  policy.getPolicyID());
 			ResultSet rs2 = pstmt2.executeQuery();
 			while (rs2.next()) {
 				
-				MatricsType mType = MatricsType.fromInt(rs2.getInt("metricTypeId"));
+				MetricsType mType = MetricsType.fromInt(rs2.getInt("metricTypeId"));
 				int mId = rs2.getInt("metricId");
 				int policyId = rs2.getInt("policyId");
 				int matricsWt = rs2.getInt("metricsWeight");
 				
-				if(mType == MatricsType.CLASSES)
+				if(mType == MetricsType.CLASSES)
 				{
 					Classes mObj = new Classes();
 					mObj.setPolicyId(policyId);
-					mObj.setMatricsType(mType);
-					mObj.setMatricsId(mId);
-					mObj.setMatricsWeight(matricsWt);
+					mObj.setMetricsType(mType);
+					mObj.setMetricId(mId);
+					mObj.setMetricsWeight(matricsWt);
 					
 					PreparedStatement pstmt3 = conn.prepareStatement("SELECT * FROM CLASSES m WHERE metricId = ?");
 					pstmt3.setInt(1,  mId);
@@ -158,13 +158,13 @@ public class PolicyDAO {
 					mObjs.add(mObj);
 				
 				}
-				if(mType == MatricsType.ATTRIBUTES)
+				if(mType == MetricsType.ATTRIBUTES)
 				{
 					Attributes mObj = new Attributes();
 					mObj.setPolicyId(policyId);
-					mObj.setMatricsType(mType);
-					mObj.setMatricsId(mId);
-					mObj.setMatricsWeight(matricsWt);
+					mObj.setMetricsType(mType);
+					mObj.setMetricId(mId);
+					mObj.setMetricsWeight(matricsWt);
 					
 					PreparedStatement pstmt3 = conn.prepareStatement("SELECT * FROM Attributes m WHERE metricId = ?");
 					pstmt3.setInt(1,  mId);
@@ -184,7 +184,7 @@ public class PolicyDAO {
 			}
 			pstmt2.close();
 			conn.close();
-			policy.setMatricsObjects(mObjs);
+			policy.setmetrics(mObjs);
 			return policy;
 		} catch (SQLException e) {
 			throw new IllegalArgumentException(e.getMessage(), e);
