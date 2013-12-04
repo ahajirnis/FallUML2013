@@ -30,7 +30,7 @@
 	
  $(document).ready(function(){
 	 var metric=0;
-	 $("#Addattribute").click(function(){
+	 $("#submitadd").click(function(){
 	       metric=1;
 		
 	  });
@@ -99,7 +99,7 @@
 	    $( "#dialogAddPolicy" ).dialog();
 	  });
 	  
-	  $(".Attributeable").attr('disabled','disabled');;
+	  $(".Attributeable").attr('disabled','disabled');
 	  $("#Attribute").click(function(){
 		    var thisCheck = $(this);
 
@@ -111,11 +111,11 @@
 			else if (!(thisCheck.is (':checked')))
 			{
 			$("#attribute-group").css("color","gray");
-			$(".Attributeable").attr('disabled','disabled');;
+			$(".Attributeable").attr('disabled','disabled');
 			}
 		  });
 		  
-	  $(".Classesable").attr('disabled','disabled');;
+	  $(".Classesable").attr('disabled','disabled');
 	  $("#Classes").click(function(){
 	    var thisCheck = $(this);
 	    
@@ -127,7 +127,7 @@
 		else if (!(thisCheck.is (':checked')))
 		{
 		$("#Classes-group").css("color","gray");
-		$(".Classesable").attr('disabled','disabled');;
+		$(".Classesable").attr('disabled','disabled');
 		}
 	  });
 	  
@@ -171,6 +171,78 @@
 		   }
 
 	   });
+	   
+	 $("#submitupdate").click(function(){
+			   
+			   if( $("#AttributeUpdate").is(":checked")){
+				  
+				   $( "#attribute-group-update" ).clone().prependTo( "#metricinformationUpdate" );
+			   }
+			   
+			   else if ( $("#ClassesUpdate").is(":checked")){
+					  
+				   $( "#Classes-group-update" ).clone().prependTo( "#metricinformationUpdate" );
+				 
+			   }
+	
+		   });
+	 $(".AttributeableUpdate").attr('disabled','disabled');
+	  $("#AttributeUpdate").click(function(){
+		    var thisCheck = $(this);
+
+		    if (thisCheck.is (':checked'))
+		      {
+		       $("#attribute-group-update").css("color","black");
+		       $(".AttributeableUpdate").removeAttr('disabled');
+			  }
+			else if (!(thisCheck.is (':checked')))
+			{
+			$("#attribute-group-update").css("color","gray");
+			$(".AttributeableUpdate").attr('disabled','disabled');
+			}
+		  });
+		  
+	  $(".ClassesableUpdate").attr('disabled','disabled');
+	  $("#ClassesUpdate").click(function(){
+	    var thisCheck = $(this);
+	    
+	    if (thisCheck.is (':checked'))
+	      {
+	       $("#Classes-group-update").css("color","black");
+	       $(".ClassesableUpdate").removeAttr('disabled');
+		  }
+		else if (!(thisCheck.is (':checked')))
+		{
+		$("#Classes-group-update").css("color","gray");
+		$(".ClassesableUpdate").attr('disabled','disabled');
+		}
+	  });
+	  
+	    $("#AssociationsUpdate").click(function(){
+	    var thisCheck = $(this);
+
+	    if (thisCheck.is (':checked'))
+	      {
+	       $("#Associations-group-update").css("color","black");
+		  }
+		else if (!(thisCheck.is (':checked')))
+		{
+		$("#Associations-group-update").css("color","gray");
+		}
+	  });
+	  
+	   $("#MultiplicitiesUpdate").click(function(){
+	    var thisCheck = $(this);
+	
+	    if (thisCheck.is (':checked'))
+	      {
+	       $("#Multiplicities-group-update").css("color","black");
+		  }
+		else if (!(thisCheck.is (':checked')))
+		{
+		$("#Multiplicities-group-update").css("color","gray");
+		}
+	  });
 	  
 	});
 </script>
@@ -255,6 +327,14 @@ color:gray;}
 color:gray;}
 #Multiplicities-group {
 color:gray;}
+#attribute-group-update {
+color:gray;}
+#Classes-group-update{
+color:gray;}
+#Associations-group-update {
+color:gray;}
+#Multiplicities-group-update {
+color:gray;}
 
 
 </style>
@@ -268,76 +348,73 @@ color:gray;}
   </ul>
 </div>
 <div id="dialogUpdatePolicy">
-<form class="form-horizontal" action="UpdateProject" method="post">
-    
+<form class="form-horizontal" action="UpdateProject" method="get">
      <h3><strong>Update Policy</strong></h3>
 	 <br/>
 
  <div class="form-group">
     <label class="col-lg-2 control-label">Policy Name</label>
     <div class="col-lg-10">
-      <input type="text" class="form-control" id="PolicyName" name ="PolicyName" placeholder="PolicyName"/>
+      <input type="text" class="form-control" id="PolicyNameUpdate" name ="PolicyNameUpdate" placeholder="PolicyName"/>
     </div>
   </div>
+  
    <div class="form-group">
     <label class="col-lg-2 control-label">Description</label>
     <div class="col-lg-10">
     
-      <input type="text" class="form-control" id="PolicyDescription" name="PolicyDescription" placeholder="Description"/>
+      <input type="text" class="form-control" id="PolicyDescriptionUpdate" name="PolicyDescriptionUpdate" placeholder="Description"/>
     </div>
   </div>
+  
    <div class="form-group">
     <label class="col-lg-2 control-label">Policy Level</label>
-   
-    
     <div class="col-lg-10">
-     <select class="form-control">
-     
- 	    <option>Context</option>
-  		<option>Project</option>
- 	    <option>User</option>
+     <select name="PolicyLevelUpdate"class="form-control">
+ 	    <option value="1">Context</option>
+  		<option value="1">Project</option>
+ 	    <option value="1">User</option>
  
 	</select>
     </div>
   </div>
- 
-  
+ <br/>
+  <div id="metricinformationUpdate"></div>
   
 <div class="buttoninpopup">
 			<input class="btn btn-link"  type="submit" value="Update" id="afterupdate" />
+			
 			<%------------------------- update metric --%>
-			 <button class="btn btn-link " id="btn4">Update Metric</button>
+ <button class="btn btn-link " id="btn4">Update Metric</button>
      <div id="dialogUpdateMetric" title="Update Metric">
 
-  <div id="accordionUpdate">
-	<h3>Attribute</h3>
-  <div>
-			<div class="matrics-items" ><input type="text" placeholder="IdealNo.of Attribute " class="form-control"   /></div>
-			<div class="matrics-items" ><input type="text" placeholder="MaxNo.of Attribute " class="form-control"  /></div>
-			<div class="matrics-items" ><input type="text" placeholder="MinNo.of Attribute " class="form-control"  /></div>
-			<div>
-			<input class="btn btn-link"  type="submit" value="Update" id="Updateattribute"/>
-			<input class="btn btn-link"  type="button" value="Delete" id="Deleteattribute"/></div>
-    </div>
-  <h3>Classes</h3>
-  <div>
-			<div class="matrics-items" ><input type="text" placeholder="IdealNo.Of Classes" class="form-control"   /></div>
-			<div class="matrics-items" ><input type="text" placeholder="MinNo.Of Classes " class="form-control"  /></div>
-			<div class="matrics-items" ><input type="text" placeholder="MaxNo.Of Classes " class="form-control"  /></div>
-            <div>
-            <input class="btn btn-link"  type="submit" value="Update" id="Updateclass"/>
-            <input class="btn btn-link"  type="button" value="Delete" id="Deleteclass"/></div>
-     </div>
-  <h3>Associations</h3>
-  <div>
-   <br/>
-  </div>
-  <h3>Multiplicities</h3>
-  <div>
-  </div>
-</div>
  
+ 
+ 
+ <div class="text" id="attribute-group-update">
+     <input type="checkbox" name="metricUpdate" value="AttributeUpdate" id="AttributeUpdate"/>Attribute<br/>
+            <div class="matrics-items">Ideal No.of Attribute  <input type="text" maxlength="4" size="4" id="updateIdealAttribute" class="AttributeableUpdate" ></div>
+			<div class="matrics-items">Max No.of Attribute  <input type="text" maxlength="4" size="4"   id="updateMaxlAttribute"class="AttributeableUpdate"></div>
+			<div class="matrics-items"> Min No.of Attribute <input type="text"  maxlength="4" size="4" id="updateMinlAttribute" class="AttributeableUpdate"></div>
+  </div>
   
+  
+   <div class="text" id="Classes-group-update">
+     <input type="checkbox"  name="metricUpdate" value="ClassesUpdate" id="ClassesUpdate"/>Classes<br/>
+            <div class="matrics-items">Ideal No.of Classes  <input type="text" maxlength="4" size="4" id="updateIdealClasses" class="ClassesableUpdate" ></div>
+			<div class="matrics-items"> Max No.of Classes  <input type="text"  maxlength="4" size="4" id="updateMaxClasses"class="ClassesableUpdate" ></div>
+			<div class="matrics-items"> Min No.of Classes<input type="text" maxlength="4" size="4" id="updateMinClasses" class="ClassesableUpdate" ></div>
+  </div>
+  
+   <div class="text" id="Associations-group-update">
+     <input type="checkbox" name="metricUpdate" id="AssociationsUpdate" />Associations<br/>
+           
+  </div>
+  <div class="text" id="Multiplicities-group-update">
+     <input type="checkbox" name="metricUpdate" id="MultiplicitiesUpdate"/>Multiplicities<br/>
+           
+  </div>
+  <input class="btn btn-primary " id="submitupdate" type="submit" value="Update" />
 </div>
 			
 			
@@ -407,9 +484,9 @@ color:gray;}
   
    <div class="text" id="Classes-group">
      <input type="checkbox"  name="metric" value="Classes" id="Classes"/>Classes<br/>
-            <div class="matrics-items">Ideal No.of Classes  <input type="text" maxlength="4" size="4" class="Classesable" ></div>
-			<div class="matrics-items"> Max No.of Classes  <input type="text"  maxlength="4" size="4" class="Classesable" ></div>
-			<div class="matrics-items"> Min No.of Classes<input type="text" maxlength="4" size="4" class="Classesable" ></div>
+            <div class="matrics-items">Ideal No.of Classes  <input type="text" maxlength="4" size="4"id="addIdealClasses" class="Classesable" ></div>
+			<div class="matrics-items"> Max No.of Classes  <input type="text"  maxlength="4" size="4" id="addMaxClasses" class="Classesable" ></div>
+			<div class="matrics-items"> Min No.of Classes<input type="text" maxlength="4" size="4" id="addMinClasses" class="Classesable" ></div>
   </div>
   
    <div class="text" id="Associations-group">
