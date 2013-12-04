@@ -61,7 +61,7 @@ public class Metrics {
 	}
 	
 	public MetricsType getMetricsType(){
-		return metricsType;
+		return metricsType == null? MetricsType.NOTDEFINED: metricsType;
 	}
 	
 	public void setMetricsType(MetricsType metricsType){
