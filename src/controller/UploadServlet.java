@@ -180,7 +180,7 @@ public class UploadServlet extends HttpServlet {
 			logging.Log.LogCreate().Info("got processor filename =" + filename);
 			if (processor != null){
 			    logging.Log.LogCreate().Info("calling process ");
-				processor.process();
+				processor.process(projectId);
 			}
 		}	
 		RequestDispatcher rd = request.getRequestDispatcher("Display");

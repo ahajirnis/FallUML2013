@@ -13,5 +13,7 @@ public interface UploadProcessor {
 	/**
 	 * Performs file parsing, generating java file and PNG file
 	 */
-	public void process();
+	//public void process();
+
+	public void process(int ProjectId);
 }

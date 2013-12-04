@@ -53,7 +53,7 @@ public class UmlUploadProcessor implements UploadProcessor {
 	}
 
 	@Override
-	public void process() {
+	public void process(int projectId) {
 
 		// first process the .notation file
 		FileInfo info = getFile(UploadProcessorFactory.NOTATION_EXTENSION);
@@ -113,30 +113,30 @@ public class UmlUploadProcessor implements UploadProcessor {
 		}
 
 		if (isClassDiag) {
-			new Uml2ClassUploadProcessor().process();
+			new Uml2ClassUploadProcessor().process(projectId);
 			String folder = diagramPath + "/";
 			String umlFileName = umlInfo.getFileName();
 			
 			//String diagramType = "class";//Removed with introduction of new DiagramType Enum
-			this.storeDatabase(folder, umlFileName, id, DiagramType.CLASS);
+			this.storeDatabase(folder, umlFileName, id, DiagramType.CLASS, projectId);
 		}
 		if (isSeqDiag) {
-			new Uml2SequenceDiagramUploadProcessor().process();
+			new Uml2SequenceDiagramUploadProcessor().process(projectId);
 			String folder = diagramPath + "/";
 			String umlFileName = umlInfo.getFileName();
 			//String diagramType = "sequence";  //Removed with introduction of new DiagramType Enum
 			logging.Log.LogCreate().Info("Image_File_Name:"+ umlFileName + ".png");
 			logging.Log.LogCreate().Info("Folder:"+ folder);
-			this.storeDatabase(folder, umlFileName, id, DiagramType.SEQUENCE);
+			this.storeDatabase(folder, umlFileName, id, DiagramType.SEQUENCE, projectId);
 		}
 	}
 
 	/*
 	 * function to store upload diagram information into database.
 	 */
-	private void storeDatabase(String folder, String umlFileName, int userID, DiagramType diagramType) {
+	private void storeDatabase(String folder, String umlFileName, int userID, DiagramType diagramType, int projectId) {
 		try {
-			int projectId = 2 ; 				// needs to be passed in as in UploadServlet
+			//int projectId = 2 ; 				// needs to be passed in as in UploadServlet
 			logging.Log.LogCreate().Info(folder + " " + umlFileName);
 			String baseFileName = umlFileName.substring(0, umlFileName.length() - ".uml".length());
 			Diagram diagramObj = new Diagram();
@@ -144,7 +144,7 @@ public class UmlUploadProcessor implements UploadProcessor {
 			diagramObj.setFilePath(folder + umlFileName);
 			diagramObj.setMerged(0);
 			diagramObj.setUserId(userID);
-			diagramObj.setProjectId(2);
+			diagramObj.setProjectId(projectId);
 			diagramObj.setDiFileName(baseFileName + ".di");
 			diagramObj.setNotationFileName(baseFileName + ".notation");
 			diagramObj.setDiFilepath(folder);
@@ -236,7 +236,7 @@ public class UmlUploadProcessor implements UploadProcessor {
 	 */
 	private class Uml2ClassUploadProcessor extends ClassPngFile {
 
-		public void process() {
+		public void process(int projectId) {
 
 			ElementIterator(classXmiDiag);
 
@@ -576,7 +576,7 @@ public class UmlUploadProcessor implements UploadProcessor {
 	
 	
 	public class Uml2SequenceDiagramUploadProcessor extends SequencePngFile{
-		public void process() {
+		public void process(int projectId) {
 			Log.LogCreate().Info("Uml2SequenceDiagramUploadProcessor");
 			ElementIterator(sequenceXmiDiag);
 			boolean foundError = false;

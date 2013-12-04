@@ -41,7 +41,7 @@ public class XmiMergeClassUpload {
 
 			// Set id properly
 			String id = session.getAttribute("userId").toString();
-
+			int projectId = Integer.parseInt(session.getAttribute("projId").toString());
 			this.context = context;
 
 			libDir = new File(context.getRealPath(LIB_DIR_PATH));
@@ -81,7 +81,7 @@ public class XmiMergeClassUpload {
 				System.out.println("GetProcessor: " + filename + " " + folderPath + " " + Integer.parseInt(id));
 				if (processor != null){
 					System.out.println("CREATED NEW FILES");
-					processor.process();
+					processor.process(projectId);
 				} else {
 					System.out.println("FAILED PROCESS CREATING NEW FILES");
 				}
