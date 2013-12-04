@@ -228,13 +228,17 @@ display: inline;
 
 <body>
 
-
 <div id="dialogUpdate">
 
 <form class="form-horizontal" action="UpdateProject" method="get" id="UpdateProject">
 
+    
+
      <h3><strong>Update Project</strong></h3>
+
 <br/>
+
+
 
  <div class="form-group">
 
@@ -254,11 +258,16 @@ display: inline;
     <label class="col-lg-2 control-label">Description</label>
 
     <div class="col-lg-10">
+
+    
+
       <input type="text" class="form-control" id="Description" name="Description" placeholder="Description"/>
 
     </div>
 
   </div>
+
+ 
 
   <div class="form-group">
 
@@ -277,7 +286,14 @@ display: inline;
     </div>
 
   </div>
-    <input type="text" id="projectID" name="projectID">
+
+  
+
+
+
+  
+
+  <input type="hidden" id="projectID" name="projectID">
 
 <div class="buttoninpopup">
 
@@ -285,10 +301,19 @@ display: inline;
 
 </div>
 
+
+
+
+
+
+
 </form>
 
 </div>
 
+
+
+  
 
   <div id="dialogAddUser">
 
@@ -302,11 +327,11 @@ display: inline;
 
     <label class="col-lg-2 control-label">Select Project</label>
 
-  <select>
+  <select id="selectProj" name="selectProj">
 
   <c:forEach items="${activeprojects}" var="project">
 
-  <option>${project.projectName }</option>
+  <option value="${project.projectId}">${project.projectName }</option>
 
   </c:forEach>
 
@@ -320,11 +345,11 @@ display: inline;
 
     <label class="col-lg-2 control-label">Select User</label>
 
-  <select>
+  <select id="selectUser" name="selectUser">
 
-  <c:forEach items="${activeusers}" var="user">
+  <c:forEach items="${inactiveusers}" var="user">
 
-  <option>${user.userName }</option>
+  <option value="${user.userId }">${user.userName }</option>
 
   </c:forEach>
 
@@ -505,6 +530,8 @@ display: inline;
 
 </form>
 
+
+
 <form action="Display" method="get" id="sendtodisplay">
 
 <input type="hidden" name="ProjectID" id="submitprojid">
@@ -517,94 +544,53 @@ display: inline;
 
 		<form action="ChangeProjectStatus" method="post">
 
-<!-- 			<h2>Disabled Projects</h2> -->
+			<h2>Disabled Projects</h2>
 
-<!-- 			<table class="table table-hover" id="disabledTab"> -->
-
-<!-- <tr> -->
-
-<!-- <th>Select</th> -->
-
-<!-- <th>Project ID</th> -->
-
-<!-- <th>Project Name</th> -->
-
-<!-- <th>Start Date</th> -->
-
-<!-- <th>Description<th>Status</th> -->
-
-<!-- <th></th> -->
-
-<!-- </tr> -->
-
-<%-- 				<c:forEach items="${inactiveprojects}" var="project"> --%>
-
-<!-- 					<tr> -->
-
-<%-- 						<td><input type="radio" value="${project.projectId }" --%>
-<!-- 							id="projIdradio" name="projIdradio" /></td> -->
-
-<%-- 						<td>${project.projectId}</td> --%>
-
-<%-- 						<td><a style="color: gray;">${project.projectName }</a></td> --%>
-
-<%-- 						<td>${project.startDate}</td> --%>
-
-<%-- 						<td>${project.description}</td> --%>
+			<table class="table table-hover" id="disabledTab">
 
 
-<!-- 						<td><button class="btn btn-link" type="submit">Enable</button></td> -->
+
+				<tr>
+
+					<th>Select</th>
+
+					<th>Project ID</th>
+
+					<th>Project Name</th>
+
+					<th>Start Date</th>
+
+					<th>Description</th>
+
+					<th></th>
+
+				</tr>
+
+				<c:forEach items="${inactiveprojects}" var="project">
+
+					<tr>
+
+						<td><input type="radio" value="${project.projectId }"
+							id="projIdradio" name="projIdradio" /></td>
+
+						<td>${project.projectId}</td>
+
+						<td><a style="color: gray;">${project.projectName }</a></td>
+
+						<td>${project.startDate}</td>
+
+						<td>${project.description}</td>
 
 
-<!-- 					</tr> -->
-
-<%-- 				</c:forEach> --%>
+						<td><button class="btn btn-link" type="submit">Enable</button></td>
 
 
-<!-- 			</table> -->
+					</tr>
 
-<h2>Disabled Projects</h2>
-
-<table class="table table-hover" id="disabledTab"> 
-
-<tr>
-
-<th>Select</th>
-
-<th>Project ID</th>
-
-<th>Project Name</th>
-
-<th>Start Date</th>
-
-<th>Description<th>Status</th>
-
-<th></th>
-
-</tr>
-
-<c:forEach items="${inactiveprojects}" var="project">
-
-<tr>
-
-<td><input type="radio" value="${project.projectId }" id="projIdradio" name="projIdradio"/></td>
-
-<td>${project.projectId}</td>
-
-<td><a style="color: gray;">${project.projectName }</a></td>
-
-<td>${project.startDate}</td>
-
-<td>${project.description}</td>
+				</c:forEach>
 
 
-<td><button class="btn btn-link" type="submit" value="${project.projectId }" name="enableprojid">Enable</button></td> 
-
-</tr>
-
-</c:forEach>
-
-</table>
+			</table>
 
 			<!-- sid changed from enabled to true to match boolean value -->
 
@@ -615,14 +601,19 @@ display: inline;
 
 		</form>
 
-
 	</div>
+
 
 <div class="projectMenu">
 
+
+
+
 </div>
 
 </div>
+
+
 
 </body>
 

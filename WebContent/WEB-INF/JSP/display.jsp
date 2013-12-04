@@ -202,7 +202,7 @@
 	<div id="mainContainer">
 	
 	<div>
-		<h2><a href="ManageProject">Click Here</a> to go back </h2>
+		<h2><a href="Home">Click Here</a> to go back </h2>
 	</div>
 	
 	<div id="diagramBox">

@@ -20,6 +20,7 @@ import repository.UserDAO;
 
 /*
  * @author Aishwarya Srinivasan
+ * @author Siddhesh Jaiswal
 */
 
 /*
@@ -56,16 +57,21 @@ public class ManageProject extends HttpServlet {
 	ArrayList<Project> allProjects;
 	ArrayList<Project> activeProjects;
 	ArrayList<Project> inactiveProjects;
-	ArrayList<Integer> inactiveUsers;
+	ArrayList<Integer> inactiveUserIds;
 	try {
 		allProjects = ProjectDAO.getAllProjects();
 		
 		 activeProjects = new ArrayList<>();
 		inactiveProjects = new ArrayList<>();
-		inactiveUsers = new ArrayList<>();
+		inactiveUserIds = new ArrayList<>();
 		
-		inactiveUsers = this.subtract(UserDAO.getAllUser("user"),UserDAO.getAllUser("userproject"));
+		inactiveUserIds = this.subtract(UserDAO.getAllUser("user"),UserDAO.getAllUser("userproject"));
+		ArrayList <User> inactiveUsers = new ArrayList<>();
 		
+		for (int i: inactiveUserIds){
+			
+			inactiveUsers.add(UserDAO.getUser(i));
+		}
 		
 		for(Project p: allProjects){
 			if(p.getEnabled()){

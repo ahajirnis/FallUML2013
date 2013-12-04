@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -77,6 +78,10 @@ private void Success(HttpServletRequest request,
 	System.out.println("Successfully added project");
 	RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/JSP/home.jsp");
     dispatcher.forward(request, response);
+    
+//    ServletContext context = this.getServletContext();
+//    RequestDispatcher dispatcher = context.getRequestDispatcher("/Home");
+//    dispatcher.forward(request, response);
 }
 
 private void Failed(HttpServletRequest request,
