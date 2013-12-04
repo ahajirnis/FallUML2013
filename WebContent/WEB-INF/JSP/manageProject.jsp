@@ -82,11 +82,8 @@ $( "#dialogUpdate" ).hide();
 
 	console.log("this is selected "+valueSelected);
 
- 
 
 $( "#dialogUpdate" ).dialog();
-
-   
 
   });
 
@@ -254,6 +251,7 @@ display: inline;
     </div>
 
   </div>
+ 
 
    <div class="form-group">
 
