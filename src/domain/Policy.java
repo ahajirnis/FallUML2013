@@ -9,29 +9,29 @@ public class Policy {
 	private String policyName;
 	private String policyDescription;
 	private int policyLevel;
-	private ArrayList<MatricsObject> matricsObjects;
+	private ArrayList<Metrics> metrics;
 	
 	public Policy (){
-		matricsObjects = new ArrayList<MatricsObject>();
+		metrics = new ArrayList<Metrics>();
 	}
 	
-	public ArrayList<MatricsObject> getMatricsObjects() {
-		return matricsObjects;
+	public ArrayList<Metrics> getMetrics() {
+		return metrics;
 	}
 
-	public void setMatricsObjects(ArrayList<MatricsObject> matricsObjects) {
-		this.matricsObjects = matricsObjects;
+	public void setmetrics(ArrayList<Metrics> metrics) {
+		this.metrics= metrics;
 	}
 
-	public void addNewMatric(MatricsObject matricsObject){
-		this.matricsObjects.add(matricsObject);
+	public void addNewMatric(Metrics Metrics){
+		this.metrics.add(Metrics);
 	}
 	public void removeMatric(int id){
 		
-		Iterator<MatricsObject> i = matricsObjects.iterator();
+		Iterator<Metrics> i = metrics.iterator();
 		while (i.hasNext()) {
-			MatricsObject mObject = i.next(); 
-			if(mObject.getMatricsId() == id)
+			Metrics mObject = i.next(); 
+			if(mObject.getMetricId() == id)
 			{
 				i.remove();
 			}
