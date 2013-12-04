@@ -97,7 +97,7 @@ public class ProjectDAO {
     		}
     		else {
     			pstmt = conn.prepareStatement(
-        	    		"UPDATE project SET projectName = ?, description = ?, enabled = ?, "
+        	    		"UPDATE project SET projectName = ?, description = ?, enabled = ? "
         	    		+ "WHERE projectId = ?;");
     		} 	    
     	    pstmt.setString(1, project.getProjectName());

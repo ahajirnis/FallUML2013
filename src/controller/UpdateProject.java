@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -63,7 +64,7 @@ private void processRequest(HttpServletRequest request,
 	//System.out.println(Integer.parseInt(request.getParameter("ProjectID")));
 	String s = request.getParameter("projectID");
 	int projectId = Integer.parseInt(s);
-	System.out.println(s+"project id in update project");
+	System.out.println(s+" project id in update project");
 	//int projectId=1;
 	
 	try {
@@ -92,8 +93,12 @@ private void Success(HttpServletRequest request,
 		Project projectObj) throws ServletException, IOException, SQLException {
 	
 		ProjectDAO.updateProject(projectObj);
-		System.out.println("Successfully updated project");
+/*		System.out.println("Successfully updated project");
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/JSP/home.jsp");
+	    dispatcher.forward(request, response);*/
+	    
+	    ServletContext context = this.getServletContext();
+	    RequestDispatcher dispatcher = context.getRequestDispatcher("/Home");
 	    dispatcher.forward(request, response);
 }
 
