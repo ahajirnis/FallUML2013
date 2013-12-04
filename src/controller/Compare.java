@@ -87,37 +87,46 @@ public class Compare extends HttpServlet {
 		String path = "";
 		String reportText = "";
 		
+		diagram1.setDiagramRealPath(context.getRealPath(diagram1.getFilePath()));
+		diagram2.setDiagramRealPath(context.getRealPath(diagram2.getFilePath()));
+		// setting context Paths for Diagrams
+		diagram1.setConPath(context.getRealPath("/").toString());	
+		diagram2.setConPath(context.getRealPath("/").toString());
+		
 		if(request.getParameter("smartsuggest") != null && 
 				request.getParameter("smartsuggest").equals("Suggest Promote"))
 		{
 			// your code here
 
 			DiagramParserFactory factory = new DiagramParserFactory();
-//			DiagramParser diag1Parser = DiagramParserFactory.getDiagramParser(diagram1);
-//			DiagramParser diag2Parser = DiagramParserFactory.getDiagramParser(diagram2);
+ 			DiagramParser diag1Parser = DiagramParserFactory.getDiagramParser(diagram1);
+			DiagramParser diag2Parser = DiagramParserFactory.getDiagramParser(diagram2);
 			PolicyScoreGenerator scorer = new PolicyScoreGenerator();
 			try {
-//				DiagramPolicyScore diagram1Score = scorer.generateScore(PolicyDAO.getPolicy(diagramID1), diag1Parser);
-//				DiagramPolicyScore diagram2Score = scorer.generateScore(PolicyDAO.getPolicy(diagramID2), diag2Parser);
-				String justification = "Adding Suggestion Remarks";
-//				String justification = diagram1Score.getJustification();
-						reportText = (String) request.getParameter("reportText");
-						reportText = justification + "\n\n" + reportText;
+				DiagramPolicyScore diagram1Score = scorer.generateScore(PolicyDAO.getPolicy(diagramID1), diag1Parser);
+				DiagramPolicyScore diagram2Score = scorer.generateScore(PolicyDAO.getPolicy(diagramID2), diag2Parser);
+				//String justification = "Adding Suggestion Remarks";
+				String justification = "";
+				if(diagram1Score.getPolicyScore() > diagram2Score.getPolicyScore())
+					justification = "Diagram 2 is preferred!! \n";
+				else if (diagram1Score.getPolicyScore() < diagram2Score.getPolicyScore())
+					justification = "Diagram 1 is preferred!! \n";
+				else
+					justification = "Diagram 1 nad Diagram 2 are equally preferred!! \n ";
+				justification += "<b>SCORING DETAILS: </b> \n \n";	
+				justification += "<b>Diagram1:</b> Score:" + diagram1Score.getPolicyScore() + "\n";
+				justification +=	diagram1Score.getJustification();
+				justification += "\n" +"<b>Diagram2:</b> Score:" + diagram2Score.getPolicyScore() + "\n";
+				justification +=	diagram2Score.getJustification();
+				reportText = (String) request.getParameter("reportText");
+				reportText = justification + "\n\n" + reportText;
 			} catch (Exception ex) {
 				Logger.getLogger(Compare.class.getName()).log(Level.SEVERE, null, ex);
 			}
-
-			
 			
 		}
 		else 
 		{
-			diagram1.setDiagramRealPath(context.getRealPath(diagram1.getFilePath()));
-			diagram2.setDiagramRealPath(context.getRealPath(diagram2.getFilePath()));
-			// setting context Paths for Diagrams
-			diagram1.setConPath(context.getRealPath("/").toString());	
-			diagram2.setConPath(context.getRealPath("/").toString());
-	
 			DiagramCompare compareObj = new DiagramCompare(diagram1, diagram2, context.getRealPath("/reports/"));
 			
 			try {
