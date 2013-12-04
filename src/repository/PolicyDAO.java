@@ -15,7 +15,7 @@ import domain.Classes;
 import domain.MatricsObject;
 import domain.MatricsType;
 import domain.Policy;
-import domain.User;
+
 
 public class PolicyDAO {
 
@@ -50,7 +50,11 @@ public class PolicyDAO {
 	}
 	return policy;
     }
-     
+    
+   
+    
+    
+    
     /**
      * Update  Policy into DB 
      * 			
@@ -185,5 +189,35 @@ public class PolicyDAO {
 		} catch (SQLException e) {
 			throw new IllegalArgumentException(e.getMessage(), e);
 		}
+    }
+    
+    public static ArrayList<Policy> getAllPolicys() throws SQLException {
+    	ArrayList<Policy> policys = new ArrayList<Policy>();
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	ResultSet rs = null;
+    	try {
+    		conn = DbManager.getConnection();
+    	    pstmt = conn.prepareStatement(
+    		    "SELECT * FROM policy;");
+    	    rs = pstmt.executeQuery();
+    	    while (rs.next()) {
+    	    	Policy policy = new Policy();
+    	    	policy.setPolicyDescription( rs.getString("policyDescription"));
+    	    	policy.setPolicyID(rs.getInt("policyId"));
+    	    	policy.setPolicyLevel(rs.getInt("policyLevel"));
+    	    	policy.setPolicyName(rs.getString("policyName"));
+
+	    		policys.add(policy);
+    	    }
+    	    return policys;
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    	} finally {
+    		if( rs != null) {rs.close();}
+    		if( pstmt != null) {pstmt.close();}
+    		if( conn != null) {conn.close();}
+    	}
+    	return policys;
     }
 }
