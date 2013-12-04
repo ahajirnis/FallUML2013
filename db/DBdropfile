@@ -1,0 +1,15 @@
+drop table DiagramMetricsScore;
+drop table DiagramPolicyScore;
+drop table attributes;
+drop table classes;
+drop table comment;
+drop table compare;
+drop table metric;
+drop table metricType;
+drop table report;
+drop table userproject;
+drop table diagram;
+drop table diagramContext;
+drop table policy;
+drop table project;
+drop table user;
