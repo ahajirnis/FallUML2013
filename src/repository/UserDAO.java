@@ -313,6 +313,32 @@ public class UserDAO {
 		}
 	}
 
+public static ArrayList<Integer> getAllUser(String table) throws SQLException {
+		
+		ArrayList<Integer> userId = new ArrayList<Integer>();
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	ResultSet rs = null;
+    	try {
+    		conn = DbManager.getConnection();
+    		String statement = "Select userId from " + table + ";";
+    	    pstmt = conn.prepareStatement(statement);
+    	    rs = pstmt.executeQuery();
+    	    while (rs.next()) {
+    		userId.add(rs.getInt(1));
+    	    }
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    	} finally {
+    		if( rs != null) {rs.close();}
+    		if( pstmt != null) {pstmt.close();}
+    		if( conn != null) {conn.close();}
+    	}
+    	return userId;
+		
+	}
+	
+	
 	public static ArrayList<User> getAllUser() throws SQLException {
 		
 		ArrayList<User> users = new ArrayList<User>();
