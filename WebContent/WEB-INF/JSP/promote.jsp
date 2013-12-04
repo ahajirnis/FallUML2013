@@ -24,6 +24,14 @@
  			$("#btn2").click(function(){
    			 	$( "#dialog2" ).dialog();
   			});
+ 			
+ 			$("#suggestButton").click(function() {
+  	           $("#suggestForm").submit();
+  	       	});
+  			
+  			$("#returnButton").click(function() {
+   	           $("#returnForm").submit();
+   	       	});
 
 			var report = "reports/";
 			var link = $("#reportLink").val();
@@ -146,11 +154,21 @@
 			<pre>${requestScope.reportText}</pre>
 			
 			</div>
+			<form class="putton" action="Compare" method="post" id="suggestForm">
+						<input type="hidden" name="smartsuggest" value="Suggest Promote"/> 
+						<input type="hidden" name="reportText" value="${requestScope.reportText}"/>
+						<input type="hidden" name="reportPath" value="${requestScope.reportPath}"/>
+						<input type="hidden" name="file1" value="${requestScope.diagramAId}"/>
+						<input type="hidden" name="file2" value="${requestScope.diagramBId}"/>
+						<input type="hidden" name="comment1" value="${requestScope.diagram1comments}"/>
+						<input type="hidden" name="comment2" value="${requestScope.diagram2comments}"/>
+			</form>
+			<form action="Display" method="post" id="returnForm"></form>
 			<div class="promote-bottom-button-wrap">
 				<div class="promote-bottom-button">
 					<button id="saveAsPdf" class="pbutton">Save As PDF</button>
-					<button  class="pbutton">Suggestion Promote</button>
-					<button  class="pbutton">Return</button>
+					<button  id="suggestButton" class="pbutton" type="submit">Suggestion Promote</button>
+					<button  class="pbutton" id="returnButton">Return</button>
 				</div>
 			</div>
 		</div>
