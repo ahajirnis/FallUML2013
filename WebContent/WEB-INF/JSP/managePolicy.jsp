@@ -49,7 +49,7 @@
 	  });
 	   
 	   var metric1=0;
-		 $("#Updateattribute").click(function(){
+		 $("#submitupdate").click(function(){
 		       metric1=1;
 			
 		  });
