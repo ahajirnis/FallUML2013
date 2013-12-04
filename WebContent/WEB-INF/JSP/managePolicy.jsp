@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
 	pageEncoding="US-ASCII"%>
-	
-	<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -98,8 +98,81 @@
 	  $("#addPolicy").click(function(){
 	    $( "#dialogAddPolicy" ).dialog();
 	  });
+	  
+	  $(".Attributeable").attr('disabled','disabled');;
+	  $("#Attribute").click(function(){
+		    var thisCheck = $(this);
+
+		    if (thisCheck.is (':checked'))
+		      {
+		       $("#attribute-group").css("color","black");
+		       $(".Attributeable").removeAttr('disabled');
+			  }
+			else if (!(thisCheck.is (':checked')))
+			{
+			$("#attribute-group").css("color","gray");
+			$(".Attributeable").attr('disabled','disabled');;
+			}
+		  });
+		  
+	  $(".Classesable").attr('disabled','disabled');;
+	  $("#Classes").click(function(){
+	    var thisCheck = $(this);
+	    
+	    if (thisCheck.is (':checked'))
+	      {
+	       $("#Classes-group").css("color","black");
+	       $(".Classesable").removeAttr('disabled');
+		  }
+		else if (!(thisCheck.is (':checked')))
+		{
+		$("#Classes-group").css("color","gray");
+		$(".Classesable").attr('disabled','disabled');;
+		}
+	  });
+	  
+	    $("#Associations").click(function(){
+	    var thisCheck = $(this);
+
+	    if (thisCheck.is (':checked'))
+	      {
+	       $("#Associations-group").css("color","black");
+		  }
+		else if (!(thisCheck.is (':checked')))
+		{
+		$("#Associations-group").css("color","gray");
+		}
+	  });
+	  
+	   $("#Multiplicities").click(function(){
+	    var thisCheck = $(this);
 	
-}); 
+	    if (thisCheck.is (':checked'))
+	      {
+	       $("#Multiplicities-group").css("color","black");
+		  }
+		else if (!(thisCheck.is (':checked')))
+		{
+		$("#Multiplicities-group").css("color","gray");
+		}
+	  });
+	  
+	   $("#submitadd").click(function(){
+		   
+		   if( $("#Attribute").is(":checked")){
+			  
+			   $( "#attribute-group" ).clone().prependTo( "#metricinformation" );
+		   }
+		   
+		   else if ( $("#Classes").is(":checked")){
+				  
+			   $( "#Classes-group" ).clone().prependTo( "#metricinformation" );
+			 
+		   }
+
+	   });
+	  
+	});
 </script>
 <style type="text/css">
 #Description{
@@ -117,7 +190,7 @@ width:100%;
 	padding: 20px 350px;
 	
 }
-.btn-info {
+.btn-link {
 
 margin-left:40px;
 
@@ -161,10 +234,39 @@ margin-left:20px;}
 margin-left:20px;}
 #afteradd{margin-left:20px;}
 #afterupdate{margin-left:20px;}
+#menuPolicy li{
+display: inline;;
+}
+.text{
+text-align:left;
+
+
+}
+
+.matrics-items{
+	margin:5px 0 5px 20px;
+}
+
+#attribute-group {
+color:gray;}
+#Classes-group{
+color:gray;}
+#Associations-group {
+color:gray;}
+#Multiplicities-group {
+color:gray;}
+
 
 </style>
 </head>
 <body>
+<div id="menuPolicy">
+  <ul>
+    <li><button class="btn btn-link" id="addPolicy" onclick="">Add Policy</button> </li>
+    <li> <button class="btn btn-link" id="UpdatePolicy" onclick="">Update Policy</button> </li>
+ 
+  </ul>
+</div>
 <div id="dialogUpdatePolicy">
 <form class="form-horizontal" action="UpdateProject" method="post">
     
@@ -202,9 +304,9 @@ margin-left:20px;}
   
   
 <div class="buttoninpopup">
-			<input class="btn btn-info"  type="submit" value="Update" id="afterupdate" />
+			<input class="btn btn-link"  type="submit" value="Update" id="afterupdate" />
 			<%------------------------- update metric --%>
-			 <button class="btn btn-info " id="btn4">Update Metric</button>
+			 <button class="btn btn-link " id="btn4">Update Metric</button>
      <div id="dialogUpdateMetric" title="Update Metric">
 
   <div id="accordionUpdate">
@@ -214,8 +316,8 @@ margin-left:20px;}
 			<div class="matrics-items" ><input type="text" placeholder="MaxNo.of Attribute " class="form-control"  /></div>
 			<div class="matrics-items" ><input type="text" placeholder="MinNo.of Attribute " class="form-control"  /></div>
 			<div>
-			<input class="btn btn-info"  type="submit" value="Update" id="Updateattribute"/>
-			<input class="btn btn-info"  type="button" value="Delete" id="Deleteattribute"/></div>
+			<input class="btn btn-link"  type="submit" value="Update" id="Updateattribute"/>
+			<input class="btn btn-link"  type="button" value="Delete" id="Deleteattribute"/></div>
     </div>
   <h3>Classes</h3>
   <div>
@@ -223,12 +325,12 @@ margin-left:20px;}
 			<div class="matrics-items" ><input type="text" placeholder="MinNo.Of Classes " class="form-control"  /></div>
 			<div class="matrics-items" ><input type="text" placeholder="MaxNo.Of Classes " class="form-control"  /></div>
             <div>
-            <input class="btn btn-info"  type="submit" value="Update" id="Updateclass"/>
-            <input class="btn btn-info"  type="button" value="Delete" id="Deleteclass"/></div>
+            <input class="btn btn-link"  type="submit" value="Update" id="Updateclass"/>
+            <input class="btn btn-link"  type="button" value="Delete" id="Deleteclass"/></div>
      </div>
   <h3>Associations</h3>
   <div>
-   
+   <br/>
   </div>
   <h3>Multiplicities</h3>
   <div>
@@ -252,80 +354,75 @@ margin-left:20px;}
 
 
 <div id="dialogAddPolicy">
-<form class="form-horizontal" action="CreatePolicy" method="post">
-    
-     <h3><strong>Create Policy</strong></h3>
-	 <br/>
+<form class="form-horizontal" action="CreatePolicy" method="get"> 
+	     <h3><strong>Create Policy</strong></h3>
+		 <br/>
+	
+	 <div class="form-group">
+	    <label class="col-lg-2 control-label">Policy Name</label>
+	    <div class="col-lg-10">
+	      <input type="text" class="form-control" id="PolicyName" name ="PolicyName" placeholder="PolicyName"/>
+	    </div>
+	  </div>
+ 	  
+	   <div class="form-group">
+	    <label class="col-lg-2 control-label">Description</label>
+	    <div class="col-lg-10">
+	    
+	      <input type="text" class="form-control" id="PolicyDescription" name="PolicyDescription" placeholder="Description"/>
+	    </div>
+	  </div>
+	  
+	  <div class="form-group">
+	    <label class="col-lg-2 control-label">Policy Level</label>
+	      <div class="col-lg-10">
+	     <select name="PolicyLevel" class="form-control">
+	 	    <option value="1">Context</option>
+	  		<option value="1">Project</option>
+	 	    <option value="1">User</option>
+	 
+		</select>
+	    </div>
+	  </div>
+	  <br/>
+	  <div id="metricinformation"></div>
+	  
+	<div class="buttoninpopup">
+				<input class="btn btn-link"  type="submit" value="Create" id="afteradd" />
 
- <div class="form-group">
-    <label class="col-lg-2 control-label">Policy Name</label>
-    <div class="col-lg-10">
-      <input type="text" class="form-control" id="PolicyName" name ="PolicyName" placeholder="PolicyName"/>
-    </div>
+		<%------------------------- Add metric --%>
+	 <button class="btn btn-link " id="btn3">ADD Metric</button>
+	     <div id="dialogAddMetric" title="ADD Metric">
+	
+	
+
+  
+  <div class="text" id="attribute-group">
+     <input type="checkbox" name="metric" value="Attribute" id="Attribute"/>Attribute<br/>
+            <div class="matrics-items">Ideal No.of Attribute  <input type="text" maxlength="4" size="4" id="addIdealAttribute" class="Attributeable" ></div>
+			<div class="matrics-items">Max No.of Attribute  <input type="text" maxlength="4" size="4"   id="addMaxlAttribute"class="Attributeable"></div>
+			<div class="matrics-items"> Min No.of Attribute <input type="text"  maxlength="4" size="4" id="addMinlAttribute" class="Attributeable"></div>
   </div>
   
-
- 
   
-   <div class="form-group">
-    <label class="col-lg-2 control-label">Description</label>
-    <div class="col-lg-10">
-    
-      <input type="text" class="form-control" id="PolicyDescription" name="PolicyDescription" placeholder="Description"/>
-    </div>
+   <div class="text" id="Classes-group">
+     <input type="checkbox"  name="metric" value="Classes" id="Classes"/>Classes<br/>
+            <div class="matrics-items">Ideal No.of Classes  <input type="text" maxlength="4" size="4" class="Classesable" ></div>
+			<div class="matrics-items"> Max No.of Classes  <input type="text"  maxlength="4" size="4" class="Classesable" ></div>
+			<div class="matrics-items"> Min No.of Classes<input type="text" maxlength="4" size="4" class="Classesable" ></div>
   </div>
   
-  <div class="form-group">
-    <label class="col-lg-2 control-label">Policy Level</label>
-      <div class="col-lg-10">
-     <select class="form-control">
- 	    <option>Context</option>
-  		<option>Project</option>
- 	    <option>User</option>
- 
-	</select>
-    </div>
+   <div class="text" id="Associations-group">
+     <input type="checkbox" name="metric" id="Associations" />Associations<br/>
+           
   </div>
-  
-<div class="buttoninpopup">
-			<input class="btn btn-info"  type="submit" value="Create" id="afteradd" />
-
-
-
-	<%------------------------- Add metric --%>
- <button class="btn btn-info " id="btn3">ADD Metric</button>
-     <div id="dialogAddMetric" title="ADD Metric">
-
-  <div id="accordion">
-	<h3>Attribute</h3>
-  <div>
-			<div class="matrics-items" ><input type="text" placeholder="IdealNo.of Attribute " class="form-control"   /></div>
-			<div class="matrics-items" ><input type="text" placeholder="MaxNo.of Attribute " class="form-control"  /></div>
-			<div class="matrics-items" ><input type="text" placeholder="MinNo.of Attribute " class="form-control"  /></div>
-			<div class="matrics-items" ><input class="btn btn-info"  type="submit" value="Add Attribute" id="Addattribute"/></div>
-    </div>
-  <h3>Classes</h3>
-  <div>
-			<div class="matrics-items" ><input type="text" placeholder="IdealNo.Of Classes" class="form-control"   /></div>
-			<div class="matrics-items" ><input type="text" placeholder="MinNo.Of Classes " class="form-control"  /></div>
-			<div class="matrics-items" ><input type="text" placeholder="MaxNo.Of Classes " class="form-control"  /></div>
-            <div class="matrics-items" ><input class="btn btn-info"  type="submit" value="Add Classes" id="Addclass"/></div>
-     </div>
-  <h3>Associations</h3>
-  <div>
-   
+  <div class="text" id="Multiplicities-group">
+     <input type="checkbox" name="metric" id="Multiplicities"/>Multiplicities<br/>
+           
   </div>
-  <h3>Multiplicities</h3>
-  <div>
-  </div>
-</div>
- 
-  
-</div>
-			
-			
-			
-</div>
+  <input class="btn btn-primary " id="submitadd" type="submit" value="Add" />
+</div>			
+	</div>
 </form>
 </div>
 
@@ -343,13 +440,15 @@ margin-left:20px;}
 				
 				
 			</tr>
-			<tr>
-				<td><input type="checkbox" /></td>
-				<td>Policy ID</td>
-				<td>Policy NamE</td>
-				<td>Policy Level</td>
-				<td>Policy Description</td>
-							</tr>
+			<c:forEach items="${policys}" var="policy">
+				<tr>
+					<td><input type="checkbox" /></td>
+					<td>${policy.policyID}</td>
+					<td>${policy.policyName}</td>
+					<td>${policy.policyLevel}</td>
+					<td>${policy.policyDescription}</td>						
+				</tr>
+			</c:forEach>
 
 		</table>
 		<input type="hidden" value="disable" name="statusChangeTo">
@@ -357,14 +456,8 @@ margin-left:20px;}
 		
 		
 	</div>
-	
-	<div class="projectMenu">
-		
-		<button class="btn btn-info" id="addPolicy" onclick="">Add Policy</button> 
-	    <button class="btn btn-info" id="UpdatePolicy" >Update Policy</button>
-		
-	
-	</div>
+			
+
 </div>
 
 
