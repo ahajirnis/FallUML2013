@@ -58,6 +58,7 @@ public class ProjectDAO {
      * @throws SQLException
      */
     public static boolean addProject(Project project) throws SQLException {
+    	int defaultPolicyId = 2; // This needs to dynamic when multiple policy handling is implemented.
     	Connection conn = null;
     	PreparedStatement pstmt = null;
     	try {
@@ -69,8 +70,8 @@ public class ProjectDAO {
     	    pstmt.setBoolean(3, project.getEnabled());
     	    if(pstmt.executeUpdate() != 0) {
 				project = ProjectDAO.getProject(project.getProjectName());
-				DiagramContext dc = new DiagramContext(project.getProjectName()+"_DefaultContext","Please enter description here",1,project.getProjectId());
-    	    	ContextDAO.addContext(new DiagramContext(project.getProjectName()+"_DefaultContext","Please enter description here",1,project.getProjectId()));  // Add 1 in global policy   	    	
+				DiagramContext dc = new DiagramContext(project.getProjectName()+"_DefaultContext","Please enter description here",defaultPolicyId,project.getProjectId());
+    	    	ContextDAO.addContext(new DiagramContext(project.getProjectName()+"_DefaultContext","Please enter description here",defaultPolicyId,project.getProjectId()));  // Add 1 in global policy   	    	
     	    	return true;
     	    } else {
     	    	return false;

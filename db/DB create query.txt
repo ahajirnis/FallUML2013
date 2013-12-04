@@ -225,21 +225,17 @@ ALTER TABLE attributes ADD CONSTRAINT attributesHaveMetricId FOREIGN KEY (metric
 ALTER TABLE classes ADD CONSTRAINT classesHaveMetricId FOREIGN KEY (metricId) REFERENCES metric (metricId) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- insert sample data--------------------------------------
-insert into project (projectName, startDate, description, enabled) values ('project1',NOW(),'desc111',true);
-insert into project (projectName, startDate, description, enabled) values ('project2бо,NOW(),'desc22222',true);
 insert into policy (policyName,policyDescription,policyLevel) values ("policy 1","policy 1 description",2);
-insert into diagramContext (description,name,policyId,projectId) values ("context 1 description","Context 1","1","1");
 
 INSERT INTO policy (policyName, policyDescription, policyLevel) VALUES ('Policy2', 'Policy Description', 2);
 
 INSERT INTO metricType (metricTypeId, description, metricTypeName) VALUES (1, 'ASSOCIATIONS', 'ASSOCIATIONS');
 INSERT INTO metricType (metricTypeId, description, metricTypeName) VALUES (2, 'MULTIPLICITIES', 'MULTIPLICITIES');
 INSERT INTO metricType (metricTypeId, description, metricTypeName) VALUES (3, 'ATTRIBUTES', 'ATTRIBUTES');
-INSERT INTO metricType (metricTypeId, description, metricTypeName) VALUES (5, 'CLASSES', 'CLASSES');
+INSERT INTO metricType (metricTypeId, description, metricTypeName) VALUES (4, 'CLASSES', 'CLASSES');
 
 INSERT INTO Metric (metricId, policyId, metricTypeID, metricsWeight) VALUES (1, 2, 4, 10);
 INSERT INTO Metric (metricId, policyId, metricTypeID, metricsWeight) VALUES (2, 2, 3, 10);
 
 INSERT INTO classes (metricId, idealNoOfClasses, maxNoOfClasses, minNOOfClasses) VALUES (1, 4, 5, 2);
 INSERT INTO attributes (metricId, idealNoOfAttributes, maxNoOfAttributes, minNOOfAttributes) VALUES (2, 4, 5, 1);
-UPDATE diagramContext set policyId = 2 WHERE diagramContextId = 1;
