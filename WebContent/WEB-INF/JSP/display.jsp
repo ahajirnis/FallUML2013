@@ -228,7 +228,15 @@
 	</div>
     
     <div id="rightContainer">
-	
+    
+		<div id="selectContextBox">
+		<span>Diagram Context:</span>
+		<select>
+		<option value="context1">Context 1</option>
+		<option value="context2">Context 2</option>
+		</select>
+		</div>
+		
 		<div id="box">
 			<span id="DiagramSelectLabel">Class Diagram Format: (.ecore)</span> 
 			<select onchange="displayClassDiagramFields(this)">
