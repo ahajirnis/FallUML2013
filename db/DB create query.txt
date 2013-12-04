@@ -234,8 +234,8 @@ INSERT INTO metricType (metricTypeId, description, metricTypeName) VALUES (2, 'M
 INSERT INTO metricType (metricTypeId, description, metricTypeName) VALUES (3, 'ATTRIBUTES', 'ATTRIBUTES');
 INSERT INTO metricType (metricTypeId, description, metricTypeName) VALUES (4, 'CLASSES', 'CLASSES');
 
-INSERT INTO Metric (metricId, policyId, metricTypeID, metricsWeight) VALUES (1, 2, 4, 10);
-INSERT INTO Metric (metricId, policyId, metricTypeID, metricsWeight) VALUES (2, 2, 3, 10);
+INSERT INTO metric (metricId, policyId, metricTypeID, metricsWeight) VALUES (1, 2, 4, 10);
+INSERT INTO metric (metricId, policyId, metricTypeID, metricsWeight) VALUES (2, 2, 3, 10);
 
 INSERT INTO classes (metricId, idealNoOfClasses, maxNoOfClasses, minNOOfClasses) VALUES (1, 4, 5, 2);
 INSERT INTO attributes (metricId, idealNoOfAttributes, maxNoOfAttributes, minNOOfAttributes) VALUES (2, 4, 5, 1);
