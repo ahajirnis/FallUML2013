@@ -42,7 +42,7 @@ public class Report {
 			PdfWriter.getInstance(document, file);
 			document.open();
 			// Writing headers
-			document.add(new Paragraph("REPORT"));
+			document.add(new Paragraph("COMPARISON REPORT"));
 			document.add(new Paragraph(new Date().toString()));
 			document.add(new Paragraph("\n"));
 		} catch (DocumentException | FileNotFoundException e) {
@@ -76,12 +76,13 @@ public class Report {
 	 */
 	public void addToReport(String report) {
 		try {
-			document.add(new Paragraph(report + "\n\n"));
+			document.add(new Paragraph(report + "\n"));
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
 
 	}
+	
 
 	/**
 	 * Closing the file

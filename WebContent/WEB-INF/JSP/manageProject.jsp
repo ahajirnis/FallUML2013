@@ -30,14 +30,25 @@
 	}); */
 	
  $(document).ready(function(){
-	
 
-	
 	
 	$( "#dialogUpdate" ).hide();
 	
 	  $("#UpdateProj").click(function(){
-	    $( "#dialogUpdate" ).dialog();
+		  
+		  var form = document.getElementById("ChangeProjectStatus");
+		  var valueSelected ;
+		  for(var i = 0; i < form.projIdradio.length; i++){
+			  if(form.projIdradio[i].checked)
+			  {
+	                        valueSelected = form.projIdradio[i].value;
+			  }
+		  }
+		
+		 console.log("this is selected "+valueSelected);
+		 
+		 $( "#dialogUpdate" ).dialog();
+	    
 	  });
 	  
 	  	$( "#dialogAdd" ).hide();
@@ -47,6 +58,19 @@
 	  });
 	
 }); 
+</script>
+
+
+<script type="text/javascript">
+
+	
+function submitToDisplay(a){
+//	var a = document.getElementById("ProjectIdBtn");
+	document.getElementById("submitprojid").value = a;
+	document.getElementById("sendtodisplay").submit();
+	
+}
+
 </script>
 <style type="text/css">
 #Description{
@@ -88,6 +112,9 @@ margin-top:30px;
 margin-left:30px;
 
 }
+#menu li{
+display: inline;;
+}
 </style>
 </head>
 <body>
@@ -114,16 +141,25 @@ margin-left:30px;
   <div class="form-group">
     <label class="col-lg-2 control-label">Project Status</label>
     <div class="col-lg-10">
-     <select>
-     	<option>Active Project</option>
-     	<option>Disabled Project</option>
+     <select name="updateststus">
+     	<option value="true">Active Project</option>
+     	<option value="true">Disabled Project</option>
      </select>
     </div>
   </div>
   
+  
+  <div id="dialogAddUser">
+  	
+  </div>
+  
+  
 <div class="buttoninpopup">
 			<input class="btn btn-info"  type="submit" value="Update" />
 </div>
+
+<input type="hidden" id="projectID" >
+
 </form>
 </div>
 
@@ -152,11 +188,11 @@ margin-left:30px;
   </div>
   
   <div class="form-group">
-    <label class="col-lg-2 control-label">Porject Status</label>
+    <label class="col-lg-2 control-label">Project Status</label>
     <div class="col-lg-10">
-     <select>
-     	<option>Active Project</option>
-     	<option>Disabled Project</option>
+     <select name="selectstatus">
+     	<option value="true">Active Project</option>
+     	<option value="false">Disabled Project</option>
      </select>
     </div>
   </div>
@@ -168,8 +204,23 @@ margin-left:30px;
 </form>
 </div>
 
+
+	 
+	  
+		
+<div id="menu">
+  <ul>
+    <li><button class="btn btn-link" id="addProj" onclick="">Add Project</button> </li>
+    <li> <button class="btn btn-link" id="UpdateProj" onclick="">Update Project</button> </li>
+    <li><button class="btn btn-link">Add User</button></li>
+  </ul>
+</div>
+		
+<!--   Active Project Table-->
+
+
 <div class="outer">
-	<form action="ChangeProjectStatus" method="post">
+	<form action="ChangeProjectStatus" method="post" id="ChangeProjectStatus">
 	<div class="projectTab">
 	<h2>Current Projects</h2>
 		<table class="table table-hover" id="enabledTab"> 
@@ -178,27 +229,37 @@ margin-left:30px;
 				<th>Project ID</th>
 				<th>Project Name</th>
 				<th>Start Date</th>
-				<th>Description</th>
-				<th>Status</th>
+				<th>Description<th>Status</th>
 				<th></th>
 			</tr>
 			<c:forEach items="${activeprojects}" var="project">
 			<tr>
-				<td><input type="checkbox" /></td>
+				<td><input type="radio" value="${project.projectId }" id="projIdradio" name="projIdradio"/></td>
 				<td>${project.projectId}</td>
-				<td><a href="Display" style="color:gray ;">${project.projectName }</a></td>
+				<td><button  type="button" class="btn btn-link" value="${project.projectId }" onclick="submitToDisplay(${project.projectId })" name="ProjectIdBtn">${project.projectName }</button></td>
 				<td>${project.startDate}</td>
 				<td>${projetct.description}</td>
-				<td>Active</td>
-				<td><button class="btn btn-link" type="submit">Disable</button></td>
-						
+				
+				<td><button class="btn btn-link" type="submit">Disable</button></td> 
+					
 			</tr>
 	</c:forEach>
 		</table>
-		<input type="hidden" value="disable" name="statusChangeTo">
+<!-- 	sid changed from disable to false to match boolean value -->
+		<input type="hidden" value= false name="statusChangeTo">
+		<input type="hidden" name="ProjectId" value="${project.projectId }">
+		<input type="hidden" name="redirect" value="false">
 		</form>
 		
-		<form action="ChangeProjectStatus" method="post">
+		
+		<form action="Display" method="get" id="sendtodisplay">
+			<input type="hidden" name="ProjectID" id="submitprojid">
+		</form>
+
+<!--  inactive Project Table -->
+
+
+	<form action="ChangeProjectStatus" method="post">
 		<h2>Disabled Projects</h2>
 		<table class="table table-hover" id="disabledTab"> 
 		
@@ -209,7 +270,6 @@ margin-left:30px;
 				<th>Project Name</th>
 				<th>Start Date</th>
 				<th>Description</th>
-				<th>Status</th>
 				<th></th>
 			</tr>
 		<c:forEach items="${inactiveprojects}" var="project">
@@ -219,21 +279,23 @@ margin-left:30px;
 				<td><a  style="color:gray ;">${project.projectName }</a></td>
 				<td>${project.startDate}</td>
 				<td>${projetct.description}</td>
-				<td>Active</td>
-				<td><button class="btn btn-link" type="submit">Disable</button></td>
+				
+				<td><button class="btn btn-link" type="submit">Enable</button></td>
 						
 			</tr>
 	</c:forEach>
 	
 		</table>
-		<input type="hidden" value="enable" name="statusChangeTo">
+		<!-- 	sid changed from enabled to true to match boolean value -->
+		<input type="hidden" value= false name="statusChangeTo">
+		
+		<input type="hidden" name="ProjectId" value="${project.projectId }">
+		<input type="hidden" name="redirect" value="false">
 		</form>
 	</div>
 	
 	<div class="projectMenu">
 		
-		<button class="btn btn-info" id="addProj" onclick="">Add Project</button> 
-	    <button class="btn btn-info" id="UpdateProj" >Update Project</button>
 		
 	
 	</div>

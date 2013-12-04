@@ -10,6 +10,7 @@ public class Diagram {
     private int diagramId;
     private int merged;
     private int userId;
+    private int contextId;
     private int projectId = 2; // default;
     private String diagramName;
     //private String diagramType;
@@ -22,9 +23,12 @@ public class Diagram {
     private String diFilepath;
     private DiagramType diagramType;
     private int diagramContextId;
+    private String diagramRealPath;
+    private String conPath;
     
 	public DiagramType getDiagramType() {
-		return diagramType;
+		//TO DO if null make it return NOTDEFINED and still work!
+		return diagramType == null? DiagramType.CLASS: diagramType;
 	}
 
 	public void setDiagramType(DiagramType diagramType) {
@@ -255,6 +259,29 @@ public class Diagram {
 		this.diagramContextId = diagramContextId;
 	}
 
+	public int getContextId() {
+		return contextId;
+	}
+
+	public void setContextId(int contextId) {
+		this.contextId = contextId;
+	}
+
+	public String getDiagramRealPath() {
+		return diagramRealPath;
+	}
+
+	public void setDiagramRealPath(String diagramRealPath) {
+		this.diagramRealPath = diagramRealPath;
+	}
+
+	public String getConPath() {
+		return this.conPath;
+	}
+
+	public void setConPath(String conPath) {
+		this.conPath = conPath;
+	}
 	
     
 	/**

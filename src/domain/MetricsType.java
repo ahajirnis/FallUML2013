@@ -1,11 +1,13 @@
 package domain;
 
+
 /**
  * 
  * @author Jiayuan Song
  *
  */
 public enum MetricsType {
+	NOTDEFINED (0),
 	ASSOCIATIONS (1),
 	MULTIPLICITIES (2),
 	ATTRIBUTES (3),
@@ -20,6 +22,13 @@ public enum MetricsType {
 	public static MetricsType fromString(String string) {
         for (MetricsType mt : values() ){
             if (mt.toString().equals(string)) return mt;
+        }
+        return null;
+    }
+	public static MatricsType fromInt(int value) {
+
+        for (MatricsType mt : values() ){
+            if (mt.mTypeId == value) return mt;
         }
         return null;
     }

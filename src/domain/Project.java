@@ -3,16 +3,19 @@ package domain;
 /**
  * Information class that contains all the features of one project
  * @ doc author	Dong Guo
+ * @author Siddhesh
+ * @author Aniket Hajirnis
+ * @author Indrajit Kulkarni
  */
 
 public class Project {
 
-	private String projectId;
+	private int projectId;
 	private String projectName;
 	private String description;
 	private byte achived = 0;// Default
 	private String startDate;
-	private String enabled;
+	private boolean enabled;
 	private String disabledDate;
 
 	public String getStartDate() {
@@ -28,8 +31,14 @@ public class Project {
 	 *
 	 * @param projectName
 	 * 			The name of the project
+	 * @param string4 
+	 * @param b 
+	 * @param string3 
+	 * @param string2 
+	 * @param string 
 	 */
-	public Project(String projectName) {
+	public Project(String projectName, String description, String startDate,
+			boolean enabled, String disabledDate) {
 		this.projectName = projectName;
 	}
 
@@ -45,7 +54,7 @@ public class Project {
 	 * @param achived
 	 * 			This value indicates whether the project is achived or not
 	 */
-	public Project(String projectId, String projectName, String description,
+	public Project(int projectId, String projectName, String description,
 			byte achived) { 
 		this.projectId = projectId;
 		this.projectName = projectName;
@@ -64,8 +73,8 @@ public class Project {
 	 * @param enabled
 	 * @param disabledDate
 	 */
-	public Project(String projectId, String projectName, String description, String startDate,
-			String enabled, String disabledDate) {
+	public Project(int projectId, String projectName, String description, String startDate,
+			boolean enabled, String disabledDate) {
 		this.projectId = projectId;
 		this.projectName = projectName;
 		this.description = description;
@@ -87,7 +96,7 @@ public class Project {
 	 * @param startDate
 	 * 			The startDate of this project
 	 */
-	public Project(String projectId, String projectName, String description,
+	public Project(int projectId, String projectName, String description,
 			String startDate) {
 		
 		this.projectId = projectId;
@@ -96,13 +105,32 @@ public class Project {
 		this.startDate = startDate;
 		// TODO Auto-generated constructor stub
 	}
+	
+	/**
+	 * Constructor to initialize necessary class members
+	 *
+	 * @param projectName
+	 * 			The name of the project 
+	 * @param description
+	 * 			The description of the project			
+	 * @param startDate
+	 * 			The enabled value of the project
+	 */
+	public Project(String projectName, String description,
+			boolean enabled) {
+		
+		this.projectName = projectName;
+		this.description = description;
+		this.enabled = enabled;
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * Gete the projectId
 	 * 
 	 * @return projectId int
 	 */
-	public String getProjectId() {
+	public int getProjectId() {
 		return projectId;
 	}
 	
@@ -112,12 +140,12 @@ public class Project {
 	 * @param projectId
 	 * 			The ID of the project
 	 */
-	public void setProjectId(String projectId) {
+	public void setProjectId(int projectId) {
 		this.projectId = projectId;
 	}
 
 	/**
-	 * Gete the projectName
+	 * Get the projectName
 	 * 
 	 * @return projectName String
 	 */
@@ -181,11 +209,11 @@ public class Project {
 		this.disabledDate = disabledDate;
 	}
 
-	public String getEnabled() {
+	public boolean getEnabled() {
 		return enabled;
 	}
 
-	public void setEnabled(String enabled) {
+	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
 

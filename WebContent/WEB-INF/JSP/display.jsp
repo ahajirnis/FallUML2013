@@ -209,7 +209,8 @@
 		<c:if test="${requestScope.diagramId1 != null}">
 			<img src="${requestScope.firstPath}"/>
 		</c:if>
-		<br><b>Comments : </b>
+		<!-- 
+			<br><b>Comments : </b>
 		<c:if test="${requestScope.comments != null}">
 			<div id="commentBox">
 				<table id="myTable">
@@ -222,6 +223,8 @@
 				</table>
 			</div>
 		</c:if>
+		 -->
+		
 	</div>
     
     <div id="rightContainer">
@@ -232,11 +235,13 @@
 					<option value="ecore">ECORE</option>
 					<option value="xmi">XMI</option>
 			</select> 
-			<form action="UploadServlet" method="post" enctype="multipart/form-data">		
+			<form action="UploadServlet" method=POST enctype="multipart/form-data">
 					<input id="file1" type="file" name="file" size="50" />
 					<input id="file2" type="file" name="file2" size="50" style="display:none"/>
 					<input id="file3" type="file" name="file3" size="50" style="display:none"/>
+					<input type="hidden" value="${ProjectID }" name="ProjectID">
 					<input class="submit" type="submit" value="upload">
+					
 			</form>
 		</div>
 	

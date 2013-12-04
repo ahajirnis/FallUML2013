@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import domain.Project;
+import domain.User;
 import repository.ProjectDAO;
+import repository.UserDAO;
 
 
 /*
@@ -49,7 +51,7 @@ public class ManageProject extends HttpServlet {
 		inactiveProjects = new ArrayList<>();
 		
 		for(Project p: allProjects){
-			if(p.getEnabled().equals("t")){
+			if(p.getEnabled()){
 				activeProjects.add(p);
 			}else{
 				inactiveProjects.add(p);
@@ -57,6 +59,27 @@ public class ManageProject extends HttpServlet {
 			request.setAttribute("activeprojects", activeProjects);
 			request.setAttribute("inactiveprojects", inactiveProjects);
 		}
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	// sends list of users to manage project.jsp
+	ArrayList<User> allUser;
+	
+	try {
+		allUser = UserDAO.getAllUser();
+		
+		 ArrayList<Object> activeUsers = new ArrayList<>();
+
+		
+		for(User u: allUser){
+			
+				activeUsers.add(u);
+	
+			}
+			request.setAttribute("activeusers", activeUsers);
+		
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
