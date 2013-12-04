@@ -51,7 +51,7 @@ public class EcoreUploadProcessor extends ClassPngFile {
 	}
 
 	@Override
-	public void process() {
+	public void process(int projectId) {
 		try {
 			String ecoreFilePath = absolutePath + ecoreFileName;
 			EcoreParser parserObj = new EcoreParser(ecoreFilePath);
