@@ -476,9 +476,9 @@ color:gray;}
   
   <div class="text" id="attribute-group">
      <input type="checkbox" name="metric" value="Attribute" id="Attribute"/>Attribute<br/>
-            <div class="matrics-items">Ideal No.of Attribute  <input type="text" maxlength="4" size="4" id="addIdealAttribute" class="Attributeable" ></div>
-			<div class="matrics-items">Max No.of Attribute  <input type="text" maxlength="4" size="4"   id="addMaxlAttribute"class="Attributeable"></div>
-			<div class="matrics-items"> Min No.of Attribute <input type="text"  maxlength="4" size="4" id="addMinlAttribute" class="Attributeable"></div>
+            <div class="matrics-items">Ideal No.of Attribute  <input type="text" maxlength="4" size="4" id="addIdealAttribute" class="Attributeable" name="addIdealAttribute"></div>
+			<div class="matrics-items">Max No.of Attribute  <input type="text" maxlength="4" size="4"   id="addMaxlAttribute"class="Attributeable" name="addMaxlAttribute"></div>
+			<div class="matrics-items"> Min No.of Attribute <input type="text"  maxlength="4" size="4" id="addMinlAttribute" class="Attributeable" name="addMinlAttribute"></div>
   </div>
   
   

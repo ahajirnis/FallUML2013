@@ -131,7 +131,7 @@ public class MetricsDAO {
 	      		
 	      		pstmt = conn.prepareStatement(
 
-		     	           "INSERT into metrics(metricTypeID, metricsWeight, policyID) VALUES(?,?,?,?);");
+		     	           "INSERT into metric(metricTypeID, metricsWeight, policyID) VALUES(?,?,?);");
 
 		     	         pstmt.setInt(1, metrics.getMetricTypeId());
 
